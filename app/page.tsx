@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, AnimatePresence, useMotionValueEvent } from "framer-motion";
 import {
   ArrowRight,
   TrendingUp,
@@ -65,9 +65,21 @@ const Tag = ({ children, color = "emerald" }: { children: React.ReactNode, color
 export default function EdgeclipineLanding() {
   const [mounted, setMounted] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 0.25], ["0%", "25%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.18], [1, 0]);
+
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > lastScrollY && latest > 50) {
+      setShowHeader(false);
+    } else {
+      setShowHeader(true);
+    }
+    setLastScrollY(latest);
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => setMounted(true), 1200);
@@ -159,8 +171,16 @@ export default function EdgeclipineLanding() {
           </div>
 
           {/* ════════════════════ NAVBAR ════════════════════ */}
-          <nav className="fixed top-0 w-full z-50 bg-transparent pointer-events-none">
-            <div className="w-full px-4 sm:px-6 flex items-center justify-start pt-6 sm:pt-8">
+          <motion.nav 
+            initial={{ y: 0, opacity: 1 }}
+            animate={{ 
+              y: showHeader ? 0 : -100, 
+              opacity: showHeader ? 1 : 0 
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed top-0 w-full z-50 bg-[#060910]/80 backdrop-blur-md pointer-events-none sm:bg-transparent sm:backdrop-blur-none"
+          >
+            <div className="w-full px-4 sm:px-6 flex items-center justify-start pt-5 sm:pt-8">
               <Link href="/" className="flex items-center pointer-events-auto group">
                 <div className="relative">
                   <div className="absolute inset-0 bg-[#00FFB2]/20 blur-2xl rounded-full scale-110 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -175,7 +195,7 @@ export default function EdgeclipineLanding() {
                 </div>
               </Link>
             </div>
-          </nav>
+          </motion.nav>
 
       <main className="relative z-10">
 
@@ -215,7 +235,7 @@ export default function EdgeclipineLanding() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="text-5xl sm:text-7xl lg:text-[5.5rem] font-black tracking-[-0.03em] leading-[1.0] mb-6 text-white"
+              className="text-4xl sm:text-7xl lg:text-[5.5rem] font-black tracking-[-0.03em] leading-[1.1] sm:leading-[1.0] mb-6 text-white"
             >
               Your Edge Is Already
               <br />
@@ -275,7 +295,7 @@ export default function EdgeclipineLanding() {
 
             <div className="p-4 sm:p-7 grid grid-cols-1 md:grid-cols-3 gap-5">
               {/* Left column */}
-              <div className="col-span-2 space-y-5">
+              <div className="md:col-span-2 space-y-5">
                 {/* PnL chart card */}
                 <div className="h-52 rounded-2xl bg-white/[0.02] border border-white/[0.06] p-5 relative overflow-hidden">
                   <div className="absolute inset-0 flex items-end opacity-80">
@@ -741,7 +761,7 @@ export default function EdgeclipineLanding() {
 
               {/* 3 Months */}
               <Reveal delay={0.1}>
-                <div className="p-8 rounded-[2rem] bg-[#051210] border border-[#00FFB2]/35 flex flex-col h-full relative overflow-hidden shadow-[0_40px_80px_rgba(0,255,178,.15)] scale-105 z-10">
+                <div className="p-8 rounded-[2rem] bg-[#051210] border border-[#00FFB2]/35 flex flex-col h-full relative overflow-hidden shadow-[0_40px_80px_rgba(0,255,178,.15)] md:scale-105 z-10">
                   <div className="absolute top-0 right-0 w-72 h-72 bg-[#00FFB2]/8 rounded-full blur-[80px] pointer-events-none" />
                   <div className="absolute top-0 right-8 py-1 px-3 bg-[#00FFB2] text-[#060910] text-[9px] font-black rounded-b-lg uppercase tracking-widest">
                     Most Popular
