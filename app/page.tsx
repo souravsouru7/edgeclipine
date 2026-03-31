@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   TrendingUp,
@@ -29,17 +29,16 @@ import {
   Star,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 /* ─── tiny helpers ───────────────────────────────────────────────────── */
 const Reveal = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 28 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
       {children}
@@ -63,78 +62,120 @@ const Tag = ({ children, color = "emerald" }: { children: React.ReactNode, color
 };
 
 /* ─── main component ─────────────────────────────────────────────────── */
-export default function EdgeciplineLanding() {
+export default function EdgeclipineLanding() {
   const [mounted, setMounted] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 0.25], ["0%", "25%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.18], [1, 0]);
 
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 1200);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div
-      className="min-h-screen bg-[#060910] text-[#E8EDF5] font-sans overflow-x-hidden"
-      style={{ fontFamily: "'Sora', 'DM Sans', system-ui, sans-serif" }}
-    >
-      {/* ── Google Font injection (Sora + DM Mono) ── */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800;900&family=DM+Mono:ital,wght@0,300;0,500;1,300&display=swap');
-        @keyframes pulse-slow { 0%,100%{opacity:.15} 50%{opacity:.3} }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-        @keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
-        @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-        .animate-pulse-slow { animation: pulse-slow 6s ease-in-out infinite; }
-        .animate-float { animation: float 5s ease-in-out infinite; }
-        .text-shimmer {
-          background: linear-gradient(90deg, #00FFB2, #00d4ff, #00FFB2);
-          background-size: 200% auto;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: shimmer 4s linear infinite;
-        }
-        .noise::after {
-          content: '';
-          position: fixed; inset: 0;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-          opacity: .025; pointer-events: none; z-index: 9999;
-        }
-        .grid-lines {
-          background-image:
-            linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-          background-size: 60px 60px;
-        }
-        .ticker-wrap { overflow: hidden; }
-        .ticker-inner { display: flex; animation: ticker 28s linear infinite; width: max-content; }
-      `}</style>
-
-      <div className="noise" />
-
-      {/* ── ambient orbs ── */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-15%] left-[-5%] w-[55%] h-[55%] rounded-full bg-[#00FFB2]/6 blur-[140px] animate-pulse-slow" />
-        <div className="absolute top-[30%] right-[-10%] w-[45%] h-[45%] rounded-full bg-cyan-500/5 blur-[120px] animate-pulse-slow" style={{ animationDelay: "3s" }} />
-        <div className="absolute bottom-[-10%] left-[20%] w-[50%] h-[40%] rounded-full bg-[#00FFB2]/4 blur-[160px] animate-pulse-slow" style={{ animationDelay: "5s" }} />
-      </div>
-
-      {/* ════════════════════ NAVBAR ════════════════════ */}
-      <nav className="fixed top-0 w-full z-50 border-b border-white/[0.06] bg-[#060910]/80 backdrop-blur-2xl">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16 sm:h-20">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#00FFB2] to-[#00b87a] flex items-center justify-center shadow-[0_0_20px_rgba(0,255,178,.35)]">
-              <TrendingUp size={18} className="text-[#060910]" strokeWidth={3} />
+    <AnimatePresence mode="wait">
+      {!mounted ? (
+        <motion.div
+          key="loader"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 1.05 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#060910]"
+        >
+          <div className="relative">
+            <div className="absolute inset-0 bg-[#00FFB2]/20 blur-3xl rounded-full scale-150 animate-pulse-slow" />
+            <Image 
+              src="/logo.png" 
+              alt="Loading..." 
+              width={80} 
+              height={80} 
+              className="relative w-20 h-20 object-contain animate-pulse-logo"
+              priority
+            />
+          </div>
+          <div className="mt-8 flex flex-col items-center gap-3">
+            <div className="w-32 h-[1px] bg-white/10 relative overflow-hidden">
+              <motion.div 
+                initial={{ x: "-100%" }}
+                animate={{ x: "100%" }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-0 bg-[#00FFB2]"
+              />
             </div>
-            <span className="text-lg font-black tracking-tight text-white">
-              Edge<span className="text-[#00FFB2]">cipline</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#00FFB2]/70 animate-pulse">
+              Starting Edgeclipine
             </span>
           </div>
-          <div className="flex items-center gap-5">
-            {/* Nav links removed for pure awareness page */}
+        </motion.div>
+      ) : (
+        <motion.div
+          key="main"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="min-h-screen bg-[#060910] text-[#E8EDF5] font-sans overflow-x-hidden"
+        >
+          <style>{`
+            @keyframes pulse-slow { 0%,100%{opacity:.15} 50%{opacity:.3} }
+            @keyframes pulse-logo { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.7;transform:scale(0.95)} }
+            @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+            @keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
+            @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+            .animate-pulse-slow { animation: pulse-slow 6s ease-in-out infinite; }
+            .animate-pulse-logo { animation: pulse-logo 2.5s ease-in-out infinite; }
+            .animate-float { animation: float 5s ease-in-out infinite; }
+            .text-shimmer {
+              background: linear-gradient(90deg, #00FFB2, #00d4ff, #00FFB2);
+              background-size: 200% auto;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              animation: shimmer 4s linear infinite;
+            }
+            .noise::after {
+              content: '';
+              position: fixed; inset: 0;
+              background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+              opacity: .025; pointer-events: none; z-index: 9999;
+            }
+            .grid-lines {
+              background-image:
+                linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+              background-size: 60px 60px;
+            }
+            .ticker-wrap { overflow: hidden; }
+            .ticker-inner { display: flex; animation: ticker 28s linear infinite; width: max-content; }
+          `}</style>
+
+          <div className="noise" />
+
+          {/* ── ambient orbs ── */}
+          <div className="fixed inset-0 z-0 pointer-events-none">
+            <div className="absolute top-[-15%] left-[-5%] w-[55%] h-[55%] rounded-full bg-[#00FFB2]/6 blur-[140px] animate-pulse-slow" />
+            <div className="absolute top-[30%] right-[-10%] w-[45%] h-[45%] rounded-full bg-cyan-500/5 blur-[120px] animate-pulse-slow" style={{ animationDelay: "3s" }} />
+            <div className="absolute bottom-[-10%] left-[20%] w-[50%] h-[40%] rounded-full bg-[#00FFB2]/4 blur-[160px] animate-pulse-slow" style={{ animationDelay: "5s" }} />
           </div>
-        </div>
-      </nav>
+
+          {/* ════════════════════ NAVBAR ════════════════════ */}
+          <nav className="fixed top-0 w-full z-50 bg-transparent pointer-events-none">
+            <div className="w-full px-4 sm:px-6 flex items-center justify-start pt-6 sm:pt-8">
+              <Link href="/" className="flex items-center pointer-events-auto group">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-[#00FFB2]/20 blur-2xl rounded-full scale-110 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Image 
+                    src="/logo.png" 
+                    alt="Edgeclipine Logo" 
+                    width={120} 
+                    height={120} 
+                    className="w-20 sm:w-28 h-auto relative z-10"
+                    priority
+                  />
+                </div>
+              </Link>
+            </div>
+          </nav>
 
       <main className="relative z-10">
 
@@ -143,9 +184,10 @@ export default function EdgeciplineLanding() {
           <motion.div style={{ y: heroY, opacity: heroOpacity }} className="flex flex-col items-center w-full max-w-5xl mx-auto">
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="mb-8"
             >
               <Tag color="emerald">
@@ -159,7 +201,8 @@ export default function EdgeciplineLanding() {
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.05 }}
               className="text-gray-500 text-base sm:text-lg font-medium mb-5 max-w-2xl leading-relaxed"
             >
@@ -169,8 +212,9 @@ export default function EdgeciplineLanding() {
 
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="text-5xl sm:text-7xl lg:text-[5.5rem] font-black tracking-[-0.03em] leading-[1.0] mb-6 text-white"
             >
               Your Edge Is Already
@@ -180,11 +224,12 @@ export default function EdgeciplineLanding() {
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
               className="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto font-medium leading-relaxed"
             >
-              Edgecipline turns your trade screenshots into ruthless self-awareness.
+              Edgeclipine turns your trade screenshots into ruthless self-awareness.
               Upload. Analyze. Evolve. No spreadsheets. No excuses.
             </motion.p>
 
@@ -193,8 +238,9 @@ export default function EdgeciplineLanding() {
             {/* Social proof */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
               className="mt-10 flex items-center gap-3 text-sm text-gray-500 font-medium"
             >
               <div className="flex -space-x-2">
@@ -210,9 +256,10 @@ export default function EdgeciplineLanding() {
 
           {/* Hero dashboard mockup */}
           <motion.div
-            initial={{ opacity: 0, y: 70 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="mt-20 relative mx-auto max-w-5xl w-full rounded-2xl sm:rounded-[2rem] border border-white/[0.08] bg-[#0d1117]/90 backdrop-blur-2xl shadow-[0_60px_120px_rgba(0,0,0,.7),0_0_80px_rgba(0,255,178,.07)] overflow-hidden"
           >
             {/* macOS dots */}
@@ -222,7 +269,7 @@ export default function EdgeciplineLanding() {
               <div className="w-3 h-3 rounded-full bg-[#00FFB2]/70" />
               <div className="flex-1 mx-6 h-6 rounded-md bg-white/[0.04] flex items-center px-3 gap-2">
                 <Lock size={10} className="text-gray-600" />
-                <span className="text-gray-600 text-xs font-mono">app.edgecipline.com/dashboard</span>
+                <span className="text-gray-600 text-xs font-mono">app.edgeclipine.com/dashboard</span>
               </div>
             </div>
 
@@ -309,7 +356,7 @@ export default function EdgeciplineLanding() {
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00FFB2] animate-pulse" />
                 AI Coach is analyzing your patterns…
               </span>
-              <span>Edgecipline v2.0</span>
+              <span>Edgeclipine v2.0</span>
             </div>
           </motion.div>
 
@@ -450,7 +497,7 @@ export default function EdgeciplineLanding() {
               <Tag color="emerald">The Solution</Tag>
               <h2 className="mt-6 text-4xl sm:text-6xl font-black tracking-[-0.03em] leading-tight text-white">
                 Introducing
-                <span className="text-shimmer"> Edgecipline.</span>
+                <span className="text-shimmer"> Edgeclipine.</span>
               </h2>
               <p className="mt-5 text-xl text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
                 Not another journal. Not another analytics tool. A self-awareness engine built for traders who are done guessing and ready to trade with data-backed precision.
@@ -516,13 +563,13 @@ export default function EdgeciplineLanding() {
                   <span className="text-amber-400">It's a mirror.</span>
                 </h2>
                 <p className="mt-6 text-gray-400 font-medium leading-relaxed text-lg">
-                  Edgecipline was built on one core belief: <strong className="text-white">discipline creates edge.</strong> Not better indicators. Not secret strategies. The traders who win long-term are the ones who study themselves as relentlessly as they study the charts.
+                  Edgeclipine was built on one core belief: <strong className="text-white">discipline creates edge.</strong> Not better indicators. Not secret strategies. The traders who win long-term are the ones who study themselves as relentlessly as they study the charts.
                 </p>
                 <p className="mt-4 text-gray-500 font-medium leading-relaxed">
                   We built this out of frustration. After years of journaling in spreadsheets, writing in notebooks, and watching patterns repeat — we realized the data was always there. We just had no system to see it clearly.
                 </p>
                 <p className="mt-4 text-gray-500 font-medium leading-relaxed">
-                  Edgecipline is that system.
+                  Edgeclipine is that system.
                 </p>
               </Reveal>
 
@@ -643,10 +690,10 @@ export default function EdgeciplineLanding() {
               <div className="p-8 sm:p-12 rounded-[2rem] bg-gradient-to-br from-[#00FFB2]/8 to-[#00d4ff]/4 border border-[#00FFB2]/20 text-center">
                 <p className="text-xs font-black uppercase tracking-widest text-[#00FFB2] mb-4">The Real Difference</p>
                 <h3 className="text-3xl sm:text-4xl font-black text-white mb-5 tracking-tight">
-                  Edgecipline isn't a journal. It's a mirror.
+                  Edgeclipine isn't a journal. It's a mirror.
                 </h3>
                 <p className="text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed text-lg">
-                  Excel tracks your trades. Analytics tools show you charts. But Edgecipline reveals <em className="text-white not-italic font-bold">you</em> — your habits, your biases, your most destructive patterns, and your most profitable moments. That self-knowledge compounds into edge.
+                  Excel tracks your trades. Analytics tools show you charts. But Edgeclipine reveals <em className="text-white not-italic font-bold">you</em> — your habits, your biases, your most destructive patterns, and your most profitable moments. That self-knowledge compounds into edge.
                 </p>
               </div>
             </Reveal>
@@ -655,78 +702,98 @@ export default function EdgeciplineLanding() {
 
         {/* ════════════════════ PRICING ════════════════════ */}
         <section className="py-20 sm:py-32 bg-[#04060A] border-t border-white/[0.05]">
-          <div className="max-w-4xl mx-auto px-5 sm:px-8">
+          <div className="max-w-6xl mx-auto px-5 sm:px-8">
             <Reveal className="text-center mb-20">
-              <Tag color="emerald">Pricing</Tag>
+              <Tag color="emerald">Pricing Plans</Tag>
               <h2 className="mt-6 text-4xl sm:text-5xl font-black tracking-[-0.03em] text-white">
-                Less than a losing trade.
+                Invest in your discipline.
               </h2>
               <p className="mt-4 text-lg text-gray-500 font-medium">
-                The cost of not knowing your patterns is far higher.
+                Choose the timeframe that fits your journey.
               </p>
             </Reveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
-              {/* Free */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* 1 Month */}
               <Reveal>
-                <div className="p-9 rounded-[2rem] bg-white/[0.025] border border-white/[0.08] flex flex-col h-full hover:border-white/20 transition-colors">
-                  <h3 className="text-xl font-black text-white mb-1">Explorer</h3>
-                  <p className="text-gray-500 font-medium mb-6 text-sm">Dip your toes in. No card required.</p>
+                <div className="p-8 rounded-[2rem] bg-white/[0.025] border border-white/[0.08] flex flex-col h-full hover:border-white/20 transition-colors">
+                  <h3 className="text-lg font-black text-white mb-1">Standard</h3>
+                  <p className="text-gray-500 font-medium mb-6 text-xs">For the monthly experimenter.</p>
                   <div className="flex items-baseline gap-1 mb-8">
-                    <span className="text-5xl font-black text-white tracking-tight">₹0</span>
-                    <span className="text-gray-500 font-medium">/forever</span>
+                    <span className="text-4xl font-black text-white tracking-tight">₹149</span>
+                    <span className="text-gray-500 font-medium">/ 1 month</span>
                   </div>
-                  <ul className="space-y-4 mb-10 flex-1">
-                    {[
-                      { t: "10 manual trade entries", ok: true },
-                      { t: "Basic P&L dashboard", ok: true },
-                      { t: "Screenshot extraction", ok: false },
-                      { t: "AI Coach insights", ok: false },
-                      { t: "Psychology tracking", ok: false },
-                    ].map((item, i) => (
-                      <li key={i} className={`flex items-center gap-3 text-sm font-medium ${item.ok ? "text-gray-300" : "text-gray-700"}`}>
-                        {item.ok
-                          ? <Check size={16} className="text-[#00FFB2] shrink-0" strokeWidth={3} />
-                          : <X size={16} className="shrink-0" strokeWidth={2} />
-                        }
-                        {item.t}
-                      </li>
-                    ))}
-                  </ul>
-                  {/* Pricing CTA removed for pure awareness page */}
-                </div>
-              </Reveal>
-
-              {/* Pro */}
-              <Reveal delay={0.1}>
-                <div className="p-9 rounded-[2rem] bg-[#051210] border border-[#00FFB2]/35 flex flex-col h-full relative overflow-hidden shadow-[0_40px_80px_rgba(0,255,178,.15)]">
-                  <div className="absolute top-0 right-0 w-72 h-72 bg-[#00FFB2]/8 rounded-full blur-[80px] pointer-events-none" />
-                  <div className="absolute top-0 right-8 py-1.5 px-4 bg-[#00FFB2] text-[#060910] text-[10px] font-black rounded-b-xl uppercase tracking-widest shadow-lg">
-                    Most Popular
-                  </div>
-                  <h3 className="text-xl font-black text-white mb-1">Professional</h3>
-                  <p className="text-gray-500 font-medium mb-6 text-sm">The full self-awareness system.</p>
-                  <div className="flex items-baseline gap-1 mb-2">
-                    <span className="text-5xl font-black text-white tracking-tight">₹150</span>
-                    <span className="text-[#00FFB2] font-bold">/ 3 months</span>
-                  </div>
-                  <p className="text-gray-600 text-xs font-mono mb-8">~₹1.65 per day. Less than one bad trade.</p>
                   <ul className="space-y-4 mb-10 flex-1">
                     {[
                       "Unlimited trade journals",
                       "AI screenshot extraction",
-                      "Weekly AI Coach report",
-                      "Setup & psychology analytics",
-                      "Emotion-per-trade tracking",
-                      "Priority support",
+                      "Standard analytics",
+                      "Email support",
                     ].map((item, i) => (
-                      <li key={i} className="flex items-center gap-3 text-sm font-medium text-gray-300">
-                        <Check size={16} className="text-[#00FFB2] shrink-0" strokeWidth={3} />
+                      <li key={i} className="flex items-center gap-3 text-sm font-medium text-gray-400">
+                        <Check size={14} className="text-[#00FFB2] shrink-0" strokeWidth={3} />
                         {item}
                       </li>
                     ))}
                   </ul>
-                  {/* Pricing CTA removed for pure awareness page */}
+                </div>
+              </Reveal>
+
+              {/* 3 Months */}
+              <Reveal delay={0.1}>
+                <div className="p-8 rounded-[2rem] bg-[#051210] border border-[#00FFB2]/35 flex flex-col h-full relative overflow-hidden shadow-[0_40px_80px_rgba(0,255,178,.15)] scale-105 z-10">
+                  <div className="absolute top-0 right-0 w-72 h-72 bg-[#00FFB2]/8 rounded-full blur-[80px] pointer-events-none" />
+                  <div className="absolute top-0 right-8 py-1 px-3 bg-[#00FFB2] text-[#060910] text-[9px] font-black rounded-b-lg uppercase tracking-widest">
+                    Most Popular
+                  </div>
+                  <h3 className="text-lg font-black text-white mb-1">Professional</h3>
+                  <p className="text-gray-500 font-medium mb-6 text-xs">Commitment to the craft.</p>
+                  <div className="flex items-baseline gap-1 mb-2">
+                    <span className="text-4xl font-black text-white tracking-tight">₹249</span>
+                    <span className="text-[#00FFB2] font-bold">/ 3 months</span>
+                  </div>
+                  <p className="text-gray-600 text-[10px] font-mono mb-8">~₹2.76 per day.</p>
+                  <ul className="space-y-4 mb-10 flex-1">
+                    {[
+                      "Everything in Standard",
+                      "AI Coach weekly reports",
+                      "Setup & psychology tags",
+                      "Priority support",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3 text-sm font-medium text-gray-300">
+                        <Check size={14} className="text-[#00FFB2] shrink-0" strokeWidth={3} />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+
+              {/* 6 Months */}
+              <Reveal delay={0.2}>
+                <div className="p-8 rounded-[2rem] bg-white/[0.025] border border-white/[0.08] flex flex-col h-full hover:border-[#00FFB2]/30 transition-colors relative overflow-hidden">
+                  <div className="absolute top-0 right-8 py-1 px-3 bg-white/10 text-white text-[9px] font-black rounded-b-lg uppercase tracking-widest">
+                    Best Value
+                  </div>
+                  <h3 className="text-lg font-black text-white mb-1">Ultimate</h3>
+                  <p className="text-gray-500 font-medium mb-6 text-xs">For the relentless trader.</p>
+                  <div className="flex items-baseline gap-1 mb-8">
+                    <span className="text-4xl font-black text-white tracking-tight">₹449</span>
+                    <span className="text-gray-500 font-medium">/ 6 months</span>
+                  </div>
+                  <ul className="space-y-4 mb-10 flex-1">
+                    {[
+                      "Everything in Professional",
+                      "Lifetime trade backup",
+                      "Custom strategy slots",
+                      "Early access to beta features",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3 text-sm font-medium text-gray-400">
+                        <Check size={14} className="text-[#00FFB2] shrink-0" strokeWidth={3} />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </Reveal>
             </div>
@@ -748,7 +815,7 @@ export default function EdgeciplineLanding() {
                 <span className="text-shimmer">Or start knowing.</span>
               </h2>
               <p className="text-xl text-gray-500 mb-12 max-w-xl mx-auto font-medium leading-relaxed">
-                The traders who study themselves win. Every consistent performer has a feedback loop. Edgecipline is yours.
+                The traders who study themselves win. Every consistent performer has a feedback loop. Edgeclipine is yours.
               </p>
 
               {/* Final CTA removed for pure awareness page */}
@@ -767,24 +834,27 @@ export default function EdgeciplineLanding() {
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#00FFB2] to-[#00b87a] flex items-center justify-center shadow-[0_0_16px_rgba(0,255,178,.3)]">
-                <TrendingUp size={16} className="text-[#060910]" strokeWidth={3} />
-              </div>
-              <span className="text-lg font-black tracking-tight text-white">
-                Edge<span className="text-[#00FFB2]">cipline</span>
-              </span>
+              <Image 
+                src="/logo.png" 
+                alt="Edgeclipine Logo" 
+                width={32} 
+                height={32} 
+                className="w-8 h-auto"
+              />
             </div>
             <div className="flex flex-wrap justify-center gap-8 text-sm font-semibold text-gray-600">
               {/* Footer links removed for pure awareness page */}
             </div>
           </div>
           <div className="pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-gray-700 font-medium">
-            <span>© 2026 Edgecipline Technologies. All rights reserved.</span>
+            <span>© 2026 Edgeclipine Technologies. All rights reserved.</span>
             <span>Past performance ≠ future results. Trading carries inherent risk.</span>
           </div>
         </div>
       </footer>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 

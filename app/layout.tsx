@@ -1,34 +1,35 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Sora, DM_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+const dmMono = DM_Mono({
+  weight: ["300", "500"],
+  variable: "--font-dm-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Edgecipline - AI Trading Insight",
+  title: "Edgeclipine - AI Trading Insight",
   description: "Transform your trade data into ruthlessly objective self-awareness.",
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
-      { url: "/formobileand tabicon.png", type: "image/png" },
+      { url: "/logo.png", type: "image/png" },
     ],
-    shortcut: "/formobileand tabicon.png",
-    apple: "/formobileand tabicon.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Edgecipline",
-    startupImage: "/formobileand tabicon.png",
+    title: "Edgeclipine",
+    startupImage: "/logo.png",
   },
   formatDetection: {
     telephone: false,
@@ -52,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} antialiased`}
+        className={`${sora.variable} ${dmMono.variable} antialiased font-sans`}
       >
         <Providers>{children}</Providers>
       </body>
