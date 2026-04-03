@@ -1,18 +1,6 @@
 import type { Metadata } from "next";
-import { Sora, DM_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
-
-const sora = Sora({
-  variable: "--font-sora",
-  subsets: ["latin"],
-});
-
-const dmMono = DM_Mono({
-  weight: ["300", "500"],
-  variable: "--font-dm-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Edgeclipine - AI Trading Insight",
@@ -52,9 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${sora.variable} ${dmMono.variable} antialiased font-sans`}
-      >
+      <body className="antialiased font-sans">
         <Providers>{children}</Providers>
       </body>
     </html>
