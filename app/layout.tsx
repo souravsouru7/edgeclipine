@@ -3,8 +3,8 @@ import "./globals.css";
 import Providers from "./providers";
 
 export const metadata: Metadata = {
-  title: "Edgeclipine - AI Trading Insight",
-  description: "Transform your trade data into ruthlessly objective self-awareness.",
+  title: "Edgeclipine | AI Trading Journal & Behavior Analysis",
+  description: "Edgeclipine is the first AI trading journal that tracks your behavior, not just your P&L. Get instant AI feedback on emotional decisions.",
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
