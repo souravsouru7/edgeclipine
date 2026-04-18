@@ -4,8 +4,12 @@ import "./globals.css";
 import Providers from "./providers";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.edgecipline.com"),
   title: "Edgeclipine | AI Trading Journal & Behavior Analysis",
   description: "Edgeclipine is the first AI trading journal that tracks your behavior, not just your P&L. Get instant AI feedback on emotional decisions.",
+  alternates: {
+    canonical: "/",
+  },
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [

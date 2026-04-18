@@ -1,9 +1,16 @@
 import { readFileSync } from "fs";
 import path from "path";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Page() {
   const edgeStoryHtml = readFileSync(
-    path.join(process.cwd(), "public", "edge-story.html"),
+    path.join(process.cwd(), "content", "edge-story.html"),
     "utf8",
   );
 
