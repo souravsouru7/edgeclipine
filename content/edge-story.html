@@ -843,7 +843,7 @@ body::before {
 .signup-input::placeholder { color: var(--dim); }
 .signup-btn {
   background: var(--green);
-  color: #060910; border: none; cursor: none;
+  color: #060910; border: none; cursor: pointer;
   padding: 16px 24px;
   font-family: var(--sans);
   font-size: 13px; font-weight: 800;
@@ -962,12 +962,14 @@ footer {
 #popup-overlay {
   display: none;
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.82);
   z-index: 9000;
   align-items: center; justify-content: center;
   padding: 20px;
   animation: fadeIn 0.4s ease;
+}
+@media (min-width: 769px) {
+  #popup-overlay { backdrop-filter: blur(6px); }
 }
 #popup-overlay.show { display: flex; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -1056,6 +1058,19 @@ footer {
   footer { flex-direction: column; align-items: flex-start; }
   .signup-form { flex-direction: column; border-radius: 12px; }
   .signup-btn { border-radius: 0 0 10px 10px; }
+
+  /* prevent iOS zoom on input focus (requires font-size >= 16px) */
+  .signup-input,
+  .signup-select,
+  .popup-form .signup-input,
+  .popup-form .signup-select {
+    font-size: 16px;
+  }
+
+  #popup-box {
+    padding: 36px 24px 28px;
+  }
+  .popup-h { font-size: 22px; }
 }
 </style>
 </head>
@@ -1647,17 +1662,24 @@ footer {
 </footer>
 
 <script>
-/* ── Cursor ── */
+/* ── Cursor (desktop only) ── */
+const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 const cur = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-(function animCursor() {
-  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
-  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-  requestAnimationFrame(animCursor);
-})();
+if (isTouchDevice) {
+  cur.style.display = 'none';
+  ring.style.display = 'none';
+  document.body.style.cursor = 'auto';
+} else {
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function animCursor() {
+    cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  })();
+}
 
 /* ── Loader ── */
 window.addEventListener('DOMContentLoaded', () => {
