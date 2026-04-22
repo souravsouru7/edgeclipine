@@ -18,6 +18,7 @@ export default function Page() {
     <main className="h-screen w-screen overflow-hidden bg-black">
       <iframe
         srcDoc={edgeStoryHtml}
+        sandbox="allow-scripts allow-same-origin allow-forms"
         title="Edgeclipine - The Story"
         className="h-full w-full border-0"
       />
