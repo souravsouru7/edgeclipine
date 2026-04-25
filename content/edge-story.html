@@ -37,6 +37,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  max-width: 100vw;
   cursor: none;
 }
 
@@ -253,6 +254,9 @@ body::before {
 #ch01 {
   background: var(--bg);
   overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 }
 #ch01 .bg-year {
   position: absolute;
@@ -609,7 +613,10 @@ body::before {
   grid-template-rows: auto auto;
   gap: 16px;
 }
-@media(max-width:768px){ .feature-editorial { grid-template-columns: 1fr; } }
+@media(max-width:768px){
+  .feature-editorial { grid-template-columns: 1fr; }
+  .feat-card.large { grid-row: auto; }
+}
 
 .feat-card {
   padding: 36px 32px;
@@ -1048,29 +1055,524 @@ footer {
   color: var(--dim); text-align: center; margin-top: 12px;
 }
 
+/* ═══════════════════════════════════════
+   VISUAL-FIRST SECTION STYLES
+═══════════════════════════════════════ */
+
+/* ── Hero canvas background ── */
+#hero-canvas { position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0.7; }
+@media(max-width:768px){ #hero-canvas{display:none} }
+
+/* ── Floating trade toasts ── */
+.hero-toast {
+  position:absolute;display:flex;flex-direction:column;
+  padding:10px 14px;border-radius:14px;
+  background:rgba(10,14,24,0.92);border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(8px);
+  pointer-events:none;
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+  min-width:130px;
+}
+.ht-main { font-family:var(--mono);font-size:14px;font-weight:700;line-height:1.2; }
+.ht-sub  { font-size:10px;color:var(--dim);margin-top:2px;letter-spacing:0.04em; }
+.hero-toast.win  { border-color:rgba(0,255,178,0.25); }
+.hero-toast.win  .ht-main { color:var(--green); }
+.hero-toast.loss { border-color:rgba(255,77,77,0.2); }
+.hero-toast.loss .ht-main { color:var(--red); }
+.hero-toast.ai   { border-color:rgba(0,180,255,0.2); }
+.hero-toast.ai   .ht-main { color:#5ac8fa; }
+.hero-toast.warn { border-color:rgba(245,166,35,0.2); }
+.hero-toast.warn .ht-main { color:var(--amber); }
+.hero-toast.log  .ht-main { color:rgba(255,255,255,0.5); }
+.hero-toast.stat .ht-main { color:var(--green); }
+
+/* ── Typewriter caret ── */
+@keyframes caretBlink { 0%,100%{border-color:var(--green)} 50%{border-color:transparent} }
+.hero-h1 em { border-right:2px solid transparent; padding-right:2px; }
+
+/* ── 90% progress ring ── */
+.stat-ring-wrap { position:relative;display:inline-flex;align-items:center;justify-content:center;width:180px;height:180px;margin-bottom:-20px; }
+.stat-ring-svg { width:100%;height:100%;position:absolute;top:0;left:0; }
+.ring-bg { fill:none;stroke:rgba(255,77,77,0.1);stroke-width:7; }
+.ring-fill {
+  fill:none;stroke:var(--red);stroke-width:7;stroke-linecap:round;
+  stroke-dasharray:326.73;stroke-dashoffset:326.73;
+  transform:rotate(-90deg);transform-origin:center;
+  transition:stroke-dashoffset 2.2s cubic-bezier(0.16,1,0.3,1);
+  filter:drop-shadow(0 0 8px rgba(255,77,77,0.6));
+}
+.ring-center { position:relative;z-index:1;text-align:center; }
+.ring-label { font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);display:block;margin-top:2px; }
+.big-stat { font-size:clamp(52px,9vw,86px); }
+
+/* ── Glow orb transition ── */
+.glow-orb { transition:transform 1.2s cubic-bezier(0.16,1,0.3,1); }
+
+/* ── Magnetic button (JS adds transform; just ensure smooth reset) ── */
+.hero-btn-primary, .hero-btn-secondary { will-change:transform; }
+
+/* ── Scroll-reveal pop (overrides plain translateY) ── */
+@keyframes revealPop {
+  0%  { opacity:0; transform:translateY(30px) scale(0.96); }
+  60% { opacity:1; transform:translateY(-4px) scale(1.01); }
+  100%{ opacity:1; transform:translateY(0)   scale(1); }
+}
+.reveal-pop.visible { animation:revealPop 0.7s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+/* ── Glitch flicker on hero headline ── */
+@keyframes glitch1 {
+  0%,95%,100%{ clip-path:none; transform:none; }
+  96%{ clip-path:polygon(0 20%,100% 20%,100% 40%,0 40%); transform:translate(-3px,0); color:#00ffb2; }
+  97%{ clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%); transform:translate(3px,0); color:#ff4d4d; }
+  98%{ clip-path:none; transform:none; }
+}
+.hero-h1 { animation:glitch1 6s steps(1) infinite; }
+
+/* ── Journey phase pop entrance ── */
+.journey-phase { opacity:0;transform:translateY(28px) scale(0.95); }
+.journey-phase.popped { opacity:1;transform:translateY(0) scale(1);transition:opacity 0.6s ease,transform 0.6s cubic-bezier(0.34,1.56,0.64,1); }
+
+/* ── Journey phase pop entrance ── */
+/* ── Journey visual map (Ch02) ── */
+.journey-map { display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:48px;position:relative; }
+@media(max-width:900px){ .journey-map{grid-template-columns:1fr 1fr} }
+@media(max-width:480px){ .journey-map{grid-template-columns:1fr} }
+.journey-phase {
+  padding:28px 20px;border-radius:20px;background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.07);position:relative;overflow:hidden;
+  transition:transform 0.35s,border-color 0.35s;cursor:default;
+}
+.journey-phase:hover { transform:translateY(-6px); }
+.journey-phase.red:hover { border-color:rgba(255,77,77,0.4); }
+.journey-phase.amber:hover { border-color:rgba(245,166,35,0.4); }
+.journey-phase.grn { background:rgba(0,255,178,0.03);border-color:rgba(0,255,178,0.18); }
+.journey-phase.grn:hover { border-color:rgba(0,255,178,0.45); }
+.journey-emoji { font-size:44px;display:block;margin-bottom:14px;line-height:1; }
+.journey-era { font-family:var(--mono);font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);margin-bottom:8px; }
+.journey-name { font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.3; }
+.journey-phase.red .journey-name { color:#ff8a8a; }
+.journey-phase.amber .journey-name { color:var(--amber); }
+.journey-phase.grn .journey-name { color:var(--green); }
+.journey-quote { font-size:12px;color:var(--dim);line-height:1.65;font-style:italic;margin-bottom:14px; }
+.journey-pnl { font-family:var(--mono);font-size:13px;font-weight:600;padding:4px 10px;border-radius:6px;display:inline-block; }
+.journey-phase.red .journey-pnl { color:var(--red);background:rgba(255,77,77,0.1); }
+.journey-phase.amber .journey-pnl { color:var(--amber);background:rgba(245,166,35,0.1); }
+.journey-phase.grn .journey-pnl { color:var(--green);background:rgba(0,255,178,0.1); }
+/* connector arrow */
+.journey-phase::after {
+  content:'→';
+  position:absolute;top:50%;right:-14px;transform:translateY(-50%);
+  color:rgba(255,255,255,0.12);font-size:18px;z-index:2;pointer-events:none;
+}
+.journey-phase:last-child::after { display:none; }
+@media(max-width:900px){ .journey-phase::after{display:none} }
+
+/* ── Ch03 realization — big visual cards ── */
+.insight-big-grid { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
+@media(max-width:600px){ .insight-big-grid{grid-template-columns:1fr} }
+.insight-big {
+  padding:24px;border-radius:20px;background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.07);
+  transition:transform 0.3s,border-color 0.3s;cursor:default;
+}
+.insight-big:hover { transform:translateY(-4px); }
+.insight-big.red:hover { border-color:rgba(255,77,77,0.35); }
+.insight-big.amber:hover { border-color:rgba(245,166,35,0.35); }
+.insight-big.grn:hover { border-color:rgba(0,255,178,0.35); }
+.ib-emoji { font-size:36px;margin-bottom:12px;display:block;line-height:1; }
+.ib-title { font-size:16px;font-weight:700;color:#fff;margin-bottom:6px; }
+.ib-impact {
+  font-family:var(--mono);font-size:22px;font-weight:600;margin-bottom:10px;
+}
+.insight-big.red .ib-impact { color:var(--red); }
+.insight-big.amber .ib-impact { color:var(--amber); }
+.insight-big.grn .ib-impact { color:var(--green); }
+.ib-sub { font-size:12px;color:var(--dim);line-height:1.65;margin-bottom:10px; }
+
+/* ── Emotion tags (Ch05 card 03) ── */
+.feat-emotion-tags { display:flex;flex-wrap:wrap;gap:6px;margin-top:14px; }
+.feat-etag { padding:5px 11px;border-radius:100px;font-size:11px;font-weight:600;border:1px solid; }
+.etag-fear { background:rgba(0,120,255,0.1);border-color:rgba(0,120,255,0.3);color:#5aadff; }
+.etag-fomo { background:rgba(255,200,0,0.1);border-color:rgba(255,200,0,0.3);color:#ffc800; }
+.etag-rev { background:rgba(255,77,77,0.1);border-color:rgba(255,77,77,0.3);color:#ff8a8a; }
+.etag-zen { background:rgba(0,255,178,0.1);border-color:rgba(0,255,178,0.3);color:var(--green); }
+.etag-frust { background:rgba(255,100,0,0.1);border-color:rgba(255,100,0,0.3);color:#ff9a5c; }
+.etag-greed { background:rgba(180,0,255,0.1);border-color:rgba(180,0,255,0.3);color:#c97aff; }
+
+/* ── Setup perf bars (Ch05 card 04) ── */
+.feat-setup-bars { margin-top:14px;display:flex;flex-direction:column;gap:7px; }
+.feat-setup-row { display:flex;align-items:center;gap:8px; }
+.fsr-label { font-family:var(--mono);font-size:9px;color:var(--dim);width:44px;flex-shrink:0;text-transform:uppercase;letter-spacing:0.06em; }
+.fsr-track { flex:1;height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden; }
+.fsr-fill { height:100%;border-radius:3px;width:0;transition:width 1.2s cubic-bezier(0.16,1,0.3,1);background:var(--green); }
+.fsr-fill.r { background:var(--red); }
+.fsr-fill.a { background:var(--amber); }
+.fsr-val { font-family:var(--mono);font-size:10px;width:34px;text-align:right;flex-shrink:0; }
+.fsr-val.g { color:var(--green); }
+.fsr-val.r { color:var(--red); }
+
+/* ── AI Report preview (Ch05 card 02) ── */
+.feat-ai-preview {
+  margin-top:14px;padding:12px 14px;
+  background:rgba(0,255,178,0.04);border:1px solid rgba(0,255,178,0.12);
+  border-radius:12px;font-size:12px;line-height:1.7;color:rgba(255,255,255,0.5);
+}
+.feat-ai-top {
+  font-family:var(--mono);font-size:9px;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--green);margin-bottom:8px;
+  display:flex;align-items:center;gap:6px;
+}
+.feat-ai-preview strong { color:rgba(0,255,178,0.85); }
+
+/* ── Beliefs grid (Ch06) ── */
+.beliefs-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px; }
+@media(max-width:768px){ .beliefs-grid{grid-template-columns:1fr 1fr} }
+@media(max-width:480px){ .beliefs-grid{grid-template-columns:1fr} }
+.belief-card {
+  padding:28px 20px;border-radius:20px;background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.07);text-align:center;
+  transition:border-color 0.3s,transform 0.3s,background 0.3s;cursor:default;
+}
+.belief-card:hover { border-color:rgba(0,255,178,0.3);background:rgba(0,255,178,0.03);transform:translateY(-4px); }
+.belief-emoji { font-size:38px;display:block;margin-bottom:14px;line-height:1;
+  transition:filter 0.3s;filter:drop-shadow(0 0 0px transparent); }
+.belief-card:hover .belief-emoji { filter:drop-shadow(0 0 18px rgba(0,255,178,0.5)); }
+.belief-title { font-size:14px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px; }
+.belief-sub { font-size:11px;color:var(--dim);line-height:1.6; }
+
+/* ═══════════════════════════════════════
+   NEW INTERACTIVE ENHANCEMENTS
+═══════════════════════════════════════ */
+
+/* Hero grid background */
+.hero-grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(0,255,178,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,178,0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black, transparent);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black, transparent);
+  pointer-events: none;
+  animation: gridPulse 8s ease-in-out infinite;
+}
+@keyframes gridPulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+/* Hero 2-col split */
+.hero-split {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px; align-items: center;
+  max-width: 1100px; text-align: left;
+}
+.hero-split .hero-tagline { justify-content: flex-start; }
+.hero-split .hero-sub { text-align: left; margin: 0 0 28px; }
+.hero-split .scroll-hint { display: none; }
+
+/* CTA buttons */
+.hero-cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+.hero-btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--green); color: #060910;
+  font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 14px 28px; border-radius: 100px; text-decoration: none;
+  animation: btnPulse 3s ease-in-out infinite;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+@keyframes btnPulse {
+  0%,100%{ box-shadow: 0 0 0 0 rgba(0,255,178,0.4); }
+  50%{ box-shadow: 0 0 0 14px rgba(0,255,178,0); }
+}
+.hero-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,255,178,0.3); }
+.hero-btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: rgba(255,255,255,0.6);
+  font-size: 13px; font-weight: 600; text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 14px 24px; border-radius: 100px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.hero-btn-secondary:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+
+/* Social proof */
+.hero-social-proof {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--dim); font-weight: 500;
+}
+.hero-social-proof strong { color: var(--green); }
+.hsp-dot { width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite;flex-shrink:0; }
+
+/* Floating product mockup */
+.hero-mockup-wrap {
+  position: relative; z-index: 2;
+  animation: heroFloat 5s ease-in-out infinite;
+}
+@keyframes heroFloat { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-10px) rotate(0.5deg)} }
+.hero-mockup-card {
+  background: rgba(10,14,24,0.96);
+  border: 1px solid rgba(0,255,178,0.25);
+  border-radius: 20px; overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,255,178,0.08);
+}
+.mockup-titlebar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.02);
+}
+.mockup-dots { display: flex; gap: 5px; }
+.mockup-dots span { width:10px;height:10px;border-radius:50%;display:block; }
+.mockup-url { font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:0.06em;margin:0 auto; }
+.mockup-body { padding: 18px; }
+.mockup-header-row { display:flex;justify-content:space-between;align-items:center;margin-bottom:14px; }
+.mockup-user-name { font-size:13px;font-weight:700;color:#fff; }
+.mockup-live-badge {
+  font-family:var(--mono);font-size:9px;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--green);background:rgba(0,255,178,0.1);border:1px solid rgba(0,255,178,0.25);
+  padding:3px 8px;border-radius:100px;display:flex;align-items:center;gap:4px;
+}
+.mockup-live-badge::before { content:'';width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;display:block; }
+.mockup-metrics { display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px; }
+.mockup-metric { background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:9px 11px; }
+.mockup-metric-lbl { font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px; }
+.mockup-metric-val { font-family:var(--mono);font-size:16px;font-weight:600;color:#fff;line-height:1; }
+.mockup-metric-val.green { color:var(--green); }
+.mockup-chart-svg { width:100%;height:48px;display:block;margin-bottom:12px; }
+.mockup-chart-path {
+  stroke-dasharray: 550; stroke-dashoffset: 550;
+  transition: stroke-dashoffset 2s cubic-bezier(0.16,1,0.3,1);
+}
+.mockup-chart-path.draw { stroke-dashoffset: 0; }
+.mockup-insight {
+  background:rgba(0,255,178,0.05);border:1px solid rgba(0,255,178,0.15);
+  border-radius:10px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start;margin-bottom:10px;
+}
+.mockup-insight-icon { font-size:13px;flex-shrink:0;margin-top:1px; }
+.mockup-insight-text { font-size:11px;color:rgba(255,255,255,0.6);line-height:1.55; }
+.mockup-insight-text strong { color:rgba(0,255,178,0.9); }
+.mockup-trades { display:flex;flex-direction:column;gap:5px; }
+.mockup-trade-row { display:flex;justify-content:space-between;align-items:center;padding:7px 9px;background:rgba(255,255,255,0.02);border-radius:7px;font-size:11px; }
+.mockup-trade-pair { color:rgba(255,255,255,0.7);font-weight:600; }
+.mockup-trade-tag { font-family:var(--mono);font-size:9px;letter-spacing:0.1em;padding:2px 6px;border-radius:4px; }
+.mockup-trade-tag.win { background:rgba(0,255,178,0.12);color:var(--green); }
+.mockup-trade-tag.loss { background:rgba(255,77,77,0.12);color:var(--red); }
+.mockup-trade-pnl { font-family:var(--mono);font-size:11px;font-weight:600; }
+.mockup-trade-pnl.pos { color:var(--green); }
+.mockup-trade-pnl.neg { color:var(--red); }
+
+/* Floating tags around mockup */
+.float-tag {
+  position:absolute;background:rgba(10,14,24,0.95);
+  border:1px solid rgba(255,255,255,0.12);border-radius:100px;
+  padding:7px 14px;font-size:11px;font-weight:600;
+  color:rgba(255,255,255,0.8);white-space:nowrap;
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);pointer-events:none;
+}
+.float-tag-1 { top:-18px;left:-16px;animation:tagFloat1 4s ease-in-out infinite; }
+.float-tag-2 { top:38%;right:-24px;animation:tagFloat2 4.5s ease-in-out infinite 0.5s; }
+.float-tag-3 { bottom:-18px;left:20%;animation:tagFloat3 3.8s ease-in-out infinite 1s;border-color:rgba(0,255,178,0.3);color:var(--green); }
+@keyframes tagFloat1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+@keyframes tagFloat2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes tagFloat3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+
+/* Insight bar mini chart */
+.insight-bar-wrap { display:flex;align-items:flex-end;gap:3px;height:22px;margin-top:8px; }
+.insight-bar {
+  flex:1;background:rgba(0,255,178,0.2);border-radius:2px 2px 0 0;
+  height:0;transition:height 1s cubic-bezier(0.16,1,0.3,1);
+}
+.insight-bar.animate { height:var(--h,50%); }
+.insight-bar.red-bar { background:rgba(255,77,77,0.3); }
+.insight-bar.amber-bar { background:rgba(245,166,35,0.3); }
+.insight-card:hover .insight-bar { background:rgba(0,255,178,0.5); }
+.insight-card:hover .insight-bar.red-bar { background:rgba(255,77,77,0.7); }
+.insight-card:hover .insight-bar.amber-bar { background:rgba(245,166,35,0.7); }
+
+/* Counter animation */
+.count-up { display:inline; }
+
+/* Typing indicator */
+.typing-indicator {
+  display:flex;align-items:center;gap:5px;padding:12px 16px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);
+  border-radius:18px 18px 18px 4px;width:fit-content;
+  opacity:0;transform:translateY(4px);
+  transition:opacity 0.3s,transform 0.3s;
+}
+.typing-indicator.show { opacity:1;transform:translateY(0); }
+.typing-dot { width:6px;height:6px;border-radius:50%;background:var(--dim);animation:typingBounce 1.2s ease-in-out infinite; }
+.typing-dot:nth-child(2){animation-delay:0.2s}
+.typing-dot:nth-child(3){animation-delay:0.4s}
+@keyframes typingBounce { 0%,60%,100%{transform:translateY(0);opacity:0.4} 30%{transform:translateY(-6px);opacity:1} }
+
+/* Animated SVG chart line in feat card */
+.animated-chart-line {
+  stroke-dasharray: 500; stroke-dashoffset: 500;
+  transition: stroke-dashoffset 1.8s cubic-bezier(0.16,1,0.3,1) 0.3s;
+}
+.animated-chart-line.draw { stroke-dashoffset: 0; }
+
+/* Manifesto check icon */
+.ml-check {
+  margin-left:auto;width:22px;height:22px;border-radius:50%;
+  border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:transparent;transition:all 0.3s;flex-shrink:0;
+}
+.manifesto-line:hover .ml-check { background:rgba(0,255,178,0.15);border-color:rgba(0,255,178,0.4);color:var(--green); }
+
+/* Featured plan glow */
+.plan.featured { animation: planGlow 3s ease-in-out infinite; }
+@keyframes planGlow {
+  0%,100%{ box-shadow: 0 0 60px rgba(0,255,178,0.07); }
+  50%{ box-shadow: 0 0 80px rgba(0,255,178,0.16); }
+}
+.plan-badge.popular-badge {
+  animation: badgePulse 2.5s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%,100%{ box-shadow: 0 0 0 0 rgba(0,255,178,0.5); }
+  50%{ box-shadow: 0 0 0 6px rgba(0,255,178,0); }
+}
+.plan-savings {
+  font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--green);margin-bottom:16px;
+}
+
+/* CTA section particles */
+#cta-particles { position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1; }
+.cta-particle {
+  position:absolute;font-family:var(--mono);font-size:10px;
+  color:rgba(0,255,178,0.12);letter-spacing:0.08em;
+  animation:ctaFloat linear infinite;
+}
+@keyframes ctaFloat {
+  0%{transform:translateY(120px);opacity:0}
+  15%{opacity:1}
+  85%{opacity:0.4}
+  100%{transform:translateY(-120px);opacity:0}
+}
+
+/* feat-card glow on hover */
+.feat-card::before {
+  content:'';position:absolute;inset:0;border-radius:24px;
+  background:radial-gradient(ellipse at 50% 0%, rgba(0,255,178,0.06), transparent 60%);
+  opacity:0;transition:opacity 0.4s;pointer-events:none;
+}
+.feat-card:hover::before { opacity:1; }
+
 /* ─── Responsive ─────────────────────── */
+/* ══ 900px — tablet / large phone landscape ══ */
+@media(max-width:900px) {
+  /* Hero: collapse to single column */
+  .hero-split { grid-template-columns:1fr; text-align:center; gap:32px; }
+  .hero-split .hero-tagline { justify-content:center; }
+  .hero-split .hero-sub { text-align:center; max-width:520px; margin:0 auto 24px; }
+  .hero-cta-row { justify-content:center; }
+  .hero-social-proof { justify-content:center; }
+  .hero-mockup-wrap { display:none; }
+  /* stop float-tags leaking out */
+  #hero-toasts { display:none; }
+  /* feat-card large: no row-span in 1-col grid */
+  .feat-card.large { grid-row:auto; }
+  .journey-map { gap:10px; }
+}
+
+/* ══ 768px — standard mobile breakpoint ══ */
+@media(max-width:768px) {
+  .feature-editorial { grid-template-columns:1fr; }
+  .feat-card.large { grid-row:auto; }
+  .pricing-grid { grid-template-columns:1fr; }
+  .turning-layout { grid-template-columns:1fr; gap:36px; }
+}
+
+/* ══ 600px — small phones ══ */
 @media(max-width:600px) {
-  .chapter { padding: 100px 20px; }
-  #nav { padding: 18px 20px; }
-  #chapter-nav { display: none; }
-  .timeline { padding-left: 24px; }
-  .tl-item { padding: 0 0 56px 32px; }
-  footer { flex-direction: column; align-items: flex-start; }
-  .signup-form { flex-direction: column; border-radius: 12px; }
-  .signup-btn { border-radius: 0 0 10px 10px; }
+  /* Global */
+  body { overflow-x:hidden; }
+  .chapter { padding:88px 18px 72px; }
+  #nav { padding:16px 18px; }
+  #chapter-nav { display:none; }
 
-  /* prevent iOS zoom on input focus (requires font-size >= 16px) */
-  .signup-input,
-  .signup-select,
+  /* Hero section */
+  #ch01 { padding:80px 18px 48px; }
+  #hero-toasts { display:none; }
+  .hero-h1 { font-size:clamp(34px,10vw,48px); line-height:1.1; }
+  .hero-sub { font-size:15px; }
+  .hero-cta-row { flex-direction:column; align-items:center; gap:10px; width:100%; }
+  .hero-btn-primary, .hero-btn-secondary { width:100%; max-width:320px; justify-content:center; text-align:center; padding:15px 20px; }
+  .hero-social-proof { font-size:11px; }
+  .scroll-hint { margin-top:32px !important; }
+
+  /* Ch02 journey */
+  .journey-map { grid-template-columns:1fr; gap:10px; margin-top:32px; }
+  .journey-phase { padding:18px 16px; }
+  .journey-emoji { font-size:32px; }
+  .journey-name { font-size:15px; }
+  .ch02-title { font-size:clamp(26px,8vw,38px); }
+
+  /* Ch03 realization */
+  .turning-layout { gap:28px; }
+  .stat-ring-wrap { width:150px; height:150px; }
+  .big-stat { font-size:clamp(44px,12vw,64px); }
+  .insight-big-grid { grid-template-columns:1fr; gap:10px; }
+  .insight-big { padding:16px; }
+  .ib-emoji { font-size:26px; }
+  .ib-impact { font-size:16px; }
+  .ib-sub { font-size:11px; }
+
+  /* Ch04 chat */
+  .convo { margin:32px 0; }
+  .bubble { max-width:90%; font-size:13px; padding:12px 14px; }
+  .stat-row { grid-template-columns:1fr; gap:10px; }
+  .stat-num { font-size:30px; }
+
+  /* Ch05 features */
+  .building-h { font-size:clamp(28px,8vw,40px); margin-bottom:36px; }
+  .feat-card { padding:24px 18px; }
+  .feat-title { font-size:18px; }
+  .feat-desc { font-size:12px; }
+  .feat-emotion-tags { gap:5px; }
+  .feat-etag { font-size:10px; padding:4px 9px; }
+  .feat-ai-preview { font-size:11px; padding:10px 12px; }
+
+  /* Ch06 beliefs */
+  .why-h { font-size:clamp(26px,8vw,38px); }
+  .beliefs-grid { grid-template-columns:1fr 1fr; gap:10px; margin-top:32px; }
+  .belief-card { padding:18px 12px; }
+  .belief-emoji { font-size:26px; margin-bottom:10px; }
+  .belief-title { font-size:12px; }
+  .belief-sub { font-size:10px; }
+
+  /* Ch07 pricing */
+  .pricing-h { font-size:clamp(28px,8vw,40px); }
+  .plan { padding:26px 18px; }
+  .plan-price { font-size:36px; }
+
+  /* Ch08 CTA */
+  .epi-h { font-size:clamp(32px,10vw,52px); }
+  .signup-form { gap:10px; padding:10px; }
+  .signup-input, .signup-select { padding:14px 16px; }
+
+  /* Footer */
+  footer { flex-direction:column; align-items:flex-start; gap:10px; padding:24px 18px; }
+
+  /* Popup */
+  #popup-box { padding:32px 18px 24px; border-radius:20px; }
+  .popup-h { font-size:22px; }
+
+  /* iOS zoom prevention on inputs */
+  .signup-input, .signup-select,
   .popup-form .signup-input,
-  .popup-form .signup-select {
-    font-size: 16px;
-  }
+  .popup-form .signup-select { font-size:16px; }
+}
 
-  #popup-box {
-    padding: 36px 24px 28px;
-  }
-  .popup-h { font-size: 22px; }
+/* ══ 400px — very small phones (iPhone SE etc.) ══ */
+@media(max-width:400px) {
+  .beliefs-grid { grid-template-columns:1fr; }
+  .hero-h1 { font-size:32px; }
+  .journey-map { grid-template-columns:1fr; }
+  .feat-card { padding:20px 14px; }
+  .mockup-metric-val { font-size:13px; }
 }
 </style>
 </head>
@@ -1140,30 +1642,114 @@ footer {
 
 <!-- ════════ CH 01 — PROLOGUE ════════ -->
 <section class="chapter" id="ch01">
+  <canvas id="hero-canvas"></canvas>
+  <div id="hero-toasts"></div>
+  <div class="hero-grid"></div>
   <div class="glow-orb" style="width:600px;height:600px;top:-10%;left:-10%;background:rgba(0,255,178,0.05);"></div>
   <div class="glow-orb" style="width:400px;height:400px;bottom:5%;right:-5%;background:rgba(0,180,255,0.04);"></div>
   <div class="bg-year">2022</div>
 
-  <div class="hero-inner">
-    <div class="hero-tagline reveal">
-      <span class="dot"></span>
-      AI Trading Journal · Behavior tracking · Consistency
+  <div class="hero-inner hero-split">
+    <!-- Left: text -->
+    <div class="hero-text">
+      <div class="hero-tagline reveal">
+        <span class="dot"></span>
+        AI Trading Journal · Behavior tracking · Consistency
+      </div>
+
+      <h1 class="hero-h1 reveal reveal-delay-1">
+        You don't need<br>
+        another strategy.<br>
+        <em>You need a mirror.</em>
+      </h1>
+
+      <p class="hero-sub reveal reveal-delay-2">
+        Edgeclipine tracks your <strong>behavior, not just P&L</strong>. Upload a screenshot — AI reveals the emotional patterns and execution mistakes sabotaging your consistency.
+      </p>
+
+      <div class="hero-cta-row reveal reveal-delay-3">
+        <a href="#ch08" class="hero-btn-primary">Join Waitlist →</a>
+        <a href="#ch05" class="hero-btn-secondary">See Features ↓</a>
+      </div>
+
+      <div class="hero-social-proof reveal reveal-delay-4">
+        <span class="hsp-dot"></span>
+        <span><strong>847+</strong> traders already on the waitlist</span>
+      </div>
     </div>
 
-    <h1 class="hero-h1 reveal reveal-delay-1">
-      You don't need<br>
-      another strategy.<br>
-      <em>You need a mirror.</em>
-    </h1>
-
-    <p class="hero-sub reveal reveal-delay-2">
-      Edgeclipine is the first AI trading journal that tracks your behavior, not just your P&L. Upload a screenshot, and let AI reveal the <strong>emotional patterns and execution mistakes</strong> sabotaging your consistency.
-    </p>
-
-    <div class="scroll-hint reveal reveal-delay-3">
-      <div class="scroll-arrow"></div>
-      scroll to read the story
+    <!-- Right: floating product mockup -->
+    <div class="hero-mockup-wrap reveal reveal-delay-2">
+      <div class="hero-mockup-card">
+        <div class="mockup-titlebar">
+          <div class="mockup-dots">
+            <span style="background:#ff5f57"></span>
+            <span style="background:#febc2e"></span>
+            <span style="background:#28c840"></span>
+          </div>
+          <span class="mockup-url">app.edgeclipine.com</span>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-header-row">
+            <span class="mockup-user-name">Rahul's Journal</span>
+            <span class="mockup-live-badge">Live</span>
+          </div>
+          <div class="mockup-metrics">
+            <div class="mockup-metric">
+              <div class="mockup-metric-lbl">Win Rate</div>
+              <div class="mockup-metric-val green">71.3%</div>
+            </div>
+            <div class="mockup-metric">
+              <div class="mockup-metric-lbl">Avg R:R</div>
+              <div class="mockup-metric-val">2.4R</div>
+            </div>
+            <div class="mockup-metric">
+              <div class="mockup-metric-lbl">Net P&L</div>
+              <div class="mockup-metric-val green">+₹14.8k</div>
+            </div>
+          </div>
+          <svg class="mockup-chart-svg" viewBox="0 0 280 48" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="mchartGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#00FFB2" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#00FFB2" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M0,44 L35,38 L70,32 L100,34 L130,22 L160,17 L195,10 L225,13 L260,5 L280,2 L280,48 L0,48Z" fill="url(#mchartGrad)"/>
+            <path class="mockup-chart-path" id="mockup-chart-line" d="M0,44 L35,38 L70,32 L100,34 L130,22 L160,17 L195,10 L225,13 L260,5 L280,2" fill="none" stroke="#00FFB2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="mockup-insight">
+            <span class="mockup-insight-icon">🤖</span>
+            <span class="mockup-insight-text">You exit winners too early on Fridays — <strong>costing ~0.8R/week</strong></span>
+          </div>
+          <div class="mockup-trades">
+            <div class="mockup-trade-row">
+              <span class="mockup-trade-pair">NIFTY 50</span>
+              <span class="mockup-trade-tag win">WIN</span>
+              <span class="mockup-trade-pnl pos">+₹4,200</span>
+            </div>
+            <div class="mockup-trade-row">
+              <span class="mockup-trade-pair">BANKNIFTY</span>
+              <span class="mockup-trade-tag loss">LOSS</span>
+              <span class="mockup-trade-pnl neg">−₹1,100</span>
+            </div>
+            <div class="mockup-trade-row">
+              <span class="mockup-trade-pair">RELIANCE</span>
+              <span class="mockup-trade-tag win">WIN</span>
+              <span class="mockup-trade-pnl pos">+₹2,850</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="float-tag float-tag-1">📸 Screenshot → Auto-logged</div>
+      <div class="float-tag float-tag-2">🧠 AI Insight Ready</div>
+      <div class="float-tag float-tag-3">+₹2,400 saved this week</div>
     </div>
+  </div>
+
+  <div class="scroll-hint reveal reveal-delay-4" style="margin-top:48px;position:relative;z-index:2;">
+    <div class="scroll-arrow"></div>
+    scroll to read the story
   </div>
 </section>
 
@@ -1197,70 +1783,43 @@ footer {
     <div class="ch02-header">
       <div class="chapter-label reveal">Chapter 02 · The Journey</div>
       <h2 class="ch02-title reveal reveal-delay-1">
-        Two years.<br>
-        Countless setups.<br>
-        <em>Same mistakes.</em>
+        Every trader goes through<br>
+        <em>the same 4 phases.</em>
       </h2>
     </div>
 
-    <div class="timeline">
+    <div class="journey-map">
 
-      <div class="tl-item red reveal">
-        <div class="tl-dot"></div>
-        <div class="tl-period">Year 1 · Early Days</div>
-        <h3 class="tl-heading">The Honeymoon Phase</h3>
-        <p class="tl-body">
-          Got into trading full of fire. Watched YouTube for weeks. Learned RSI, MACD, support-resistance. 
-          Hit a few trades right early on. <strong>Felt like I had discovered a superpower.</strong> 
-          Doubled my position size. Then the market humbled me, fast.
-        </p>
-        <div class="tl-quote">
-          "I had 5 green trades in a row. I thought I cracked it. The market was just being polite."
-        </div>
+      <div class="journey-phase red reveal">
+        <span class="journey-emoji">🎯</span>
+        <div class="journey-era">Year 1 · Early</div>
+        <div class="journey-name">Honeymoon Phase</div>
+        <div class="journey-quote">"5 wins in a row. I've cracked it."</div>
+        <span class="journey-pnl">−₹40,000</span>
       </div>
 
-      <div class="tl-item amber reveal reveal-delay-1">
-        <div class="tl-dot"></div>
-        <div class="tl-period">Year 1 · Mid Phase</div>
-        <h3 class="tl-heading">The Strategy Trap</h3>
-        <p class="tl-body">
-          Every loss led to a new strategy. Tried Wyckoff. Then ICT. Then scalping. Then swing. 
-          Bought 3 courses. Joined 2 Discord servers. <strong>The problem was never the strategy.</strong> 
-          I just couldn't see it yet.
-        </p>
-        <div class="tl-quote">
-          "I was solving the wrong problem, with the wrong tools, every single time."
-        </div>
+      <div class="journey-phase amber reveal reveal-delay-1">
+        <span class="journey-emoji">🔄</span>
+        <div class="journey-era">Year 1 · Mid</div>
+        <div class="journey-name">Strategy Trap</div>
+        <div class="journey-quote">"6 strategies. Same results."</div>
+        <span class="journey-pnl">₹3 Courses Bought</span>
       </div>
 
-      <div class="tl-item red reveal reveal-delay-2">
-        <div class="tl-dot"></div>
-        <div class="tl-period">Year 1 · Late Phase</div>
-        <h3 class="tl-heading">The Spiral</h3>
-        <p class="tl-body">
-          Revenge trading on bad days. Exiting winners early out of fear. 
-          Letting losers run because hope feels like a plan. 
-          <strong>I knew all of this was wrong while I was doing it.</strong> 
-          Knowing isn't enough. You need to see the pattern in cold data.
-        </p>
-        <div class="tl-quote">
-          "Thursday afternoons were destroying me. I had no idea until months later."
-        </div>
+      <div class="journey-phase red reveal reveal-delay-2">
+        <span class="journey-emoji">🌀</span>
+        <div class="journey-era">Year 1 · Late</div>
+        <div class="journey-name">The Spiral</div>
+        <div class="journey-quote">"Revenge trading every Thursday."</div>
+        <span class="journey-pnl">−₹1,20,000</span>
       </div>
 
-      <div class="tl-item reveal reveal-delay-3">
-        <div class="tl-dot"></div>
-        <div class="tl-period">Year 2 · The Shift</div>
-        <h3 class="tl-heading">One Spreadsheet. Everything Changed.</h3>
-        <p class="tl-body">
-          Started logging every trade manually. Entry, exit, emotion, setup, result. 
-          Painful. Three weeks in, I looked at the data and felt sick — in a good way. 
-          <strong>The patterns were obvious. I just needed a mirror.</strong>
-          My best setups. My worst time of day. My real win rate, not the imaginary one.
-        </p>
-        <div class="tl-quote">
-          "The data didn't lie. I just hadn't been looking at it."
-        </div>
+      <div class="journey-phase grn reveal reveal-delay-3">
+        <span class="journey-emoji">💡</span>
+        <div class="journey-era">Year 2 · Shift</div>
+        <div class="journey-name">Data Reveals All</div>
+        <div class="journey-quote">"The pattern was obvious. I just wasn't looking."</div>
+        <span class="journey-pnl">+₹2.4R avg</span>
       </div>
 
     </div>
@@ -1274,47 +1833,85 @@ footer {
   <div class="turning-layout">
     <div class="turning-text">
       <div class="chapter-label reveal">Chapter 03 · The Realization</div>
-      <span class="big-stat reveal">90%</span>
+      <div class="stat-ring-wrap reveal" id="stat-ring-wrap">
+        <svg viewBox="0 0 120 120" class="stat-ring-svg" aria-hidden="true">
+          <circle cx="60" cy="60" r="52" class="ring-bg"/>
+          <circle cx="60" cy="60" r="52" class="ring-fill" id="stat-ring"/>
+        </svg>
+        <div class="ring-center">
+          <span class="big-stat" id="big-stat-90">0%</span>
+          <span class="ring-label">traders fail</span>
+        </div>
+      </div>
       <h2 class="turning-h reveal reveal-delay-1">
         It's not the charts.<br>
         <em>It's always been you.</em>
       </h2>
-      <p class="turning-body reveal reveal-delay-2">
-        After 2 years, I finally understood what separates consistent traders from the rest. 
-        It's not a better indicator. It's not a secret ICT concept. 
-        <strong>It's radical self-awareness about your own behavior under pressure.</strong><br><br>
-        90% of traders fail not because markets are unpredictable — but because 
-        <strong>they're unpredictable to themselves.</strong>
+      <p class="turning-body reveal reveal-delay-2" style="font-size:14px;line-height:1.7;">
+        Markets are not the problem.<br>
+        <strong>You are unpredictable to yourself.</strong>
       </p>
     </div>
 
-    <div class="insight-cards reveal reveal-delay-2">
-      <div class="insight-card">
-        <div class="insight-icon red-bg">🔥</div>
-        <div>
-          <div class="insight-title">Emotional Leakage</div>
-          <div class="insight-desc">Bad trades multiply after losses. Anger costs 3x more than a normal losing trade.</div>
+    <div class="insight-big-grid reveal reveal-delay-2">
+      <div class="insight-big red">
+        <span class="ib-emoji">🔥</span>
+        <div class="ib-title">Emotional Leakage</div>
+        <div class="ib-impact">3× bigger loss</div>
+        <div class="ib-sub">After a red trade, your next trade loses 3× more on average.</div>
+        <div class="insight-bar-wrap">
+          <div class="insight-bar red-bar" style="--h:30%"></div>
+          <div class="insight-bar red-bar" style="--h:55%"></div>
+          <div class="insight-bar red-bar" style="--h:80%"></div>
+          <div class="insight-bar red-bar" style="--h:95%"></div>
+          <div class="insight-bar red-bar" style="--h:70%"></div>
+          <div class="insight-bar red-bar" style="--h:60%"></div>
+          <div class="insight-bar red-bar" style="--h:85%"></div>
         </div>
       </div>
-      <div class="insight-card">
-        <div class="insight-icon amber-bg">⏰</div>
-        <div>
-          <div class="insight-title">Hidden Time Patterns</div>
-          <div class="insight-desc">Friday afternoons. Monday mornings. Your worst sessions are predictable — you just can't see them without data.</div>
+      <div class="insight-big amber">
+        <span class="ib-emoji">⏰</span>
+        <div class="ib-title">Bad Time Patterns</div>
+        <div class="ib-impact">Fridays = −68%</div>
+        <div class="ib-sub">Your worst sessions are on the same days every week. Invisible without data.</div>
+        <div class="insight-bar-wrap">
+          <div class="insight-bar amber-bar" style="--h:40%"></div>
+          <div class="insight-bar amber-bar" style="--h:25%"></div>
+          <div class="insight-bar amber-bar" style="--h:75%"></div>
+          <div class="insight-bar amber-bar" style="--h:90%"></div>
+          <div class="insight-bar amber-bar" style="--h:35%"></div>
+          <div class="insight-bar amber-bar" style="--h:50%"></div>
+          <div class="insight-bar amber-bar" style="--h:95%"></div>
         </div>
       </div>
-      <div class="insight-card">
-        <div class="insight-icon">📊</div>
-        <div>
-          <div class="insight-title">Setup Delusion</div>
-          <div class="insight-desc">Your favorite setup feels profitable. But data shows it's your worst. You've been betting on the wrong horse.</div>
+      <div class="insight-big grn">
+        <span class="ib-emoji">📊</span>
+        <div class="ib-title">Setup Delusion</div>
+        <div class="ib-impact">Your fav = worst</div>
+        <div class="ib-sub">The setup you think is best — data shows it's your worst performer.</div>
+        <div class="insight-bar-wrap">
+          <div class="insight-bar" style="--h:65%"></div>
+          <div class="insight-bar" style="--h:40%"></div>
+          <div class="insight-bar" style="--h:20%"></div>
+          <div class="insight-bar" style="--h:55%"></div>
+          <div class="insight-bar" style="--h:75%"></div>
+          <div class="insight-bar" style="--h:30%"></div>
+          <div class="insight-bar" style="--h:60%"></div>
         </div>
       </div>
-      <div class="insight-card">
-        <div class="insight-icon red-bg">↩</div>
-        <div>
-          <div class="insight-title">The Revenge Loop</div>
-          <div class="insight-desc">3 trades after a stop-out, you've broken every rule. The pattern repeats every week. Invisible without a journal.</div>
+      <div class="insight-big red">
+        <span class="ib-emoji">🔁</span>
+        <div class="ib-title">The Revenge Loop</div>
+        <div class="ib-impact">3 trades = broken</div>
+        <div class="ib-sub">Every week, 3 trades after a stop-out you've broken all your rules.</div>
+        <div class="insight-bar-wrap">
+          <div class="insight-bar red-bar" style="--h:10%"></div>
+          <div class="insight-bar red-bar" style="--h:30%"></div>
+          <div class="insight-bar red-bar" style="--h:20%"></div>
+          <div class="insight-bar red-bar" style="--h:90%"></div>
+          <div class="insight-bar red-bar" style="--h:15%"></div>
+          <div class="insight-bar red-bar" style="--h:25%"></div>
+          <div class="insight-bar red-bar" style="--h:85%"></div>
         </div>
       </div>
     </div>
@@ -1330,36 +1927,45 @@ footer {
       If I had this problem,<br>
       <em>so did everyone else.</em>
     </h2>
-    <p class="decision-body reveal reveal-delay-2">
-      I called my friend. Told him what I'd figured out. He'd been trading for a year. 
-      <strong>Same issues. Same blind spots.</strong> Same spreadsheet graveyard.<br><br>
-      That conversation changed everything.
-    </p>
-
-    <div class="convo reveal reveal-delay-3">
-      <div class="bubble-wrap">
+    <div class="convo" id="chat-convo">
+      <div class="bubble-wrap chat-bubble" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s,transform 0.4s">
         <div class="bubble-meta">Me · 11:42 PM</div>
         <div class="bubble me">Bhai I think I finally figured out why we keep losing. It's not the strategy. It's us.</div>
       </div>
-      <div class="bubble-wrap">
+      <div class="bubble-wrap typing-wrap" style="opacity:0;transition:opacity 0.3s">
+        <div class="typing-indicator" id="typing-1">
+          <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+        </div>
+      </div>
+      <div class="bubble-wrap chat-bubble" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s,transform 0.4s">
         <div class="bubble-meta">Friend · 11:43 PM</div>
         <div class="bubble friend">What do you mean? I've tried like 6 different strategies this year</div>
       </div>
-      <div class="bubble-wrap">
+      <div class="bubble-wrap chat-bubble right" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s,transform 0.4s">
         <div class="bubble-meta">Me · 11:44 PM</div>
         <div class="bubble me">Exactly. And I bet they all worked — until your emotions didn't. The data is right there, we just can't see it clearly.</div>
       </div>
-      <div class="bubble-wrap">
+      <div class="bubble-wrap typing-wrap" style="opacity:0;transition:opacity 0.3s">
+        <div class="typing-indicator" id="typing-2">
+          <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+        </div>
+      </div>
+      <div class="bubble-wrap chat-bubble" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s,transform 0.4s">
         <div class="bubble-meta">Friend · 11:46 PM</div>
         <div class="bubble friend">...ok that actually makes sense. So what do we do about it?</div>
       </div>
-      <div class="bubble-wrap">
+      <div class="bubble-wrap chat-bubble right" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s,transform 0.4s">
         <div class="bubble-meta">Me · 11:47 PM</div>
         <div class="bubble me">We build it. A journal that actually shows you yourself. If 90% of traders face this — why isn't there a tool built for this?</div>
       </div>
-      <div class="bubble-wrap">
+      <div class="bubble-wrap typing-wrap" style="opacity:0;transition:opacity 0.3s">
+        <div class="typing-indicator" id="typing-3">
+          <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+        </div>
+      </div>
+      <div class="bubble-wrap chat-bubble" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s,transform 0.4s">
         <div class="bubble-meta">Friend · 11:48 PM</div>
-        <div class="bubble friend">I'm in. Let's build it.</div>
+        <div class="bubble friend" style="background:rgba(0,255,178,0.06);border-color:rgba(0,255,178,0.15);color:rgba(0,255,178,0.8);">I'm in. Let's build it. 🚀</div>
       </div>
     </div>
 
@@ -1432,38 +2038,79 @@ footer {
               <stop offset="100%" stop-color="#00FFB2" stop-opacity="0"/>
             </linearGradient></defs>
             <path d="M0,35 Q40,30 70,22 T140,18 T200,8 T280,2 L300,0 L300,40 L0,40Z" fill="url(#cg)"/>
-            <path d="M0,35 Q40,30 70,22 T140,18 T200,8 T280,2" fill="none" stroke="#00FFB2" stroke-width="1.5"/>
+            <path class="animated-chart-line" id="feat-chart-line" d="M0,35 Q40,30 70,22 T140,18 T200,8 T280,2" fill="none" stroke="#00FFB2" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="feat-card-num">01</div>
       </div>
 
-      <!-- Small cards -->
+      <!-- Small card 02 — AI Coach -->
       <div class="feat-card reveal reveal-delay-2">
         <div class="feat-icon-wrap">🧠</div>
         <div class="feat-title">AI Coach That Knows You</div>
-        <div class="feat-desc">Weekly reports written in plain language. Not generic. Personalized to your actual patterns, your worst time of day, your best setups.</div>
+        <div class="feat-desc">Personalized weekly reports — not generic tips.</div>
+        <div class="feat-ai-preview">
+          <div class="feat-ai-top">🤖 Weekly Insight · Mon 9:00 AM</div>
+          Your <strong>Friday P&amp;L is −₹8,400</strong> avg. You overtrade after lunch. Best window: <strong>9:15–11:00 AM</strong>.
+        </div>
         <div class="feat-card-num">02</div>
       </div>
 
+      <!-- Small card 03 — Blind Spots -->
       <div class="feat-card reveal reveal-delay-3">
         <div class="feat-icon-wrap">👁</div>
         <div class="feat-title">See Your Blind Spots</div>
-        <div class="feat-desc">Emotion tracking per trade. Psychology tags. Correlation analysis between mental state and outcome. Your leaks, visible.</div>
+        <div class="feat-desc">Tag every trade with your mental state. See the pattern.</div>
+        <div class="feat-emotion-tags">
+          <span class="feat-etag etag-fear">😨 Fear</span>
+          <span class="feat-etag etag-fomo">⚡ FOMO</span>
+          <span class="feat-etag etag-rev">🔥 Revenge</span>
+          <span class="feat-etag etag-zen">✅ In-zone</span>
+          <span class="feat-etag etag-frust">😤 Frustrated</span>
+          <span class="feat-etag etag-greed">💜 Greed</span>
+        </div>
         <div class="feat-card-num">03</div>
       </div>
 
+      <!-- Small card 04 — Analytics -->
       <div class="feat-card reveal reveal-delay-2">
         <div class="feat-icon-wrap">📈</div>
-        <div class="feat-title">Real Analytics, Real Edge</div>
-        <div class="feat-desc">Live equity curve. Setup performance ranking. Session-by-session breakdown. The data that actually changes behavior.</div>
+        <div class="feat-title">Setup Performance</div>
+        <div class="feat-desc">Which setup actually makes you money?</div>
+        <div class="feat-setup-bars" id="feat-setup-bars">
+          <div class="feat-setup-row">
+            <span class="fsr-label">BO</span>
+            <div class="fsr-track"><div class="fsr-fill" style="--w:82%"></div></div>
+            <span class="fsr-val g">82%</span>
+          </div>
+          <div class="feat-setup-row">
+            <span class="fsr-label">PDH</span>
+            <div class="fsr-track"><div class="fsr-fill" style="--w:67%"></div></div>
+            <span class="fsr-val g">67%</span>
+          </div>
+          <div class="feat-setup-row">
+            <span class="fsr-label">VWAP</span>
+            <div class="fsr-track"><div class="fsr-fill a" style="--w:48%"></div></div>
+            <span class="fsr-val">48%</span>
+          </div>
+          <div class="feat-setup-row">
+            <span class="fsr-label">Rev</span>
+            <div class="fsr-track"><div class="fsr-fill r" style="--w:23%"></div></div>
+            <span class="fsr-val r">23%</span>
+          </div>
+        </div>
         <div class="feat-card-num">04</div>
       </div>
 
+      <!-- Small card 05 — History -->
       <div class="feat-card reveal reveal-delay-3">
         <div class="feat-icon-wrap">🔒</div>
-        <div class="feat-title">Your Trade History, Forever</div>
-        <div class="feat-desc">Every screenshot. Every insight. Stored securely. Your edge is an asset. It compounds — if you protect it.</div>
+        <div class="feat-title">Trade History, Forever</div>
+        <div class="feat-desc">Every screenshot. Every AI insight. Compounding over time.</div>
+        <div class="feat-ai-preview" style="margin-top:14px;text-align:center;">
+          <div style="font-size:32px;margin-bottom:8px;filter:drop-shadow(0 0 16px rgba(0,255,178,0.4));">🗄️</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:0.1em;">247 trades · 14 months · secured</div>
+        </div>
         <div class="feat-card-num">05</div>
       </div>
     </div>
@@ -1475,37 +2122,41 @@ footer {
   <div class="why-inner">
     <div class="chapter-label reveal" style="justify-content:center;">Chapter 06 · Why This Exists</div>
     <h2 class="why-h reveal reveal-delay-1">
-      The traders who win<br>
-      <em>study themselves</em><br>
-      as hard as the charts.
+      Winners study<br>
+      <em>themselves</em><br>
+      as hard as charts.
     </h2>
-    <p class="why-body reveal reveal-delay-2">
-      There are a hundred analytics tools. Zero are built around <strong>self-awareness as the core product</strong>. 
-      Most journals are either spreadsheets you abandon, or fancy dashboards that don't tell you why you're losing.
-      <br><br>
-      Edgeclipine was built from inside the problem — by traders who lost money the same way you are.
-    </p>
 
-    <div class="manifesto-lines reveal reveal-delay-3">
-      <div class="manifesto-line">
-        <span class="ml-num">01</span>
-        Discipline creates edge — not indicators
+    <div class="beliefs-grid">
+      <div class="belief-card reveal">
+        <span class="belief-emoji">🎯</span>
+        <div class="belief-title">Discipline Creates Edge</div>
+        <div class="belief-sub">Not indicators. Not strategies. You.</div>
       </div>
-      <div class="manifesto-line">
-        <span class="ml-num">02</span>
-        Data reveals what feelings hide
+      <div class="belief-card reveal reveal-delay-1">
+        <span class="belief-emoji">📊</span>
+        <div class="belief-title">Data Over Feelings</div>
+        <div class="belief-sub">Your gut lies. Numbers don't.</div>
       </div>
-      <div class="manifesto-line">
-        <span class="ml-num">03</span>
-        The market is a mirror — most traders look away
+      <div class="belief-card reveal reveal-delay-2">
+        <span class="belief-emoji">🪞</span>
+        <div class="belief-title">Markets = Mirror</div>
+        <div class="belief-sub">Most traders look away. Don't be most traders.</div>
       </div>
-      <div class="manifesto-line">
-        <span class="ml-num">04</span>
-        A small consistent edge beats a perfect strategy traded emotionally
+      <div class="belief-card reveal reveal-delay-1">
+        <span class="belief-emoji">⚡</span>
+        <div class="belief-title">Small Edge Beats Perfect</div>
+        <div class="belief-sub">Consistent 55% win rate &gt; brilliant but emotional.</div>
       </div>
-      <div class="manifesto-line">
-        <span class="ml-num">05</span>
-        Self-knowledge compounds. Start building it today.
+      <div class="belief-card reveal reveal-delay-2">
+        <span class="belief-emoji">🔁</span>
+        <div class="belief-title">Self-Knowledge Compounds</div>
+        <div class="belief-sub">Every logged trade makes you sharper. Start today.</div>
+      </div>
+      <div class="belief-card reveal reveal-delay-3">
+        <span class="belief-emoji">🏆</span>
+        <div class="belief-title">Built by Traders</div>
+        <div class="belief-sub">We lost money the same way you are. That's why this exists.</div>
       </div>
     </div>
   </div>
@@ -1537,10 +2188,11 @@ footer {
       </div>
 
       <div class="plan featured reveal reveal-delay-2">
-        <div class="plan-badge">Most Popular</div>
+        <div class="plan-badge popular-badge">Most Popular</div>
         <div class="plan-name">Professional</div>
         <div class="plan-price">₹249</div>
         <div class="plan-period">3 months · ~₹2.76/day</div>
+        <div class="plan-savings">Save 40% vs monthly</div>
         <ul class="plan-features">
           <li>Everything in Standard</li>
           <li>AI Coach weekly reports</li>
@@ -1568,6 +2220,7 @@ footer {
 <!-- ════════ CH 08 — EPILOGUE ════════ -->
 <section class="chapter" id="ch08">
   <div class="glow-orb" style="width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,255,178,0.05);"></div>
+  <div id="cta-particles"></div>
   <div class="epilogue-inner">
     <div class="chapter-label reveal" style="justify-content:center;">Epilogue · The Invitation</div>
     <h2 class="epi-h reveal reveal-delay-1">
@@ -1765,11 +2418,11 @@ function initAll() {
 
 /* ── Popup ── */
 (function initPopup() {
-  if (localStorage.getItem('waitlist_joined') || localStorage.getItem('popup_dismissed')) return;
+  if (localStorage.getItem('waitlist_joined')) return;
 
   setTimeout(() => {
     document.getElementById('popup-overlay').classList.add('show');
-  }, 8000);
+  }, 5000);
 
   document.getElementById('popup-close').addEventListener('click', () => {
     document.getElementById('popup-overlay').classList.remove('show');
@@ -1814,6 +2467,352 @@ async function handlePopupSignup(e) {
     btn.textContent = 'Join the Waitlist';
   }
 }
+
+/* ── Canvas particle network ── */
+function initHeroCanvas() {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas || window.innerWidth < 768) return;
+  const ctx = canvas.getContext('2d');
+  function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  const N = 55;
+  const pts = Array.from({length:N}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random()-0.5)*0.35,
+    vy: (Math.random()-0.5)*0.35,
+    r: Math.random()*1.5+0.4,
+  }));
+  let mx = canvas.width/2, my = canvas.height/2;
+  canvas.addEventListener('mousemove', e => { const r=canvas.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top; });
+  function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let i=0;i<N;i++){
+      for(let j=i+1;j<N;j++){
+        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<130){
+          ctx.strokeStyle=`rgba(0,255,178,${(1-d/130)*0.14})`;
+          ctx.lineWidth=0.6;
+          ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke();
+        }
+      }
+    }
+    pts.forEach(p=>{
+      // mouse repel
+      const dx=p.x-mx, dy=p.y-my, d=Math.sqrt(dx*dx+dy*dy);
+      if(d<100){ p.vx+=dx/d*0.04; p.vy+=dy/d*0.04; }
+      // speed limit
+      const s=Math.sqrt(p.vx*p.vx+p.vy*p.vy);
+      if(s>0.8){ p.vx=p.vx/s*0.8; p.vy=p.vy/s*0.8; }
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>canvas.width) p.vx*=-1;
+      if(p.y<0||p.y>canvas.height) p.vy*=-1;
+      ctx.fillStyle='rgba(0,255,178,0.5)';
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+/* ── Floating trade toasts ── */
+function initHeroToasts() {
+  const container = document.getElementById('hero-toasts');
+  const hero = document.getElementById('ch01');
+  if (!container || !hero) return;
+  container.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;';
+  const toasts = [
+    {main:'+₹4,200', sub:'NIFTY 50 · WIN', type:'win'},
+    {main:'🤖 AI Insight', sub:'Friday exits −0.8R/wk', type:'ai'},
+    {main:'+₹2,850', sub:'RELIANCE · WIN', type:'win'},
+    {main:'71.3%', sub:'Win Rate ↑ this month', type:'stat'},
+    {main:'−₹1,100', sub:'BANKNIFTY · LOSS', type:'loss'},
+    {main:'📸 Logged', sub:'Screenshot captured', type:'log'},
+    {main:'+2.4R avg', sub:'Breakout setup', type:'win'},
+    {main:'⚠️ Pattern', sub:'Revenge trade detected', type:'warn'},
+    {main:'AI Report', sub:'Ready · Monday 9AM', type:'ai'},
+    {main:'+₹1,680', sub:'HDFCBANK · WIN', type:'win'},
+  ];
+  let idx=0, iv=null;
+  function spawn(){
+    const t=toasts[idx%toasts.length]; idx++;
+    const el=document.createElement('div');
+    el.className=`hero-toast ${t.type}`;
+    el.innerHTML=`<span class="ht-main">${t.main}</span><span class="ht-sub">${t.sub}</span>`;
+    const x=4+Math.random()*78, y=55+Math.random()*25;
+    Object.assign(el.style, {left:x+'%', top:y+'%', opacity:'0', transform:'translateY(10px) scale(0.85)', transition:'opacity 0.45s ease,transform 0.45s cubic-bezier(0.34,1.56,0.64,1)'});
+    container.appendChild(el);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{ el.style.opacity='1'; el.style.transform='translateY(0) scale(1)'; }));
+    setTimeout(()=>{ el.style.transition='opacity 1.2s ease,transform 3.5s ease'; el.style.opacity='0'; el.style.transform='translateY(-70px) scale(0.9)'; }, 2800);
+    setTimeout(()=>el.remove(), 4200);
+  }
+  const obs=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){ if(!iv){ spawn(); iv=setInterval(spawn,1400); } }
+    else{ clearInterval(iv); iv=null; }
+  });
+  obs.observe(hero);
+}
+
+/* ── Typewriter on "You need a mirror." ── */
+function initTypewriter() {
+  const em = document.querySelector('.hero-h1 em');
+  if (!em) return;
+  const full = em.textContent;
+  em.textContent = '';
+  em.style.borderRight = '2px solid var(--green)';
+  em.style.animation = 'caretBlink 0.7s step-end infinite';
+  let i=0;
+  const iv = setInterval(()=>{
+    em.textContent += full[i++];
+    if(i>=full.length){
+      clearInterval(iv);
+      setTimeout(()=>{ em.style.borderRight='none'; em.style.animation='none'; }, 1800);
+    }
+  }, 55);
+}
+
+/* ── Glow orb follows mouse ── */
+function initOrbParallax() {
+  const hero = document.getElementById('ch01');
+  if (!hero) return;
+  const orbs = hero.querySelectorAll('.glow-orb');
+  hero.addEventListener('mousemove', e=>{
+    const r=hero.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-0.5;
+    const y=(e.clientY-r.top)/r.height-0.5;
+    orbs.forEach((o,i)=>{ const f=i===0?40:-28; o.style.transform=`translate(${x*f}px,${y*f}px)`; });
+  });
+  hero.addEventListener('mouseleave',()=>orbs.forEach(o=>{ o.style.transform=''; }));
+}
+
+/* ── Magnetic buttons ── */
+function initMagneticButtons() {
+  document.querySelectorAll('.hero-btn-primary,.hero-btn-secondary').forEach(btn=>{
+    btn.addEventListener('mousemove', e=>{
+      const r=btn.getBoundingClientRect();
+      const x=e.clientX-r.left-r.width/2;
+      const y=e.clientY-r.top-r.height/2;
+      btn.style.transition='transform 0.1s ease';
+      btn.style.transform=`translate(${x*0.22}px,${y*0.35}px) scale(1.03)`;
+    });
+    btn.addEventListener('mouseleave',()=>{
+      btn.style.transition='transform 0.6s cubic-bezier(0.34,1.56,0.64,1)';
+      btn.style.transform='';
+    });
+  });
+}
+
+/* ── Journey card pop entrance ── */
+function initJourneyPop() {
+  const cards = document.querySelectorAll('.journey-phase');
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('popped'), i*120); } });
+  }, {threshold:0.2});
+  cards.forEach(c=>obs.observe(c));
+}
+
+/* ── 90% ring fill (called from initCounters) ── */
+function animateRing() {
+  const ring = document.getElementById('stat-ring');
+  const wrap = document.getElementById('stat-ring-wrap');
+  if (!ring || !wrap) return;
+  const obs = new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){
+      obs.disconnect();
+      ring.style.strokeDashoffset = 326.73*(1-0.90);
+      animateCount(document.getElementById('big-stat-90'), 90, '%', 2000);
+    }
+  }, {threshold:0.3});
+  obs.observe(wrap);
+}
+
+/* ── Counter animation ── */
+function animateCount(el, target, suffix, duration) {
+  const start = performance.now();
+  function tick(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(eased * target) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ── SVG path draw animation ── */
+function drawPath(el) {
+  if (el) el.classList.add('draw');
+}
+
+/* ── Insight bar animation ── */
+function animateBars(container) {
+  container.querySelectorAll('.insight-bar').forEach((bar, i) => {
+    setTimeout(() => bar.classList.add('animate'), i * 60);
+  });
+}
+
+/* ── Chat bubble stagger with typing indicators ── */
+function initChat() {
+  const convo = document.getElementById('chat-convo');
+  if (!convo) return;
+  const chatObs = new IntersectionObserver(entries => {
+    if (!entries[0].isIntersecting) return;
+    chatObs.disconnect();
+    const bubbles = convo.querySelectorAll('.chat-bubble');
+    const typingWraps = convo.querySelectorAll('.typing-wrap');
+    let delay = 0;
+    const sequence = [
+      { type: 'bubble', el: bubbles[0] },
+      { type: 'typing', el: typingWraps[0], id: 'typing-1', duration: 900 },
+      { type: 'bubble', el: bubbles[1] },
+      { type: 'bubble', el: bubbles[2] },
+      { type: 'typing', el: typingWraps[1], id: 'typing-2', duration: 800 },
+      { type: 'bubble', el: bubbles[3] },
+      { type: 'bubble', el: bubbles[4] },
+      { type: 'typing', el: typingWraps[2], id: 'typing-3', duration: 700 },
+      { type: 'bubble', el: bubbles[5] },
+    ];
+    sequence.forEach(item => {
+      if (item.type === 'bubble') {
+        setTimeout(() => {
+          if (item.el) { item.el.style.opacity = '1'; item.el.style.transform = 'translateY(0)'; }
+        }, delay);
+        delay += 500;
+      } else {
+        setTimeout(() => {
+          if (item.el) item.el.style.opacity = '1';
+          const ind = document.getElementById(item.id);
+          if (ind) ind.classList.add('show');
+        }, delay);
+        delay += item.duration;
+        setTimeout(() => {
+          if (item.el) item.el.style.opacity = '0';
+          const ind = document.getElementById(item.id);
+          if (ind) ind.classList.remove('show');
+        }, delay);
+        delay += 100;
+      }
+    });
+  }, { threshold: 0.3 });
+  chatObs.observe(convo);
+}
+
+/* ── 90% counter on scroll — delegated to animateRing() ── */
+function initCounters() {
+  animateRing();
+  // Stat boxes in ch04
+  document.querySelectorAll('.stat-num').forEach(box => {
+    const text = box.textContent.trim();
+    const match = text.match(/^(\d+)/);
+    if (!match) return;
+    const target = parseInt(match[1]);
+    const suffix = text.replace(match[1], '');
+    const obs2 = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        obs2.disconnect();
+        const inner = box.querySelector('.accent, .accent-red') || box;
+        const originalHTML = box.innerHTML;
+        animateCount({ set textContent(v) {
+          if (box.querySelector('.accent')) {
+            box.querySelector('.accent').textContent = v.replace(suffix,'');
+          } else if (box.querySelector('.accent-red')) {
+            box.querySelector('.accent-red').textContent = v.replace(suffix,'');
+          }
+        }}, target, '', 1400);
+      }
+    }, { threshold: 0.5 });
+    obs2.observe(box);
+  });
+}
+
+/* ── Insight bars on scroll ── */
+function initInsightBars() {
+  document.querySelectorAll('.insight-card').forEach(card => {
+    const obs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { obs.disconnect(); animateBars(card); }
+    }, { threshold: 0.4 });
+    obs.observe(card);
+  });
+}
+
+/* ── Animated chart lines on scroll ── */
+function initChartLines() {
+  const lines = document.querySelectorAll('.animated-chart-line, .mockup-chart-path');
+  lines.forEach(line => {
+    const obs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { obs.disconnect(); drawPath(line); }
+    }, { threshold: 0.3 });
+    obs.observe(line);
+  });
+}
+
+/* ── CTA floating particles ── */
+function initCtaParticles() {
+  const container = document.getElementById('cta-particles');
+  if (!container) return;
+  const words = ['+₹2,400','WIN 2.4R','71.3%','📸','🧠 AI','+₹850','NIFTY','2R','3.1R','+₹4k','BANKNIFTY','WIN'];
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('div');
+    p.className = 'cta-particle';
+    p.textContent = words[i % words.length];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (6 + Math.random() * 8) + 's';
+    p.style.animationDelay = (Math.random() * 8) + 's';
+    container.appendChild(p);
+  }
+}
+
+/* ── Mouse parallax on hero mockup ── */
+function initParallax() {
+  const mockup = document.querySelector('.hero-mockup-wrap');
+  if (!mockup) return;
+  document.addEventListener('mousemove', e => {
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    const dx = (e.clientX - cx) / cx;
+    const dy = (e.clientY - cy) / cy;
+    mockup.style.transform = `translateY(${-10 * Math.sin(Date.now()/5000)}px) rotateY(${dx * 4}deg) rotateX(${-dy * 3}deg)`;
+  });
+}
+
+/* ── Setup performance bars animation ── */
+function initSetupBars() {
+  const container = document.getElementById('feat-setup-bars');
+  if (!container) return;
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      obs.disconnect();
+      container.querySelectorAll('.fsr-fill').forEach((bar, i) => {
+        const w = bar.style.getPropertyValue('--w') || '0%';
+        setTimeout(() => { bar.style.width = w; }, i * 120);
+      });
+    }
+  }, { threshold: 0.5 });
+  obs.observe(container);
+}
+
+/* ── Initialize all new interactions after loader ── */
+const _originalInitAll = typeof initAll === 'function' ? initAll : null;
+
+/* ── Run new inits after loader ── */
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    initHeroCanvas();
+    initHeroToasts();
+    initTypewriter();
+    initOrbParallax();
+    initMagneticButtons();
+    initJourneyPop();
+    initCounters();
+    initInsightBars();
+    initChartLines();
+    initCtaParticles();
+    initChat();
+    initParallax();
+    initSetupBars();
+  }, 2500);
+});
 
 /* ── Signup form ── */
 async function handleSignup(e) {
