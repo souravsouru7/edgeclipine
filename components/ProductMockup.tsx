@@ -22,7 +22,7 @@ export default function ProductMockup() {
             <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e] block" />
             <span className="w-2.5 h-2.5 rounded-full bg-[#28c840] block" />
           </div>
-          <span className="font-mono text-[10px] text-[#8b95aa] tracking-[0.06em] mx-auto">app.edgeclipine.com</span>
+          <span className="font-mono text-[10px] text-[#8b95aa] tracking-[0.06em] mx-auto">app.edgecipline.com</span>
         </div>
 
         {/* Body */}

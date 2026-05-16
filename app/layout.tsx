@@ -10,7 +10,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const APP_URL = "https://www.edgeclipine.com";
+const APP_URL = "https://www.edgecipline.com";
 const APP_NAME = "Edgeclipine";
 const TITLE = "Edgeclipine | AI Trading Journal & Behavior Analysis";
 const DESCRIPTION =
@@ -82,8 +82,8 @@ export const metadata: Metadata = {
   // ── Twitter / X ──
   twitter: {
     card: "summary_large_image",
-    site: "@edgeclipine",
-    creator: "@edgeclipine",
+    site: "@edgecipline",
+    creator: "@edgecipline",
     title: TITLE,
     description: DESCRIPTION,
     images: ["/opengraph-image"],

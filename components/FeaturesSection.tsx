@@ -60,7 +60,7 @@ export default function FeaturesSection() {
                 <div className="flex gap-1.5">
                   {["#ff5f57","#febc2e","#28c840"].map(c => <span key={c} className="w-2 h-2 rounded-full block" style={{background: c}} />)}
                 </div>
-                <span className="font-mono text-[8px] text-[#8b95aa]">app.edgeclipine.com</span>
+                <span className="font-mono text-[8px] text-[#8b95aa]">app.edgecipline.com</span>
               </div>
               <div className="grid grid-cols-3 gap-2.5 mb-3">
                 {[{l:"Win Rate",v:"71.3%",g:true},{l:"Avg RR",v:"2.4R",g:false},{l:"Net P&L",v:"+₹14.8k",g:true}].map(m => (

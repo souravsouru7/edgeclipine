@@ -133,7 +133,7 @@ export default function OgImage() {
               }}
             />
             <span style={{ fontSize: 16, fontWeight: 600, color: "#e8edf5" }}>
-              847+ traders on the waitlist · edgeclipine.com
+              847+ traders on the waitlist · edgecipline.com
             </span>
           </div>
         </div>
