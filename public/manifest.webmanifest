@@ -1,26 +1,32 @@
 {
-    "name": "Edgeclipine - AI Journal",
-    "short_name": "Edgeclipine",
-    "description": "Professional Trading Journal with AI Analytics",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#000000",
-    "theme_color": "#000000",
-    "icons": [
-        {
-            "src": "/logo.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/logo.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        },
-        {
-            "src": "/logo.png",
-            "sizes": "180x180",
-            "type": "image/png"
-        }
-    ]
+  "name": "Edgeclipine - AI Trading Journal",
+  "short_name": "Edgeclipine",
+  "description": "AI trading journal that tracks your behavior, not just your P&L. Get instant AI feedback on emotional trading decisions.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05080f",
+  "theme_color": "#05080f",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["finance", "productivity"],
+  "screenshots": []
 }

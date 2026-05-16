@@ -1,27 +1,41 @@
-import { readFileSync } from "fs";
-import path from "path";
 import type { Metadata } from "next";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import TickerBanner from "@/components/TickerBanner";
+import JourneySection from "@/components/JourneySection";
+import TurningPointSection from "@/components/TurningPointSection";
+import DecisionSection from "@/components/DecisionSection";
+import FeaturesSection from "@/components/FeaturesSection";
+import BeliefsSection from "@/components/BeliefsSection";
+import PricingSection from "@/components/PricingSection";
+import FaqSection from "@/components/FaqSection";
+import CtaSection from "@/components/CtaSection";
+import Footer from "@/components/Footer";
+import WaitlistModal from "@/components/WaitlistModal";
 
 export const metadata: Metadata = {
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
 };
 
 export default function Page() {
-  const edgeStoryHtml = readFileSync(
-    path.join(process.cwd(), "content", "edge-story.html"),
-    "utf8",
-  );
-
   return (
-    <main className="h-screen w-screen overflow-hidden bg-black">
-      <iframe
-        srcDoc={edgeStoryHtml}
-        sandbox="allow-scripts allow-same-origin allow-forms"
-        title="Edgeclipine - The Story"
-        className="h-full w-full border-0"
-      />
-    </main>
+    <>
+      <Navbar />
+      <main id="main-content">
+        <HeroSection />
+        <TickerBanner />
+        <JourneySection />
+        <TurningPointSection />
+        <DecisionSection />
+        <FeaturesSection />
+        <BeliefsSection />
+        <TickerBanner variant="alt" />
+        <PricingSection />
+        <FaqSection />
+        <CtaSection />
+      </main>
+      <Footer />
+      <WaitlistModal />
+    </>
   );
 }

@@ -5,43 +5,130 @@ html {
 }
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
+  --background: #05080f;
+  --foreground: #e8edf5;
+  --brand: #00ffb2;
+  --brand-dim: rgba(0, 255, 178, 0.08);
+  --dim: #8b95aa;
+  --border: rgba(255, 255, 255, 0.07);
+  --surface: rgba(255, 255, 255, 0.025);
+  --red: #ff4d4d;
+  --amber: #f5a623;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sora, system-ui), system-ui, sans-serif;
-  --font-mono: var(--font-dm-mono, "Courier New"), "Courier New", monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
+  --color-brand: var(--brand);
+  --color-dim: var(--dim);
+  --font-sans: var(--font-inter, 'Inter'), system-ui, sans-serif;
+  --font-mono: var(--font-dm-mono, 'Courier New'), monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sora, system-ui), system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-weight: 400;
-  /* PWA Enhancements */
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-  overscroll-behavior: none; /* Prevent elastic scrolling/bounce on mobile */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Prevent accidental text selection on UI elements to feel more like an app */
-button, nav, .tab-bar {
+/* ── Noise overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.018;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,255,178,0.25); }
+
+/* ── Selection ── */
+::selection { background: rgba(0,255,178,0.18); color: #fff; }
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+button, nav {
   user-select: none;
   -webkit-user-select: none;
 }
 
-/* Cleaned up font weight overrides to allow for design hierarchy */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 800;
-  letter-spacing: -0.02em;
+/* ── Ticker animation ── */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-ticker {
+  animation: ticker 35s linear infinite;
+}
+.animate-ticker-slow {
+  animation: ticker 50s linear infinite;
+}
+
+/* ── Blink ── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+.animate-blink { animation: blink 1.8s ease-in-out infinite; }
+
+/* ── Float ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+/* ── Button glow pulse ── */
+@keyframes btnGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,178,0.4); }
+  50% { box-shadow: 0 0 0 14px rgba(0,255,178,0); }
+}
+.animate-btn-glow { animation: btnGlow 3s ease-in-out infinite; }
+
+/* ── Plan glow ── */
+@keyframes planGlow {
+  0%, 100% { box-shadow: 0 0 60px rgba(0,255,178,0.07); }
+  50% { box-shadow: 0 0 100px rgba(0,255,178,0.16); }
+}
+.animate-plan-glow { animation: planGlow 3s ease-in-out infinite; }
+
+/* ── Chart draw ── */
+.chart-path-draw {
+  stroke-dasharray: 550;
+  stroke-dashoffset: 550;
+  transition: stroke-dashoffset 2s cubic-bezier(0.16,1,0.3,1) 0.3s;
+}
+.chart-path-draw.drawn { stroke-dashoffset: 0; }
+
+/* ── CTA particle float ── */
+@keyframes ctaFloat {
+  0% { transform: translateY(120px); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 0.4; }
+  100% { transform: translateY(-120px); opacity: 0; }
+}
+
+/* ── Tag floats for product mockup ── */
+@keyframes tagFloat1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+@keyframes tagFloat2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes tagFloat3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+
+/* ── PWA safe area ── */
+body {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
