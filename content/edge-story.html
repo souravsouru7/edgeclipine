@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Edgeclipine | AI Trading Journal & Behavior Analysis</title>
+<title>Edgecipline | AI Trading Journal & Behavior Analysis</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
 <style>
-/* ─── CSS Variables ─────────────────────── */
+/* â”€â”€â”€ CSS Variables â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 :root {
   --bg: #05080f;
   --ink: #e8edf5;
@@ -42,7 +42,7 @@ body {
   cursor: none;
 }
 
-/* ─── Custom Cursor ─────────────────────── */
+/* â”€â”€â”€ Custom Cursor â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #cursor {
   position: fixed;
   width: 8px; height: 8px;
@@ -67,7 +67,7 @@ body {
 body:has(a:hover) #cursor { width: 14px; height: 14px; background: var(--amber); }
 body:has(a:hover) #cursor-ring { border-color: rgba(245,166,35,0.4); width: 44px; height: 44px; }
 
-/* ─── Noise Overlay ─────────────────────── */
+/* â”€â”€â”€ Noise Overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 body::before {
   content: '';
   position: fixed; inset: 0;
@@ -75,7 +75,7 @@ body::before {
   opacity: 0.022; pointer-events: none; z-index: 9997;
 }
 
-/* ─── Loader ─────────────────────── */
+/* â”€â”€â”€ Loader â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #loader {
   position: fixed; inset: 0; z-index: 9996;
   background: var(--bg);
@@ -139,7 +139,7 @@ body::before {
   50% { transform: scale(0.94); opacity: 0.8; }
 }
 
-/* ─── Scroll Progress ─────────────────────── */
+/* â”€â”€â”€ Scroll Progress â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #progress {
   position: fixed; top: 0; left: 0;
   height: 2px;
@@ -150,7 +150,7 @@ body::before {
   box-shadow: 0 0 12px rgba(0,255,178,0.5);
 }
 
-/* ─── Chapter Nav (side dots) ─────────────────────── */
+/* â”€â”€â”€ Chapter Nav (side dots) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #chapter-nav {
   position: fixed; right: 28px; top: 50%;
   transform: translateY(-50%);
@@ -170,7 +170,7 @@ body::before {
 .ch-dot.active { background: var(--green); transform: scale(1.4); box-shadow: 0 0 8px var(--green); }
 .ch-dot:hover { background: rgba(255,255,255,0.4); }
 
-/* ─── Logo / Nav ─────────────────────── */
+/* â”€â”€â”€ Logo / Nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #nav {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 200;
@@ -211,7 +211,7 @@ body::before {
   border-radius: 100px;
 }
 
-/* ─── Chapter Layout ─────────────────────── */
+/* â”€â”€â”€ Chapter Layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .chapter {
   min-height: 100vh;
   position: relative;
@@ -219,7 +219,7 @@ body::before {
   padding: 120px 36px;
 }
 
-/* ─── Utility ─────────────────────── */
+/* â”€â”€â”€ Utility â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .reveal {
   opacity: 0;
   transform: translateY(40px);
@@ -232,7 +232,7 @@ body::before {
 .reveal-delay-4 { transition-delay: 0.4s; }
 .reveal-delay-5 { transition-delay: 0.55s; }
 
-/* ─── Chapter Label ─────────────────────── */
+/* â”€â”€â”€ Chapter Label â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .chapter-label {
   font-family: var(--mono);
   font-size: 11px;
@@ -249,9 +249,9 @@ body::before {
   background: var(--chapter-line);
 }
 
-/* ══════════════════════════════════════════
-   CHAPTER 01 — PROLOGUE / BEFORE
-══════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CHAPTER 01 â€” PROLOGUE / BEFORE
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 #ch01 {
   background: var(--bg);
   overflow: hidden;
@@ -341,9 +341,9 @@ body::before {
   filter: blur(130px);
 }
 
-/* ══════════════════════════════════════════
-   CHAPTER 02 — THE JOURNEY (Timeline)
-══════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CHAPTER 02 â€” THE JOURNEY (Timeline)
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 #ch02 {
   background: #04060a;
   align-items: flex-start;
@@ -440,9 +440,9 @@ body::before {
 .tl-item.amber .tl-quote { border-color: var(--amber); color: rgba(245,166,35,0.8); }
 .tl-item .tl-quote { border-color: var(--green); color: rgba(0,255,178,0.7); }
 
-/* ══════════════════════════════════════════
-   CHAPTER 03 — THE TURNING POINT
-══════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CHAPTER 03 â€” THE TURNING POINT
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 #ch03 {
   background: var(--bg);
   overflow: hidden;
@@ -503,9 +503,9 @@ body::before {
 .insight-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
 .insight-desc { font-size: 12px; color: var(--dim); line-height: 1.7; font-weight: 400; }
 
-/* ══════════════════════════════════════════
-   CHAPTER 04 — THE FRIEND / THE DECISION
-══════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CHAPTER 04 â€” THE FRIEND / THE DECISION
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 #ch04 {
   background: #040609;
   overflow: hidden;
@@ -590,9 +590,9 @@ body::before {
   line-height: 1.5;
 }
 
-/* ══════════════════════════════════════════
-   CHAPTER 05 — WHAT WE'RE BUILDING
-══════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CHAPTER 05 â€” WHAT WE'RE BUILDING
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 #ch05 {
   background: var(--bg);
   overflow: hidden;
@@ -607,7 +607,7 @@ body::before {
 }
 .building-h em { font-style: normal; color: var(--green); }
 
-/* Feature grid — editorial style */
+/* Feature grid â€” editorial style */
 .feature-editorial {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
@@ -679,9 +679,9 @@ body::before {
 .mini-metric-val.red { color: var(--red); }
 .mini-chart { height: 40px; width: 100%; margin-top: 14px; }
 
-/* ══════════════════════════════════════════
-   CHAPTER 06 — WHY THIS, WHY NOW
-══════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CHAPTER 06 â€” WHY THIS, WHY NOW
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 #ch06 {
   background: #04060a;
   text-align: center;
@@ -723,9 +723,9 @@ body::before {
   transition: color 0.4s; min-width: 28px;
 }
 
-/* ══════════════════════════════════════════
-   CHAPTER 07 — PRICING / JOIN WAITLIST
-══════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CHAPTER 07 â€” PRICING / JOIN WAITLIST
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 #ch07 {
   background: var(--bg);
   overflow: hidden;
@@ -794,9 +794,9 @@ body::before {
 }
 .plan.featured .plan-features li { color: rgba(255,255,255,0.7); }
 
-/* ══════════════════════════════════════════
-   CHAPTER 08 — EPILOGUE / CTA
-══════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CHAPTER 08 â€” EPILOGUE / CTA
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 #ch08 {
   background: #04060a;
   text-align: center;
@@ -903,7 +903,7 @@ body::before {
   color: rgba(255,255,255,0.55);
 }
 
-/* ─── Footer ─────────────────────── */
+/* â”€â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 footer {
   background: var(--bg);
   border-top: 1px solid rgba(255,255,255,0.05);
@@ -929,7 +929,7 @@ footer {
 .footer-copy { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--dim); text-transform: uppercase; }
 .footer-disclaimer { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: rgba(255,255,255,0.45); }
 
-/* ─── Ticker ─────────────────────── */
+/* â”€â”€â”€ Ticker â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .ticker-section {
   overflow: hidden;
   border-top: 1px solid var(--border);
@@ -951,10 +951,10 @@ footer {
   white-space: nowrap;
 }
 .ticker-item::after {
-  content: '·'; color: rgba(0,255,178,0.3); font-size: 14px;
+  content: 'Â·'; color: rgba(0,255,178,0.3); font-size: 14px;
 }
 
-/* ─── Success Message ─────────────────────── */
+/* â”€â”€â”€ Success Message â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #success-msg {
   display: none;
   text-align: center;
@@ -966,7 +966,7 @@ footer {
   max-width: 440px; margin: 0 auto;
 }
 
-/* ─── Popup Modal ─────────────────────── */
+/* â”€â”€â”€ Popup Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #popup-overlay {
   display: none;
   position: fixed; inset: 0;
@@ -1056,15 +1056,15 @@ footer {
   color: var(--dim); text-align: center; margin-top: 12px;
 }
 
-/* ═══════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    VISUAL-FIRST SECTION STYLES
-═══════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
-/* ── Hero canvas background ── */
+/* â”€â”€ Hero canvas background â”€â”€ */
 #hero-canvas { position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0.7; }
 @media(max-width:768px){ #hero-canvas{display:none} }
 
-/* ── Floating trade toasts ── */
+/* â”€â”€ Floating trade toasts â”€â”€ */
 .hero-toast {
   position:absolute;display:flex;flex-direction:column;
   padding:10px 14px;border-radius:14px;
@@ -1087,11 +1087,11 @@ footer {
 .hero-toast.log  .ht-main { color:rgba(255,255,255,0.5); }
 .hero-toast.stat .ht-main { color:var(--green); }
 
-/* ── Typewriter caret ── */
+/* â”€â”€ Typewriter caret â”€â”€ */
 @keyframes caretBlink { 0%,100%{border-color:var(--green)} 50%{border-color:transparent} }
 .hero-h1 em { border-right:2px solid transparent; padding-right:2px; }
 
-/* ── 90% progress ring ── */
+/* â”€â”€ 90% progress ring â”€â”€ */
 .stat-ring-wrap { position:relative;display:inline-flex;align-items:center;justify-content:center;width:180px;height:180px;margin-bottom:-20px; }
 .stat-ring-svg { width:100%;height:100%;position:absolute;top:0;left:0; }
 .ring-bg { fill:none;stroke:rgba(255,77,77,0.1);stroke-width:7; }
@@ -1106,13 +1106,13 @@ footer {
 .ring-label { font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);display:block;margin-top:2px; }
 .big-stat { font-size:clamp(52px,9vw,86px); }
 
-/* ── Glow orb transition ── */
+/* â”€â”€ Glow orb transition â”€â”€ */
 .glow-orb { transition:transform 1.2s cubic-bezier(0.16,1,0.3,1); }
 
-/* ── Magnetic button (JS adds transform; just ensure smooth reset) ── */
+/* â”€â”€ Magnetic button (JS adds transform; just ensure smooth reset) â”€â”€ */
 .hero-btn-primary, .hero-btn-secondary { will-change:transform; }
 
-/* ── Scroll-reveal pop (overrides plain translateY) ── */
+/* â”€â”€ Scroll-reveal pop (overrides plain translateY) â”€â”€ */
 @keyframes revealPop {
   0%  { opacity:0; transform:translateY(30px) scale(0.96); }
   60% { opacity:1; transform:translateY(-4px) scale(1.01); }
@@ -1120,7 +1120,7 @@ footer {
 }
 .reveal-pop.visible { animation:revealPop 0.7s cubic-bezier(0.16,1,0.3,1) forwards; }
 
-/* ── Hero headline font + subtle chromatic glitch ── */
+/* â”€â”€ Hero headline font + subtle chromatic glitch â”€â”€ */
 @keyframes chromaGlitch {
   0%,90%,100% { text-shadow:none; transform:none; }
   91% { text-shadow:-2px 0 rgba(0,255,178,0.7), 2px 0 rgba(255,77,77,0.6); transform:translateX(-1px); }
@@ -1140,12 +1140,12 @@ footer {
   font-weight:900;
 }
 
-/* ── Journey phase pop entrance ── */
+/* â”€â”€ Journey phase pop entrance â”€â”€ */
 .journey-phase { opacity:0;transform:translateY(28px) scale(0.95); }
 .journey-phase.popped { opacity:1;transform:translateY(0) scale(1);transition:opacity 0.6s ease,transform 0.6s cubic-bezier(0.34,1.56,0.64,1); }
 
-/* ── Journey phase pop entrance ── */
-/* ── Journey visual map (Ch02) ── */
+/* â”€â”€ Journey phase pop entrance â”€â”€ */
+/* â”€â”€ Journey visual map (Ch02) â”€â”€ */
 .journey-map { display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:48px;position:relative; }
 @media(max-width:900px){ .journey-map{grid-template-columns:1fr 1fr} }
 @media(max-width:480px){ .journey-map{grid-template-columns:1fr} }
@@ -1172,14 +1172,14 @@ footer {
 .journey-phase.grn .journey-pnl { color:var(--green);background:rgba(0,255,178,0.1); }
 /* connector arrow */
 .journey-phase::after {
-  content:'→';
+  content:'â†’';
   position:absolute;top:50%;right:-14px;transform:translateY(-50%);
   color:rgba(255,255,255,0.12);font-size:18px;z-index:2;pointer-events:none;
 }
 .journey-phase:last-child::after { display:none; }
 @media(max-width:900px){ .journey-phase::after{display:none} }
 
-/* ── Ch03 realization — big visual cards ── */
+/* â”€â”€ Ch03 realization â€” big visual cards â”€â”€ */
 .insight-big-grid { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
 @media(max-width:600px){ .insight-big-grid{grid-template-columns:1fr} }
 .insight-big {
@@ -1201,7 +1201,7 @@ footer {
 .insight-big.grn .ib-impact { color:var(--green); }
 .ib-sub { font-size:12px;color:var(--dim);line-height:1.65;margin-bottom:10px; }
 
-/* ── Emotion tags (Ch05 card 03) ── */
+/* â”€â”€ Emotion tags (Ch05 card 03) â”€â”€ */
 .feat-emotion-tags { display:flex;flex-wrap:wrap;gap:6px;margin-top:14px; }
 .feat-etag { padding:5px 11px;border-radius:100px;font-size:11px;font-weight:600;border:1px solid; }
 .etag-fear { background:rgba(0,120,255,0.1);border-color:rgba(0,120,255,0.3);color:#5aadff; }
@@ -1211,7 +1211,7 @@ footer {
 .etag-frust { background:rgba(255,100,0,0.1);border-color:rgba(255,100,0,0.3);color:#ff9a5c; }
 .etag-greed { background:rgba(180,0,255,0.1);border-color:rgba(180,0,255,0.3);color:#c97aff; }
 
-/* ── Setup perf bars (Ch05 card 04) ── */
+/* â”€â”€ Setup perf bars (Ch05 card 04) â”€â”€ */
 .feat-setup-bars { margin-top:14px;display:flex;flex-direction:column;gap:7px; }
 .feat-setup-row { display:flex;align-items:center;gap:8px; }
 .fsr-label { font-family:var(--mono);font-size:9px;color:var(--dim);width:44px;flex-shrink:0;text-transform:uppercase;letter-spacing:0.06em; }
@@ -1223,7 +1223,7 @@ footer {
 .fsr-val.g { color:var(--green); }
 .fsr-val.r { color:var(--red); }
 
-/* ── AI Report preview (Ch05 card 02) ── */
+/* â”€â”€ AI Report preview (Ch05 card 02) â”€â”€ */
 .feat-ai-preview {
   margin-top:14px;padding:12px 14px;
   background:rgba(0,255,178,0.04);border:1px solid rgba(0,255,178,0.12);
@@ -1236,7 +1236,7 @@ footer {
 }
 .feat-ai-preview strong { color:rgba(0,255,178,0.85); }
 
-/* ── Beliefs grid (Ch06) ── */
+/* â”€â”€ Beliefs grid (Ch06) â”€â”€ */
 .beliefs-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px; }
 @media(max-width:768px){ .beliefs-grid{grid-template-columns:1fr 1fr} }
 @media(max-width:480px){ .beliefs-grid{grid-template-columns:1fr} }
@@ -1252,9 +1252,9 @@ footer {
 .belief-title { font-size:14px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px; }
 .belief-sub { font-size:11px;color:var(--dim);line-height:1.6; }
 
-/* ═══════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    NEW INTERACTIVE ENHANCEMENTS
-═══════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 /* Hero grid background */
 .hero-grid {
@@ -1472,8 +1472,8 @@ footer {
 }
 .feat-card:hover::before { opacity:1; }
 
-/* ─── Responsive ─────────────────────── */
-/* ══ 900px — tablet / large phone landscape ══ */
+/* â”€â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â•â• 900px â€” tablet / large phone landscape â•â• */
 @media(max-width:900px) {
   /* Hero: collapse to single column */
   .hero-split { grid-template-columns:1fr; text-align:center; gap:32px; }
@@ -1489,7 +1489,7 @@ footer {
   .journey-map { gap:10px; }
 }
 
-/* ══ 768px — standard mobile breakpoint ══ */
+/* â•â• 768px â€” standard mobile breakpoint â•â• */
 @media(max-width:768px) {
   .feature-editorial { grid-template-columns:1fr; }
   .feat-card.large { grid-row:auto; }
@@ -1497,7 +1497,7 @@ footer {
   .turning-layout { grid-template-columns:1fr; gap:36px; }
 }
 
-/* ══ 600px — small phones ══ */
+/* â•â• 600px â€” small phones â•â• */
 @media(max-width:600px) {
   /* Global */
   body { overflow-x:hidden; }
@@ -1578,7 +1578,7 @@ footer {
   .popup-form .signup-select { font-size:16px; }
 }
 
-/* ══ 400px — very small phones (iPhone SE etc.) ══ */
+/* â•â• 400px â€” very small phones (iPhone SE etc.) â•â• */
 @media(max-width:400px) {
   .beliefs-grid { grid-template-columns:1fr; }
   .hero-h1 { font-size:32px; }
@@ -1594,7 +1594,7 @@ footer {
 <div id="cursor-ring"></div>
 <div id="progress"></div>
 
-<!-- ── Popup Modal ── -->
+<!-- â”€â”€ Popup Modal â”€â”€ -->
 <div id="popup-overlay">
   <div id="popup-box">
     <button id="popup-close" aria-label="Close">&#x2715;</button>
@@ -1607,20 +1607,20 @@ footer {
       <input class="signup-input" type="tel" placeholder="Phone number" id="popup-phone" required />
       <select class="signup-select" id="popup-experience" required>
         <option value="">Trading experience</option>
-        <option value="0-1 years">0–1 years</option>
-        <option value="1-3 years">1–3 years</option>
-        <option value="3-5 years">3–5 years</option>
+        <option value="0-1 years">0â€“1 years</option>
+        <option value="1-3 years">1â€“3 years</option>
+        <option value="3-5 years">3â€“5 years</option>
         <option value="5+ years">5+ years</option>
       </select>
       <button type="submit" class="signup-btn" id="popup-btn">Join the Waitlist</button>
     </form>
-    <div id="popup-success">✓ You're on the list. We'll reach out when we're ready.</div>
+    <div id="popup-success">âœ“ You're on the list. We'll reach out when we're ready.</div>
     <div id="popup-error"></div>
-    <p class="popup-fine">No spam · No credit card · Early access only</p>
+    <p class="popup-fine">No spam Â· No credit card Â· Early access only</p>
   </div>
 </div>
 
-<!-- ── Loader ── -->
+<!-- â”€â”€ Loader â”€â”€ -->
 <div id="loader">
   <div class="loader-logo-wrap" aria-hidden="true">
     <img class="loader-logo" src="/logo.png" alt="" />
@@ -1629,7 +1629,7 @@ footer {
   <div class="loader-text">Loading the story</div>
 </div>
 
-<!-- ── Chapter Nav ── -->
+<!-- â”€â”€ Chapter Nav â”€â”€ -->
 <nav id="chapter-nav" aria-label="Chapters">
   <button class="ch-dot active" data-target="ch01" title="Prologue"></button>
   <button class="ch-dot" data-target="ch02" title="The Journey"></button>
@@ -1641,18 +1641,18 @@ footer {
   <button class="ch-dot" data-target="ch08" title="Join Us"></button>
 </nav>
 
-<!-- ── Navbar ── -->
+<!-- â”€â”€ Navbar â”€â”€ -->
 <nav id="nav">
   <a href="#ch01" class="logo">
-    <img src="/logo.png" alt="Edgeclipine logo" />
-    <span>Edgeclipine</span>
+    <img src="/logo.png" alt="Edgecipline logo" />
+    <span>Edgecipline</span>
   </a>
-  <span class="nav-tag">Building in public — 2025</span>
+  <span class="nav-tag">Building in public â€” 2025</span>
 </nav>
 
 <main>
 
-<!-- ════════ CH 01 — PROLOGUE ════════ -->
+<!-- â•â•â•â•â•â•â•â• CH 01 â€” PROLOGUE â•â•â•â•â•â•â•â• -->
 <section class="chapter" id="ch01">
   <canvas id="hero-canvas"></canvas>
   <div id="hero-toasts"></div>
@@ -1666,7 +1666,7 @@ footer {
     <div class="hero-text">
       <div class="hero-tagline reveal">
         <span class="dot"></span>
-        AI Trading Journal · Behavior tracking · Consistency
+        AI Trading Journal Â· Behavior tracking Â· Consistency
       </div>
 
       <h1 class="hero-h1 reveal reveal-delay-1">
@@ -1676,12 +1676,12 @@ footer {
       </h1>
 
       <p class="hero-sub reveal reveal-delay-2">
-        Edgeclipine tracks your <strong>behavior, not just P&L</strong>. Upload a screenshot — AI reveals the emotional patterns and execution mistakes sabotaging your consistency.
+        Edgecipline tracks your <strong>behavior, not just P&L</strong>. Upload a screenshot â€” AI reveals the emotional patterns and execution mistakes sabotaging your consistency.
       </p>
 
       <div class="hero-cta-row reveal reveal-delay-3">
-        <a href="#ch08" class="hero-btn-primary">Join Waitlist →</a>
-        <a href="#ch05" class="hero-btn-secondary">See Features ↓</a>
+        <a href="#ch08" class="hero-btn-primary">Join Waitlist â†’</a>
+        <a href="#ch05" class="hero-btn-secondary">See Features â†“</a>
       </div>
 
       <div class="hero-social-proof reveal reveal-delay-4">
@@ -1699,7 +1699,7 @@ footer {
             <span style="background:#febc2e"></span>
             <span style="background:#28c840"></span>
           </div>
-          <span class="mockup-url">app.edgeclipine.com</span>
+          <span class="mockup-url">app.Edgecipline.com</span>
         </div>
         <div class="mockup-body">
           <div class="mockup-header-row">
@@ -1717,7 +1717,7 @@ footer {
             </div>
             <div class="mockup-metric">
               <div class="mockup-metric-lbl">Net P&L</div>
-              <div class="mockup-metric-val green">+₹14.8k</div>
+              <div class="mockup-metric-val green">+â‚¹14.8k</div>
             </div>
           </div>
           <svg class="mockup-chart-svg" viewBox="0 0 280 48" preserveAspectRatio="none">
@@ -1731,31 +1731,31 @@ footer {
             <path class="mockup-chart-path" id="mockup-chart-line" d="M0,44 L35,38 L70,32 L100,34 L130,22 L160,17 L195,10 L225,13 L260,5 L280,2" fill="none" stroke="#00FFB2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <div class="mockup-insight">
-            <span class="mockup-insight-icon">🤖</span>
-            <span class="mockup-insight-text">You exit winners too early on Fridays — <strong>costing ~0.8R/week</strong></span>
+            <span class="mockup-insight-icon">ðŸ¤–</span>
+            <span class="mockup-insight-text">You exit winners too early on Fridays â€” <strong>costing ~0.8R/week</strong></span>
           </div>
           <div class="mockup-trades">
             <div class="mockup-trade-row">
               <span class="mockup-trade-pair">NIFTY 50</span>
               <span class="mockup-trade-tag win">WIN</span>
-              <span class="mockup-trade-pnl pos">+₹4,200</span>
+              <span class="mockup-trade-pnl pos">+â‚¹4,200</span>
             </div>
             <div class="mockup-trade-row">
               <span class="mockup-trade-pair">BANKNIFTY</span>
               <span class="mockup-trade-tag loss">LOSS</span>
-              <span class="mockup-trade-pnl neg">−₹1,100</span>
+              <span class="mockup-trade-pnl neg">âˆ’â‚¹1,100</span>
             </div>
             <div class="mockup-trade-row">
               <span class="mockup-trade-pair">RELIANCE</span>
               <span class="mockup-trade-tag win">WIN</span>
-              <span class="mockup-trade-pnl pos">+₹2,850</span>
+              <span class="mockup-trade-pnl pos">+â‚¹2,850</span>
             </div>
           </div>
         </div>
       </div>
-      <div class="float-tag float-tag-1">📸 Screenshot → Auto-logged</div>
-      <div class="float-tag float-tag-2">🧠 AI Insight Ready</div>
-      <div class="float-tag float-tag-3">+₹2,400 saved this week</div>
+      <div class="float-tag float-tag-1">ðŸ“¸ Screenshot â†’ Auto-logged</div>
+      <div class="float-tag float-tag-2">ðŸ§  AI Insight Ready</div>
+      <div class="float-tag float-tag-3">+â‚¹2,400 saved this week</div>
     </div>
   </div>
 
@@ -1765,7 +1765,7 @@ footer {
   </div>
 </section>
 
-<!-- ════════ TICKER ════════ -->
+<!-- â•â•â•â•â•â•â•â• TICKER â•â•â•â•â•â•â•â• -->
 <div class="ticker-section">
   <div class="ticker-track">
     <div class="ticker-item">Year 1 of Trading</div>
@@ -1789,11 +1789,11 @@ footer {
   </div>
 </div>
 
-<!-- ════════ CH 02 — THE JOURNEY ════════ -->
+<!-- â•â•â•â•â•â•â•â• CH 02 â€” THE JOURNEY â•â•â•â•â•â•â•â• -->
 <section class="chapter" id="ch02">
   <div class="chapter-inner">
     <div class="ch02-header">
-      <div class="chapter-label reveal">Chapter 02 · The Journey</div>
+      <div class="chapter-label reveal">Chapter 02 Â· The Journey</div>
       <h2 class="ch02-title reveal reveal-delay-1">
         Every trader goes through<br>
         <em>the same 4 phases.</em>
@@ -1803,48 +1803,48 @@ footer {
     <div class="journey-map">
 
       <div class="journey-phase red reveal">
-        <span class="journey-emoji">🎯</span>
-        <div class="journey-era">Year 1 · Early</div>
+        <span class="journey-emoji">ðŸŽ¯</span>
+        <div class="journey-era">Year 1 Â· Early</div>
         <div class="journey-name">Honeymoon Phase</div>
         <div class="journey-quote">"5 wins in a row. I've cracked it."</div>
-        <span class="journey-pnl">−₹40,000</span>
+        <span class="journey-pnl">âˆ’â‚¹40,000</span>
       </div>
 
       <div class="journey-phase amber reveal reveal-delay-1">
-        <span class="journey-emoji">🔄</span>
-        <div class="journey-era">Year 1 · Mid</div>
+        <span class="journey-emoji">ðŸ”„</span>
+        <div class="journey-era">Year 1 Â· Mid</div>
         <div class="journey-name">Strategy Trap</div>
         <div class="journey-quote">"6 strategies. Same results."</div>
-        <span class="journey-pnl">₹3 Courses Bought</span>
+        <span class="journey-pnl">â‚¹3 Courses Bought</span>
       </div>
 
       <div class="journey-phase red reveal reveal-delay-2">
-        <span class="journey-emoji">🌀</span>
-        <div class="journey-era">Year 1 · Late</div>
+        <span class="journey-emoji">ðŸŒ€</span>
+        <div class="journey-era">Year 1 Â· Late</div>
         <div class="journey-name">The Spiral</div>
         <div class="journey-quote">"Revenge trading every Thursday."</div>
-        <span class="journey-pnl">−₹1,20,000</span>
+        <span class="journey-pnl">âˆ’â‚¹1,20,000</span>
       </div>
 
       <div class="journey-phase grn reveal reveal-delay-3">
-        <span class="journey-emoji">💡</span>
-        <div class="journey-era">Year 2 · Shift</div>
+        <span class="journey-emoji">ðŸ’¡</span>
+        <div class="journey-era">Year 2 Â· Shift</div>
         <div class="journey-name">Data Reveals All</div>
         <div class="journey-quote">"The pattern was obvious. I just wasn't looking."</div>
-        <span class="journey-pnl">+₹2.4R avg</span>
+        <span class="journey-pnl">+â‚¹2.4R avg</span>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ════════ CH 03 — TURNING POINT ════════ -->
+<!-- â•â•â•â•â•â•â•â• CH 03 â€” TURNING POINT â•â•â•â•â•â•â•â• -->
 <section class="chapter" id="ch03">
   <div class="glow-orb" style="width:500px;height:500px;top:10%;right:-10%;background:rgba(255,77,77,0.04);"></div>
 
   <div class="turning-layout">
     <div class="turning-text">
-      <div class="chapter-label reveal">Chapter 03 · The Realization</div>
+      <div class="chapter-label reveal">Chapter 03 Â· The Realization</div>
       <div class="stat-ring-wrap reveal" id="stat-ring-wrap">
         <svg viewBox="0 0 120 120" class="stat-ring-svg" aria-hidden="true">
           <circle cx="60" cy="60" r="52" class="ring-bg"/>
@@ -1867,10 +1867,10 @@ footer {
 
     <div class="insight-big-grid reveal reveal-delay-2">
       <div class="insight-big red">
-        <span class="ib-emoji">🔥</span>
+        <span class="ib-emoji">ðŸ”¥</span>
         <div class="ib-title">Emotional Leakage</div>
-        <div class="ib-impact">3× bigger loss</div>
-        <div class="ib-sub">After a red trade, your next trade loses 3× more on average.</div>
+        <div class="ib-impact">3Ã— bigger loss</div>
+        <div class="ib-sub">After a red trade, your next trade loses 3Ã— more on average.</div>
         <div class="insight-bar-wrap">
           <div class="insight-bar red-bar" style="--h:30%"></div>
           <div class="insight-bar red-bar" style="--h:55%"></div>
@@ -1882,9 +1882,9 @@ footer {
         </div>
       </div>
       <div class="insight-big amber">
-        <span class="ib-emoji">⏰</span>
+        <span class="ib-emoji">â°</span>
         <div class="ib-title">Bad Time Patterns</div>
-        <div class="ib-impact">Fridays = −68%</div>
+        <div class="ib-impact">Fridays = âˆ’68%</div>
         <div class="ib-sub">Your worst sessions are on the same days every week. Invisible without data.</div>
         <div class="insight-bar-wrap">
           <div class="insight-bar amber-bar" style="--h:40%"></div>
@@ -1897,10 +1897,10 @@ footer {
         </div>
       </div>
       <div class="insight-big grn">
-        <span class="ib-emoji">📊</span>
+        <span class="ib-emoji">ðŸ“Š</span>
         <div class="ib-title">Setup Delusion</div>
         <div class="ib-impact">Your fav = worst</div>
-        <div class="ib-sub">The setup you think is best — data shows it's your worst performer.</div>
+        <div class="ib-sub">The setup you think is best â€” data shows it's your worst performer.</div>
         <div class="insight-bar-wrap">
           <div class="insight-bar" style="--h:65%"></div>
           <div class="insight-bar" style="--h:40%"></div>
@@ -1912,7 +1912,7 @@ footer {
         </div>
       </div>
       <div class="insight-big red">
-        <span class="ib-emoji">🔁</span>
+        <span class="ib-emoji">ðŸ”</span>
         <div class="ib-title">The Revenge Loop</div>
         <div class="ib-impact">3 trades = broken</div>
         <div class="ib-sub">Every week, 3 trades after a stop-out you've broken all your rules.</div>
@@ -1930,18 +1930,18 @@ footer {
   </div>
 </section>
 
-<!-- ════════ CH 04 — THE DECISION ════════ -->
+<!-- â•â•â•â•â•â•â•â• CH 04 â€” THE DECISION â•â•â•â•â•â•â•â• -->
 <section class="chapter" id="ch04">
   <div class="glow-orb" style="width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,255,178,0.04);"></div>
   <div class="decision-inner">
-    <div class="chapter-label reveal" style="justify-content:center;">Chapter 04 · The Decision</div>
+    <div class="chapter-label reveal" style="justify-content:center;">Chapter 04 Â· The Decision</div>
     <h2 class="decision-h reveal reveal-delay-1">
       If I had this problem,<br>
       <em>so did everyone else.</em>
     </h2>
     <div class="convo" id="chat-convo">
       <div class="bubble-wrap chat-bubble" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s,transform 0.4s">
-        <div class="bubble-meta">Me · 11:42 PM</div>
+        <div class="bubble-meta">Me Â· 11:42 PM</div>
         <div class="bubble me">Bhai I think I finally figured out why we keep losing. It's not the strategy. It's us.</div>
       </div>
       <div class="bubble-wrap typing-wrap" style="opacity:0;transition:opacity 0.3s">
@@ -1950,12 +1950,12 @@ footer {
         </div>
       </div>
       <div class="bubble-wrap chat-bubble" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s,transform 0.4s">
-        <div class="bubble-meta">Friend · 11:43 PM</div>
+        <div class="bubble-meta">Friend Â· 11:43 PM</div>
         <div class="bubble friend">What do you mean? I've tried like 6 different strategies this year</div>
       </div>
       <div class="bubble-wrap chat-bubble right" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s,transform 0.4s">
-        <div class="bubble-meta">Me · 11:44 PM</div>
-        <div class="bubble me">Exactly. And I bet they all worked — until your emotions didn't. The data is right there, we just can't see it clearly.</div>
+        <div class="bubble-meta">Me Â· 11:44 PM</div>
+        <div class="bubble me">Exactly. And I bet they all worked â€” until your emotions didn't. The data is right there, we just can't see it clearly.</div>
       </div>
       <div class="bubble-wrap typing-wrap" style="opacity:0;transition:opacity 0.3s">
         <div class="typing-indicator" id="typing-2">
@@ -1963,12 +1963,12 @@ footer {
         </div>
       </div>
       <div class="bubble-wrap chat-bubble" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s,transform 0.4s">
-        <div class="bubble-meta">Friend · 11:46 PM</div>
+        <div class="bubble-meta">Friend Â· 11:46 PM</div>
         <div class="bubble friend">...ok that actually makes sense. So what do we do about it?</div>
       </div>
       <div class="bubble-wrap chat-bubble right" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s,transform 0.4s">
-        <div class="bubble-meta">Me · 11:47 PM</div>
-        <div class="bubble me">We build it. A journal that actually shows you yourself. If 90% of traders face this — why isn't there a tool built for this?</div>
+        <div class="bubble-meta">Me Â· 11:47 PM</div>
+        <div class="bubble me">We build it. A journal that actually shows you yourself. If 90% of traders face this â€” why isn't there a tool built for this?</div>
       </div>
       <div class="bubble-wrap typing-wrap" style="opacity:0;transition:opacity 0.3s">
         <div class="typing-indicator" id="typing-3">
@@ -1976,8 +1976,8 @@ footer {
         </div>
       </div>
       <div class="bubble-wrap chat-bubble" style="opacity:0;transform:translateY(12px);transition:opacity 0.4s,transform 0.4s">
-        <div class="bubble-meta">Friend · 11:48 PM</div>
-        <div class="bubble friend" style="background:rgba(0,255,178,0.06);border-color:rgba(0,255,178,0.15);color:rgba(0,255,178,0.8);">I'm in. Let's build it. 🚀</div>
+        <div class="bubble-meta">Friend Â· 11:48 PM</div>
+        <div class="bubble friend" style="background:rgba(0,255,178,0.06);border-color:rgba(0,255,178,0.15);color:rgba(0,255,178,0.8);">I'm in. Let's build it. ðŸš€</div>
       </div>
     </div>
 
@@ -1991,17 +1991,17 @@ footer {
         <div class="stat-label">Founders who felt this problem personally</div>
       </div>
       <div class="stat-box">
-        <div class="stat-num">1<span class="accent">×</span></div>
+        <div class="stat-num">1<span class="accent">Ã—</span></div>
         <div class="stat-label">Tool that finally shows you yourself</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════ CH 05 — WHAT WE'RE BUILDING ════════ -->
+<!-- â•â•â•â•â•â•â•â• CH 05 â€” WHAT WE'RE BUILDING â•â•â•â•â•â•â•â• -->
 <section class="chapter" id="ch05">
   <div class="building-inner">
-    <div class="chapter-label reveal">Chapter 05 · What We're Building</div>
+    <div class="chapter-label reveal">Chapter 05 Â· What We're Building</div>
     <h2 class="building-h reveal reveal-delay-1">
       Not a journal.<br>
       <em>A mirror for traders.</em>
@@ -2011,10 +2011,10 @@ footer {
       <!-- Large card -->
       <div class="feat-card large accent-card reveal reveal-delay-1">
         <div>
-          <div class="feat-icon-wrap">📸</div>
+          <div class="feat-icon-wrap">ðŸ“¸</div>
           <div class="feat-title">Screenshot. That's it.</div>
           <div class="feat-desc">
-            Took a trade? Screenshot your terminal. Edgeclipine's AI reads every detail — 
+            Took a trade? Screenshot your terminal. Edgecipline's AI reads every detail â€” 
             pair, direction, entry, exit, P&L, lot size, time of day. 
             No manual entry. No spreadsheets. No friction.
             <br><br>
@@ -2028,7 +2028,7 @@ footer {
               <div class="mini-dot" style="background:#febc2e"></div>
               <div class="mini-dot" style="background:#28c840"></div>
             </div>
-            <span style="font-family:var(--mono);font-size:8px;color:var(--dim);">app.edgeclipine.com</span>
+            <span style="font-family:var(--mono);font-size:8px;color:var(--dim);">app.Edgecipline.com</span>
           </div>
           <div class="mini-metrics">
             <div>
@@ -2041,7 +2041,7 @@ footer {
             </div>
             <div>
               <div class="mini-metric-label">Net P&L</div>
-              <div class="mini-metric-val green">+₹14.8k</div>
+              <div class="mini-metric-val green">+â‚¹14.8k</div>
             </div>
           </div>
           <svg class="mini-chart" viewBox="0 0 300 40" preserveAspectRatio="none">
@@ -2056,37 +2056,37 @@ footer {
         <div class="feat-card-num">01</div>
       </div>
 
-      <!-- Small card 02 — AI Coach -->
+      <!-- Small card 02 â€” AI Coach -->
       <div class="feat-card reveal reveal-delay-2">
-        <div class="feat-icon-wrap">🧠</div>
+        <div class="feat-icon-wrap">ðŸ§ </div>
         <div class="feat-title">AI Coach That Knows You</div>
-        <div class="feat-desc">Personalized weekly reports — not generic tips.</div>
+        <div class="feat-desc">Personalized weekly reports â€” not generic tips.</div>
         <div class="feat-ai-preview">
-          <div class="feat-ai-top">🤖 Weekly Insight · Mon 9:00 AM</div>
-          Your <strong>Friday P&amp;L is −₹8,400</strong> avg. You overtrade after lunch. Best window: <strong>9:15–11:00 AM</strong>.
+          <div class="feat-ai-top">ðŸ¤– Weekly Insight Â· Mon 9:00 AM</div>
+          Your <strong>Friday P&amp;L is âˆ’â‚¹8,400</strong> avg. You overtrade after lunch. Best window: <strong>9:15â€“11:00 AM</strong>.
         </div>
         <div class="feat-card-num">02</div>
       </div>
 
-      <!-- Small card 03 — Blind Spots -->
+      <!-- Small card 03 â€” Blind Spots -->
       <div class="feat-card reveal reveal-delay-3">
-        <div class="feat-icon-wrap">👁</div>
+        <div class="feat-icon-wrap">ðŸ‘</div>
         <div class="feat-title">See Your Blind Spots</div>
         <div class="feat-desc">Tag every trade with your mental state. See the pattern.</div>
         <div class="feat-emotion-tags">
-          <span class="feat-etag etag-fear">😨 Fear</span>
-          <span class="feat-etag etag-fomo">⚡ FOMO</span>
-          <span class="feat-etag etag-rev">🔥 Revenge</span>
-          <span class="feat-etag etag-zen">✅ In-zone</span>
-          <span class="feat-etag etag-frust">😤 Frustrated</span>
-          <span class="feat-etag etag-greed">💜 Greed</span>
+          <span class="feat-etag etag-fear">ðŸ˜¨ Fear</span>
+          <span class="feat-etag etag-fomo">âš¡ FOMO</span>
+          <span class="feat-etag etag-rev">ðŸ”¥ Revenge</span>
+          <span class="feat-etag etag-zen">âœ… In-zone</span>
+          <span class="feat-etag etag-frust">ðŸ˜¤ Frustrated</span>
+          <span class="feat-etag etag-greed">ðŸ’œ Greed</span>
         </div>
         <div class="feat-card-num">03</div>
       </div>
 
-      <!-- Small card 04 — Analytics -->
+      <!-- Small card 04 â€” Analytics -->
       <div class="feat-card reveal reveal-delay-2">
-        <div class="feat-icon-wrap">📈</div>
+        <div class="feat-icon-wrap">ðŸ“ˆ</div>
         <div class="feat-title">Setup Performance</div>
         <div class="feat-desc">Which setup actually makes you money?</div>
         <div class="feat-setup-bars" id="feat-setup-bars">
@@ -2114,14 +2114,14 @@ footer {
         <div class="feat-card-num">04</div>
       </div>
 
-      <!-- Small card 05 — History -->
+      <!-- Small card 05 â€” History -->
       <div class="feat-card reveal reveal-delay-3">
-        <div class="feat-icon-wrap">🔒</div>
+        <div class="feat-icon-wrap">ðŸ”’</div>
         <div class="feat-title">Trade History, Forever</div>
         <div class="feat-desc">Every screenshot. Every AI insight. Compounding over time.</div>
         <div class="feat-ai-preview" style="margin-top:14px;text-align:center;">
-          <div style="font-size:32px;margin-bottom:8px;filter:drop-shadow(0 0 16px rgba(0,255,178,0.4));">🗄️</div>
-          <div style="font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:0.1em;">247 trades · 14 months · secured</div>
+          <div style="font-size:32px;margin-bottom:8px;filter:drop-shadow(0 0 16px rgba(0,255,178,0.4));">ðŸ—„ï¸</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:0.1em;">247 trades Â· 14 months Â· secured</div>
         </div>
         <div class="feat-card-num">05</div>
       </div>
@@ -2129,10 +2129,10 @@ footer {
   </div>
 </section>
 
-<!-- ════════ CH 06 — WHY NOW ════════ -->
+<!-- â•â•â•â•â•â•â•â• CH 06 â€” WHY NOW â•â•â•â•â•â•â•â• -->
 <section class="chapter" id="ch06">
   <div class="why-inner">
-    <div class="chapter-label reveal" style="justify-content:center;">Chapter 06 · Why This Exists</div>
+    <div class="chapter-label reveal" style="justify-content:center;">Chapter 06 Â· Why This Exists</div>
     <h2 class="why-h reveal reveal-delay-1">
       Winners study<br>
       <em>themselves</em><br>
@@ -2141,32 +2141,32 @@ footer {
 
     <div class="beliefs-grid">
       <div class="belief-card reveal">
-        <span class="belief-emoji">🎯</span>
+        <span class="belief-emoji">ðŸŽ¯</span>
         <div class="belief-title">Discipline Creates Edge</div>
         <div class="belief-sub">Not indicators. Not strategies. You.</div>
       </div>
       <div class="belief-card reveal reveal-delay-1">
-        <span class="belief-emoji">📊</span>
+        <span class="belief-emoji">ðŸ“Š</span>
         <div class="belief-title">Data Over Feelings</div>
         <div class="belief-sub">Your gut lies. Numbers don't.</div>
       </div>
       <div class="belief-card reveal reveal-delay-2">
-        <span class="belief-emoji">🪞</span>
+        <span class="belief-emoji">ðŸªž</span>
         <div class="belief-title">Markets = Mirror</div>
         <div class="belief-sub">Most traders look away. Don't be most traders.</div>
       </div>
       <div class="belief-card reveal reveal-delay-1">
-        <span class="belief-emoji">⚡</span>
+        <span class="belief-emoji">âš¡</span>
         <div class="belief-title">Small Edge Beats Perfect</div>
         <div class="belief-sub">Consistent 55% win rate &gt; brilliant but emotional.</div>
       </div>
       <div class="belief-card reveal reveal-delay-2">
-        <span class="belief-emoji">🔁</span>
+        <span class="belief-emoji">ðŸ”</span>
         <div class="belief-title">Self-Knowledge Compounds</div>
         <div class="belief-sub">Every logged trade makes you sharper. Start today.</div>
       </div>
       <div class="belief-card reveal reveal-delay-3">
-        <span class="belief-emoji">🏆</span>
+        <span class="belief-emoji">ðŸ†</span>
         <div class="belief-title">Built by Traders</div>
         <div class="belief-sub">We lost money the same way you are. That's why this exists.</div>
       </div>
@@ -2174,22 +2174,22 @@ footer {
   </div>
 </section>
 
-<!-- ════════ CH 07 — PRICING ════════ -->
+<!-- â•â•â•â•â•â•â•â• CH 07 â€” PRICING â•â•â•â•â•â•â•â• -->
 <section class="chapter" id="ch07">
   <div class="pricing-inner">
-    <div class="chapter-label reveal">Chapter 07 · Simple Pricing</div>
+    <div class="chapter-label reveal">Chapter 07 Â· Simple Pricing</div>
     <h2 class="pricing-h reveal reveal-delay-1">
       Invest in your<br>
       <em>discipline.</em>
     </h2>
     <p class="pricing-sub reveal reveal-delay-2">
-      One bad trade costs more than a year of Edgeclipine. Choose the timeframe that fits your journey.
+      One bad trade costs more than a year of Edgecipline. Choose the timeframe that fits your journey.
     </p>
 
     <div class="pricing-grid">
       <div class="plan reveal reveal-delay-1">
         <div class="plan-name">Standard</div>
-        <div class="plan-price">₹149</div>
+        <div class="plan-price">â‚¹149</div>
         <div class="plan-period">per month</div>
         <ul class="plan-features">
           <li>Unlimited trade journals</li>
@@ -2202,8 +2202,8 @@ footer {
       <div class="plan featured reveal reveal-delay-2">
         <div class="plan-badge popular-badge">Most Popular</div>
         <div class="plan-name">Professional</div>
-        <div class="plan-price">₹249</div>
-        <div class="plan-period">3 months · ~₹2.76/day</div>
+        <div class="plan-price">â‚¹249</div>
+        <div class="plan-period">3 months Â· ~â‚¹2.76/day</div>
         <div class="plan-savings">Save 40% vs monthly</div>
         <ul class="plan-features">
           <li>Everything in Standard</li>
@@ -2216,8 +2216,8 @@ footer {
       <div class="plan reveal reveal-delay-3">
         <div class="plan-badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);">Best Value</div>
         <div class="plan-name">Ultimate</div>
-        <div class="plan-price">₹449</div>
-        <div class="plan-period">6 months · ~₹2.47/day</div>
+        <div class="plan-price">â‚¹449</div>
+        <div class="plan-period">6 months Â· ~â‚¹2.47/day</div>
         <ul class="plan-features">
           <li>Everything in Professional</li>
           <li>Lifetime trade backup</li>
@@ -2229,12 +2229,12 @@ footer {
   </div>
 </section>
 
-<!-- ════════ CH 08 — EPILOGUE ════════ -->
+<!-- â•â•â•â•â•â•â•â• CH 08 â€” EPILOGUE â•â•â•â•â•â•â•â• -->
 <section class="chapter" id="ch08">
   <div class="glow-orb" style="width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,255,178,0.05);"></div>
   <div id="cta-particles"></div>
   <div class="epilogue-inner">
-    <div class="chapter-label reveal" style="justify-content:center;">Epilogue · The Invitation</div>
+    <div class="chapter-label reveal" style="justify-content:center;">Epilogue Â· The Invitation</div>
     <h2 class="epi-h reveal reveal-delay-1">
       Stop guessing.<br>
       <em>Start knowing.</em>
@@ -2278,7 +2278,7 @@ footer {
         <button type="submit" class="signup-btn" id="signup-btn">Join Waitlist</button>
       </form>
       <div id="success-msg">
-        ✓ You're on the list. We'll reach out when we're ready.
+        âœ“ You're on the list. We'll reach out when we're ready.
       </div>
       <div id="form-error"></div>
       <p class="fine-print">No spam. No credit card. Just early access.</p>
@@ -2288,10 +2288,10 @@ footer {
 
     <p class="founders-note reveal reveal-delay-5">
       "We built this because we lived it. Every blown account, every strategy pivot, 
-      every frustrating Thursday — it all led here. If this story sounds like yours, 
+      every frustrating Thursday â€” it all led here. If this story sounds like yours, 
       you belong in this community."
     </p>
-    <div class="founders-name reveal reveal-delay-5">— The Edgeclipine Team</div>
+    <div class="founders-name reveal reveal-delay-5">â€” The Edgecipline Team</div>
   </div>
 </section>
 
@@ -2301,33 +2301,33 @@ footer {
 <div class="ticker-section">
   <div class="ticker-track">
     <div class="ticker-item">Building in public</div>
-    <div class="ticker-item">2 founders · 1 mission</div>
+    <div class="ticker-item">2 founders Â· 1 mission</div>
     <div class="ticker-item">Self-awareness is the edge</div>
     <div class="ticker-item">No spreadsheets</div>
     <div class="ticker-item">No excuses</div>
     <div class="ticker-item">Join the waitlist</div>
-    <div class="ticker-item">Trading psychology · Data · Discipline</div>
+    <div class="ticker-item">Trading psychology Â· Data Â· Discipline</div>
     <div class="ticker-item">Building in public</div>
-    <div class="ticker-item">2 founders · 1 mission</div>
+    <div class="ticker-item">2 founders Â· 1 mission</div>
     <div class="ticker-item">Self-awareness is the edge</div>
     <div class="ticker-item">No spreadsheets</div>
     <div class="ticker-item">No excuses</div>
     <div class="ticker-item">Join the waitlist</div>
-    <div class="ticker-item">Trading psychology · Data · Discipline</div>
+    <div class="ticker-item">Trading psychology Â· Data Â· Discipline</div>
   </div>
 </div>
 
 <footer>
   <span class="footer-logo">
-    <img src="/logo.png" alt="Edgeclipine logo" />
-    Edgeclipine
+    <img src="/logo.png" alt="Edgecipline logo" />
+    Edgecipline
   </span>
-  <span class="footer-copy">© 2026 Edgeclipine Technologies</span>
-  <span class="footer-disclaimer">Past performance ≠ future results. Trading involves risk.</span>
+  <span class="footer-copy">Â© 2026 Edgecipline Technologies</span>
+  <span class="footer-disclaimer">Past performance â‰  future results. Trading involves risk.</span>
 </footer>
 
 <script>
-/* ── Cursor (desktop only) ── */
+/* â”€â”€ Cursor (desktop only) â”€â”€ */
 const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 const cur = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
@@ -2346,7 +2346,7 @@ if (isTouchDevice) {
   })();
 }
 
-/* ── Loader ── */
+/* â”€â”€ Loader â”€â”€ */
 window.addEventListener('DOMContentLoaded', () => {
   const line = document.getElementById('loader-line');
   const loader = document.getElementById('loader');
@@ -2356,7 +2356,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function initAll() {
-  /* ── Progress bar ── */
+  /* â”€â”€ Progress bar â”€â”€ */
   const prog = document.getElementById('progress');
   window.addEventListener('scroll', () => {
     const scrolled = window.scrollY;
@@ -2364,7 +2364,7 @@ function initAll() {
     prog.style.width = (scrolled / total * 100) + '%';
   });
 
-  /* ── Nav hide on scroll ── */
+  /* â”€â”€ Nav hide on scroll â”€â”€ */
   const nav = document.getElementById('nav');
   let lastY = 0;
   window.addEventListener('scroll', () => {
@@ -2373,13 +2373,13 @@ function initAll() {
     lastY = y;
   });
 
-  /* ── Chapter nav visibility ── */
+  /* â”€â”€ Chapter nav visibility â”€â”€ */
   const chNav = document.getElementById('chapter-nav');
   window.addEventListener('scroll', () => {
     chNav.classList.toggle('visible', window.scrollY > 200);
   });
 
-  /* ── Chapter dot active state ── */
+  /* â”€â”€ Chapter dot active state â”€â”€ */
   const chapters = ['ch01','ch02','ch03','ch04','ch05','ch06','ch07','ch08'];
   const dots = document.querySelectorAll('.ch-dot');
   dots.forEach((dot, i) => {
@@ -2400,7 +2400,7 @@ function initAll() {
   }, { threshold: 0.4 });
   chapters.forEach(id => { const el = document.getElementById(id); if(el) obs.observe(el); });
 
-  /* ── Reveal on scroll ── */
+  /* â”€â”€ Reveal on scroll â”€â”€ */
   const revealObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); }
@@ -2408,7 +2408,7 @@ function initAll() {
   }, { threshold: 0.08, rootMargin: '-40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-  /* ── Timeline item reveal ── */
+  /* â”€â”€ Timeline item reveal â”€â”€ */
   const tlObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) e.target.classList.add('visible');
@@ -2416,7 +2416,7 @@ function initAll() {
   }, { threshold: 0.2 });
   document.querySelectorAll('.tl-item').forEach(el => tlObs.observe(el));
 
-  /* ── Hero parallax ── */
+  /* â”€â”€ Hero parallax â”€â”€ */
   const hero = document.getElementById('ch01');
   const bgYear = hero.querySelector('.bg-year');
   window.addEventListener('scroll', () => {
@@ -2428,7 +2428,7 @@ function initAll() {
   });
 }
 
-/* ── Popup ── */
+/* â”€â”€ Popup â”€â”€ */
 (function initPopup() {
   if (localStorage.getItem('waitlist_joined')) return;
 
@@ -2480,7 +2480,7 @@ async function handlePopupSignup(e) {
   }
 }
 
-/* ── Canvas particle network ── */
+/* â”€â”€ Canvas particle network â”€â”€ */
 function initHeroCanvas() {
   const canvas = document.getElementById('hero-canvas');
   if (!canvas || window.innerWidth < 768) return;
@@ -2529,23 +2529,23 @@ function initHeroCanvas() {
   draw();
 }
 
-/* ── Floating trade toasts ── */
+/* â”€â”€ Floating trade toasts â”€â”€ */
 function initHeroToasts() {
   const container = document.getElementById('hero-toasts');
   const hero = document.getElementById('ch01');
   if (!container || !hero) return;
   container.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;';
   const toasts = [
-    {main:'+₹4,200', sub:'NIFTY 50 · WIN', type:'win'},
-    {main:'🤖 AI Insight', sub:'Friday exits −0.8R/wk', type:'ai'},
-    {main:'+₹2,850', sub:'RELIANCE · WIN', type:'win'},
-    {main:'71.3%', sub:'Win Rate ↑ this month', type:'stat'},
-    {main:'−₹1,100', sub:'BANKNIFTY · LOSS', type:'loss'},
-    {main:'📸 Logged', sub:'Screenshot captured', type:'log'},
+    {main:'+â‚¹4,200', sub:'NIFTY 50 Â· WIN', type:'win'},
+    {main:'ðŸ¤– AI Insight', sub:'Friday exits âˆ’0.8R/wk', type:'ai'},
+    {main:'+â‚¹2,850', sub:'RELIANCE Â· WIN', type:'win'},
+    {main:'71.3%', sub:'Win Rate â†‘ this month', type:'stat'},
+    {main:'âˆ’â‚¹1,100', sub:'BANKNIFTY Â· LOSS', type:'loss'},
+    {main:'ðŸ“¸ Logged', sub:'Screenshot captured', type:'log'},
     {main:'+2.4R avg', sub:'Breakout setup', type:'win'},
-    {main:'⚠️ Pattern', sub:'Revenge trade detected', type:'warn'},
-    {main:'AI Report', sub:'Ready · Monday 9AM', type:'ai'},
-    {main:'+₹1,680', sub:'HDFCBANK · WIN', type:'win'},
+    {main:'âš ï¸ Pattern', sub:'Revenge trade detected', type:'warn'},
+    {main:'AI Report', sub:'Ready Â· Monday 9AM', type:'ai'},
+    {main:'+â‚¹1,680', sub:'HDFCBANK Â· WIN', type:'win'},
   ];
   let idx=0, iv=null;
   function spawn(){
@@ -2567,7 +2567,7 @@ function initHeroToasts() {
   obs.observe(hero);
 }
 
-/* ── Typewriter on "You need a mirror." ── */
+/* â”€â”€ Typewriter on "You need a mirror." â”€â”€ */
 function initTypewriter() {
   const em = document.querySelector('.hero-h1 em');
   if (!em) return;
@@ -2585,7 +2585,7 @@ function initTypewriter() {
   }, 55);
 }
 
-/* ── Glow orb follows mouse ── */
+/* â”€â”€ Glow orb follows mouse â”€â”€ */
 function initOrbParallax() {
   const hero = document.getElementById('ch01');
   if (!hero) return;
@@ -2599,7 +2599,7 @@ function initOrbParallax() {
   hero.addEventListener('mouseleave',()=>orbs.forEach(o=>{ o.style.transform=''; }));
 }
 
-/* ── Magnetic buttons ── */
+/* â”€â”€ Magnetic buttons â”€â”€ */
 function initMagneticButtons() {
   document.querySelectorAll('.hero-btn-primary,.hero-btn-secondary').forEach(btn=>{
     btn.addEventListener('mousemove', e=>{
@@ -2616,7 +2616,7 @@ function initMagneticButtons() {
   });
 }
 
-/* ── Journey card pop entrance ── */
+/* â”€â”€ Journey card pop entrance â”€â”€ */
 function initJourneyPop() {
   const cards = document.querySelectorAll('.journey-phase');
   const obs = new IntersectionObserver(entries=>{
@@ -2625,7 +2625,7 @@ function initJourneyPop() {
   cards.forEach(c=>obs.observe(c));
 }
 
-/* ── 90% ring fill (called from initCounters) ── */
+/* â”€â”€ 90% ring fill (called from initCounters) â”€â”€ */
 function animateRing() {
   const ring = document.getElementById('stat-ring');
   const wrap = document.getElementById('stat-ring-wrap');
@@ -2640,7 +2640,7 @@ function animateRing() {
   obs.observe(wrap);
 }
 
-/* ── Counter animation ── */
+/* â”€â”€ Counter animation â”€â”€ */
 function animateCount(el, target, suffix, duration) {
   const start = performance.now();
   function tick(now) {
@@ -2652,19 +2652,19 @@ function animateCount(el, target, suffix, duration) {
   requestAnimationFrame(tick);
 }
 
-/* ── SVG path draw animation ── */
+/* â”€â”€ SVG path draw animation â”€â”€ */
 function drawPath(el) {
   if (el) el.classList.add('draw');
 }
 
-/* ── Insight bar animation ── */
+/* â”€â”€ Insight bar animation â”€â”€ */
 function animateBars(container) {
   container.querySelectorAll('.insight-bar').forEach((bar, i) => {
     setTimeout(() => bar.classList.add('animate'), i * 60);
   });
 }
 
-/* ── Chat bubble stagger with typing indicators ── */
+/* â”€â”€ Chat bubble stagger with typing indicators â”€â”€ */
 function initChat() {
   const convo = document.getElementById('chat-convo');
   if (!convo) return;
@@ -2710,7 +2710,7 @@ function initChat() {
   chatObs.observe(convo);
 }
 
-/* ── 90% counter on scroll — delegated to animateRing() ── */
+/* â”€â”€ 90% counter on scroll â€” delegated to animateRing() â”€â”€ */
 function initCounters() {
   animateRing();
   // Stat boxes in ch04
@@ -2738,7 +2738,7 @@ function initCounters() {
   });
 }
 
-/* ── Insight bars on scroll ── */
+/* â”€â”€ Insight bars on scroll â”€â”€ */
 function initInsightBars() {
   document.querySelectorAll('.insight-card').forEach(card => {
     const obs = new IntersectionObserver(entries => {
@@ -2748,7 +2748,7 @@ function initInsightBars() {
   });
 }
 
-/* ── Animated chart lines on scroll ── */
+/* â”€â”€ Animated chart lines on scroll â”€â”€ */
 function initChartLines() {
   const lines = document.querySelectorAll('.animated-chart-line, .mockup-chart-path');
   lines.forEach(line => {
@@ -2759,11 +2759,11 @@ function initChartLines() {
   });
 }
 
-/* ── CTA floating particles ── */
+/* â”€â”€ CTA floating particles â”€â”€ */
 function initCtaParticles() {
   const container = document.getElementById('cta-particles');
   if (!container) return;
-  const words = ['+₹2,400','WIN 2.4R','71.3%','📸','🧠 AI','+₹850','NIFTY','2R','3.1R','+₹4k','BANKNIFTY','WIN'];
+  const words = ['+â‚¹2,400','WIN 2.4R','71.3%','ðŸ“¸','ðŸ§  AI','+â‚¹850','NIFTY','2R','3.1R','+â‚¹4k','BANKNIFTY','WIN'];
   for (let i = 0; i < 12; i++) {
     const p = document.createElement('div');
     p.className = 'cta-particle';
@@ -2775,7 +2775,7 @@ function initCtaParticles() {
   }
 }
 
-/* ── Mouse parallax on hero mockup ── */
+/* â”€â”€ Mouse parallax on hero mockup â”€â”€ */
 function initParallax() {
   const mockup = document.querySelector('.hero-mockup-wrap');
   if (!mockup) return;
@@ -2788,7 +2788,7 @@ function initParallax() {
   });
 }
 
-/* ── Setup performance bars animation ── */
+/* â”€â”€ Setup performance bars animation â”€â”€ */
 function initSetupBars() {
   const container = document.getElementById('feat-setup-bars');
   if (!container) return;
@@ -2804,10 +2804,10 @@ function initSetupBars() {
   obs.observe(container);
 }
 
-/* ── Initialize all new interactions after loader ── */
+/* â”€â”€ Initialize all new interactions after loader â”€â”€ */
 const _originalInitAll = typeof initAll === 'function' ? initAll : null;
 
-/* ── Run new inits after loader ── */
+/* â”€â”€ Run new inits after loader â”€â”€ */
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     initHeroCanvas();
@@ -2826,7 +2826,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 2500);
 });
 
-/* ── Signup form ── */
+/* â”€â”€ Signup form â”€â”€ */
 async function handleSignup(e) {
   e.preventDefault();
   const emailInput = document.getElementById('email-input');

@@ -58,7 +58,7 @@ export default function PricingSection() {
           transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
           className="text-[15px] text-[#8b95aa] leading-relaxed max-w-md mb-16"
         >
-          One bad trade costs more than a year of Edgeclipine. Choose the timeframe that fits your journey.
+          One bad trade costs more than a year of Edgecipline. Choose the timeframe that fits your journey.
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">

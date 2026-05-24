@@ -6,27 +6,27 @@ import { EASE } from "@/lib/motion";
 
 const faqs = [
   {
-    q: "What is Edgeclipine?",
-    a: "Edgeclipine is an AI-powered trading journal that tracks your trading behavior, not just your P&L. Upload a screenshot of your trade and the AI automatically extracts the details and reveals your emotional patterns, execution mistakes, and behavioral blind spots.",
+    q: "What is Edgecipline?",
+    a: "Edgecipline is an AI-powered trading journal that tracks your trading behavior, not just your P&L. Upload a screenshot of your trade and the AI automatically extracts the details and reveals your emotional patterns, execution mistakes, and behavioral blind spots.",
   },
   {
     q: "How does the AI screenshot extraction work?",
-    a: "Take a screenshot of your trade terminal after any trade. Edgeclipine's AI reads it to extract pair, direction, entry, exit, P&L, lot size, and time — automatically. No manual entry, no spreadsheets. Just screenshot and move on.",
+    a: "Take a screenshot of your trade terminal after any trade. Edgecipline's AI reads it to extract pair, direction, entry, exit, P&L, lot size, and time — automatically. No manual entry, no spreadsheets. Just screenshot and move on.",
   },
   {
-    q: "What makes Edgeclipine different from other trading journals?",
-    a: "Most trading journals only track P&L. Edgeclipine is the first that focuses on behavior — detecting emotional leakage, revenge trading patterns, bad time-of-day habits, and setup delusions. It delivers personalized weekly AI coaching reports, not generic tips.",
+    q: "What makes Edgecipline different from other trading journals?",
+    a: "Most trading journals only track P&L. Edgecipline is the first that focuses on behavior — detecting emotional leakage, revenge trading patterns, bad time-of-day habits, and setup delusions. It delivers personalized weekly AI coaching reports, not generic tips.",
   },
   {
     q: "Is it suitable for Indian market traders (NIFTY, BANKNIFTY, options)?",
-    a: "Yes. Edgeclipine is built with Indian traders in mind. It supports NIFTY, BANKNIFTY, options, futures, and equity trades, with pricing in INR and insights tailored for Indian market hours.",
+    a: "Yes. Edgecipline is built with Indian traders in mind. It supports NIFTY, BANKNIFTY, options, futures, and equity trades, with pricing in INR and insights tailored for Indian market hours.",
   },
   {
-    q: "How much does Edgeclipine cost?",
-    a: "Three plans: Standard (₹149/month), Professional (₹249 for 3 months, ~₹2.76/day), and Ultimate (₹449 for 6 months, ~₹2.47/day). One bad trade costs more than a year of Edgeclipine.",
+    q: "How much does Edgecipline cost?",
+    a: "Three plans: Standard (₹149/month), Professional (₹249 for 3 months, ~₹2.76/day), and Ultimate (₹449 for 6 months, ~₹2.47/day). One bad trade costs more than a year of Edgecipline.",
   },
   {
-    q: "When will Edgeclipine launch?",
+    q: "When will Edgecipline launch?",
     a: "We're currently in private early access. Join the waitlist to get priority access, help shape the product, and lock in early pricing before public launch.",
   },
 ];

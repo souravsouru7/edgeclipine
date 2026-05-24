@@ -62,7 +62,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
             className="text-[17px] leading-[1.8] text-[#8b95aa] font-medium max-w-[520px] mb-10"
           >
-            Edgeclipine tracks your{" "}
+            Edgecipline tracks your{" "}
             <strong className="text-white/60 font-semibold">behavior, not just P&amp;L</strong>. Upload a screenshot — AI
             reveals the emotional patterns and execution mistakes sabotaging your consistency.
           </motion.p>

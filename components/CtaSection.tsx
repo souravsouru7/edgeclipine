@@ -75,7 +75,7 @@ export default function CtaSection() {
         >
           &ldquo;We built this because we lived it. Every blown account, every strategy pivot, every frustrating Thursday — it all led here. If this story sounds like yours, you belong in this community.&rdquo;
         </motion.blockquote>
-        <p className="mt-4 font-mono text-[11px] tracking-[0.14em] uppercase text-white/50">— The Edgeclipine Team</p>
+        <p className="mt-4 font-mono text-[11px] tracking-[0.14em] uppercase text-white/50">— The Edgecipline Team</p>
       </div>
     </section>
   );

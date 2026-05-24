@@ -1,13 +1,16 @@
 {
-  "name": "Edgeclipine - AI Trading Journal",
-  "short_name": "Edgeclipine",
-  "description": "AI trading journal that tracks your behavior, not just your P&L. Get instant AI feedback on emotional trading decisions.",
+  "name": "Edgecipline - AI Trading Journal",
+  "short_name": "Edgecipline",
+  "description": "Edgecipline is the first AI trading journal that tracks your behavior, not just your P&L. Get instant AI feedback on emotional trading decisions.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#05080f",
   "theme_color": "#05080f",
   "orientation": "portrait-primary",
-  "lang": "en",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "scope": "/",
+  "id": "edgecipline-app",
   "icons": [
     {
       "src": "/logo.png",
@@ -28,5 +31,7 @@
     }
   ],
   "categories": ["finance", "productivity"],
-  "screenshots": []
+  "screenshots": [],
+  "related_applications": [],
+  "prefer_related_applications": false
 }

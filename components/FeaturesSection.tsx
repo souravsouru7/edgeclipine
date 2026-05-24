@@ -52,7 +52,7 @@ export default function FeaturesSection() {
             <div className="w-11 h-11 rounded-xl bg-[rgba(0,255,178,0.08)] border border-[rgba(0,255,178,0.15)] flex items-center justify-center text-xl mb-5">📸</div>
             <h3 className="text-xl font-bold text-white mb-3 leading-tight">Screenshot. That&apos;s it.</h3>
             <p className="text-[13px] text-[#8b95aa] leading-[1.8] mb-7">
-              Took a trade? Screenshot your terminal. Edgeclipine&apos;s AI reads every detail — pair, direction, entry, exit, P&amp;L, lot size, time of day. No manual entry. No spreadsheets. No friction.
+              Took a trade? Screenshot your terminal. Edgecipline&apos;s AI reads every detail — pair, direction, entry, exit, P&amp;L, lot size, time of day. No manual entry. No spreadsheets. No friction.
               <br /><br />We removed every excuse not to journal.
             </p>
             <div className="rounded-xl bg-black/30 border border-white/[0.06] p-4">

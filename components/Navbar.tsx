@@ -28,17 +28,17 @@ export default function Navbar() {
       } ${scrolled ? "bg-[rgba(5,8,15,0.85)] backdrop-blur-md border-b border-white/[0.05]" : ""}`}
     >
       <nav className="flex items-center justify-between px-5 md:px-9 py-5 max-w-7xl mx-auto" aria-label="Main navigation">
-        <Link href="#hero" className="flex items-center gap-3 group" aria-label="Edgeclipine home">
+        <Link href="#hero" className="flex items-center gap-3 group" aria-label="Edgecipline home">
           <Image
             src="/logo.png"
-            alt="Edgeclipine"
+            alt="Edgecipline"
             width={36}
             height={36}
             className="object-contain"
             priority
           />
           <span className="font-bold text-[17px] text-white tracking-tight leading-none">
-            Edgeclipine
+            Edgecipline
           </span>
         </Link>
 
