@@ -18,9 +18,9 @@ const inter = Inter({
 const APP_URL = "https://www.edgecipline.com";
 const APP_NAME = "Edgecipline";
 const BRAND_LEGAL = "Edgecipline";
-const TITLE = "Edgecipline | AI Trading Journal, Discipline Coach & Trading DNA";
+const TITLE = "Edgecipline | AI Discipline Coach, Trading DNA & Gamified Trading Growth";
 const DESCRIPTION =
-  "Edgecipline is an AI-powered trading journal, discipline coach, and gamified improvement system for Forex and Indian market traders. Upload a screenshot — AI builds your journal, reveals your Trading DNA, calculates the real cost of emotional trades, and coaches you daily with missions, streaks, and a morning mentor. Join 847+ traders.";
+  "Edgecipline is more than a trading journal — it's an AI discipline coach and gamified improvement system for Forex and Indian market traders. Upload a screenshot — AI reveals your Trading DNA, calculates the real cost of emotional trades, and coaches you daily with missions, streaks, and a morning mentor. Join 847+ traders.";
 
 // Social profiles — fill in as you create them (critical for entity recognition)
 const SOCIAL_PROFILES = [
@@ -201,13 +201,13 @@ const organizationSchema = {
   description: DESCRIPTION,
   foundingDate: "2024",
   knowsAbout: [
-    "AI Trading Journal",
     "Trading Discipline Coaching",
     "Gamified Trading Habits",
-    "Trading Behavior Analysis",
-    "Trading Psychology",
     "Trading DNA & Pattern Detection",
     "Psychology Cost Calculator",
+    "AI Trading Journal",
+    "Trading Behavior Analysis",
+    "Trading Psychology",
     "Stock Market Journaling",
     "Trading Discipline",
     "Forex Trading Journal",
@@ -249,7 +249,7 @@ const softwareSchema = {
   name: APP_NAME,
   alternateName: "Edgecipline Trading Journal",
   applicationCategory: "FinanceApplication",
-  applicationSubCategory: "Trading Journal",
+  applicationSubCategory: "Trading Discipline Coach",
   operatingSystem: "Web, Android",
   description:
     "Edgecipline is an AI-powered trading journal, discipline coach, and gamified improvement system. Upload a trade screenshot and AI extracts the data, generates a Trading DNA profile, calculates the real cost of emotional trades, and coaches you daily through missions, streaks, and a morning mentor — for Forex and Indian market traders alike.",
@@ -369,7 +369,7 @@ const faqSchema = {
       name: "What is Edgecipline?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Edgecipline (pronounced 'edge-cipline') is an AI-powered trading journal, discipline coach, and gamified improvement system for Forex and Indian market traders. The name is a portmanteau of 'Edge' and 'discipline' — reflecting the competitive edge traders gain through disciplined journaling. Upload a screenshot of your trade and Edgecipline's AI automatically extracts the details, builds your Trading DNA profile, and reveals your emotional patterns and execution mistakes.",
+        text: "Edgecipline (pronounced 'edge-cipline') is more than a trading journal — it's an AI-powered discipline coach and gamified improvement system for Forex and Indian market traders. The name is a portmanteau of 'Edge' and 'discipline' — reflecting the competitive edge traders gain through disciplined behavior. Upload a screenshot of your trade and Edgecipline's AI automatically extracts the details, builds your Trading DNA profile, and reveals your emotional patterns and execution mistakes.",
       },
     },
     {

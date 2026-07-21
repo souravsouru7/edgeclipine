@@ -8,22 +8,22 @@ import PageHero from "@/components/PageHero";
 const OG_IMAGE = [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Edgecipline Features" }];
 
 export const metadata: Metadata = {
-  title: "Features — AI Trading Journal, Discipline Coach & Trading DNA | Edgecipline",
+  title: "Features — AI Discipline Coach, Trading DNA & Gamified Journal | Edgecipline",
   description:
-    "Explore every Edgecipline feature: AI screenshot extraction, Trading DNA, pattern detection, psychology cost calculator, self-awareness score, missions & streaks, AI coach & morning mentor, and Forex + Indian market support.",
+    "Explore every Edgecipline feature: Trading DNA, pattern detection, psychology cost calculator, self-awareness score, missions & streaks, AI coach & morning mentor, AI screenshot extraction, and Forex + Indian market support.",
   alternates: { canonical: "/features" },
   openGraph: {
     url: "https://www.edgecipline.com/features",
-    title: "Features — AI Trading Journal, Discipline Coach & Trading DNA | Edgecipline",
+    title: "Features — AI Discipline Coach, Trading DNA & Gamified Journal | Edgecipline",
     description:
-      "15 features built for disciplined traders — AI screenshot extraction, Trading DNA, gamified missions & streaks, and daily AI coaching for Forex and Indian markets.",
+      "15 features built for disciplined traders — Trading DNA, gamified missions & streaks, daily AI coaching, and AI screenshot extraction for Forex and Indian markets.",
     images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Edgecipline Features — AI Trading Journal & Discipline Coach",
+    title: "Edgecipline Features — AI Discipline Coach & Trading DNA",
     description:
-      "15 features built for disciplined traders — AI extraction, Trading DNA, gamified missions & streaks, and daily AI coaching.",
+      "15 features built for disciplined traders — Trading DNA, gamified missions & streaks, daily AI coaching, and AI extraction.",
     images: ["/opengraph-image"],
   },
 };
