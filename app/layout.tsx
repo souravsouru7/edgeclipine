@@ -18,9 +18,9 @@ const inter = Inter({
 const APP_URL = "https://www.edgecipline.com";
 const APP_NAME = "Edgecipline";
 const BRAND_LEGAL = "Edgecipline";
-const TITLE = "Edgecipline | AI Trading Journal & Behavior Analysis";
+const TITLE = "Edgecipline | AI Trading Journal, Discipline Coach & Trading DNA";
 const DESCRIPTION =
-  "Edgecipline is the first AI trading journal that tracks your behavior, not just your P&L. Upload a screenshot — AI reveals the emotional patterns sabotaging your consistency. Join 847+ traders.";
+  "Edgecipline is an AI-powered trading journal, discipline coach, and gamified improvement system for Forex and Indian market traders. Upload a screenshot — AI builds your journal, reveals your Trading DNA, calculates the real cost of emotional trades, and coaches you daily with missions, streaks, and a morning mentor. Join 847+ traders.";
 
 // Social profiles — fill in as you create them (critical for entity recognition)
 const SOCIAL_PROFILES = [
@@ -47,6 +47,8 @@ export const metadata: Metadata = {
     "Edgecipline app",
     "Edgecipline trading journal",
     "AI trading journal",
+    "trading discipline coach",
+    "gamified trading app",
     "trading behavior analysis",
     "stock market journal app",
     "trading psychology software",
@@ -55,13 +57,29 @@ export const metadata: Metadata = {
     "NIFTY trading journal",
     "BANKNIFTY trading journal",
     "trade tracking app India",
+    "forex trading journal app",
+    "MT4 MT5 trading journal",
+    "cTrader journal app",
+    "Zerodha trade journal",
+    "Upstox trading journal",
+    "Angel One trading journal",
+    "Trading DNA profile",
+    "trading pattern detection",
+    "psychology cost calculator trading",
+    "trading missions and streaks",
+    "trading habit tracker app",
+    "AI trading coach",
+    "morning mentor trading app",
+    "self awareness score trader",
+    "revenge trading detector",
     "trading consistency",
     "emotional trading analysis",
     "trading mistake tracker",
-    "AI trading coach",
     "trading performance analytics",
     "screenshot trading journal",
-    "best trading journal 2025",
+    "weekly trading report AI",
+    "Android trading journal app",
+    "best trading journal 2026",
     "trading journal India",
   ],
 
@@ -184,10 +202,15 @@ const organizationSchema = {
   foundingDate: "2024",
   knowsAbout: [
     "AI Trading Journal",
+    "Trading Discipline Coaching",
+    "Gamified Trading Habits",
     "Trading Behavior Analysis",
     "Trading Psychology",
+    "Trading DNA & Pattern Detection",
+    "Psychology Cost Calculator",
     "Stock Market Journaling",
     "Trading Discipline",
+    "Forex Trading Journal",
     "NIFTY Options Trading",
     "BANKNIFTY Trading",
     "Emotional Trading Patterns",
@@ -215,7 +238,7 @@ const brandSchema = {
   logo: `${APP_URL}/logo.png`,
   slogan: "Track behavior, not just P&L.",
   description:
-    "Edgecipline is a coined brand name — a portmanteau of 'Edge' and 'discipline' — representing the competitive edge gained through disciplined trading behavior.",
+    "Edgecipline is a coined brand name — a portmanteau of 'Edge' and 'discipline' — representing the competitive edge gained through disciplined trading behavior, gamified daily habits, and AI coaching.",
 };
 
 // 3. SoftwareApplication — describes the product
@@ -227,18 +250,24 @@ const softwareSchema = {
   alternateName: "Edgecipline Trading Journal",
   applicationCategory: "FinanceApplication",
   applicationSubCategory: "Trading Journal",
-  operatingSystem: "Web, iOS, Android",
+  operatingSystem: "Web, Android",
   description:
-    "Edgecipline is an AI trading journal that analyzes behavioral patterns and emotional decisions to improve trading consistency. Upload a trade screenshot and AI extracts data automatically.",
+    "Edgecipline is an AI-powered trading journal, discipline coach, and gamified improvement system. Upload a trade screenshot and AI extracts the data, generates a Trading DNA profile, calculates the real cost of emotional trades, and coaches you daily through missions, streaks, and a morning mentor — for Forex and Indian market traders alike.",
   url: APP_URL,
   screenshot: `${APP_URL}/opengraph-image`,
   featureList: [
     "AI screenshot trade extraction",
-    "Behavioral pattern analysis",
-    "Emotional trading detection",
+    "Trading DNA behavioral profile",
+    "Pattern detection engine",
+    "Psychology cost calculator",
+    "Self-awareness score",
+    "Missions & streaks (gamified discipline)",
+    "AI Coach & daily Morning Mentor",
     "Weekly AI coaching reports",
-    "NIFTY & BANKNIFTY support",
-    "Revenge trading detection",
+    "Forex (MT4/MT5/cTrader) support",
+    "NIFTY & BANKNIFTY options support",
+    "Revenge trading & tilt detection",
+    "Native Android app",
     "P&L tracking",
   ],
   offers: {
@@ -269,7 +298,7 @@ const softwareSchema = {
   inLanguage: ["en", "hi"],
   audience: {
     "@type": "Audience",
-    audienceType: "Stock market traders, options traders, forex traders, Indian equity traders",
+    audienceType: "Forex traders, stock market traders, options traders, Indian equity traders",
     geographicArea: {
       "@type": "Country",
       name: "India",
@@ -340,7 +369,7 @@ const faqSchema = {
       name: "What is Edgecipline?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Edgecipline (pronounced 'edge-cipline') is an AI-powered trading journal that tracks your trading behavior, not just your P&L. The name is a portmanteau of 'Edge' and 'discipline' — reflecting the competitive edge traders gain through disciplined journaling. Simply upload a screenshot of your trade and Edgecipline's AI automatically extracts the details and reveals your emotional patterns and execution mistakes.",
+        text: "Edgecipline (pronounced 'edge-cipline') is an AI-powered trading journal, discipline coach, and gamified improvement system for Forex and Indian market traders. The name is a portmanteau of 'Edge' and 'discipline' — reflecting the competitive edge traders gain through disciplined journaling. Upload a screenshot of your trade and Edgecipline's AI automatically extracts the details, builds your Trading DNA profile, and reveals your emotional patterns and execution mistakes.",
       },
     },
     {
@@ -372,7 +401,31 @@ const faqSchema = {
       name: "What makes Edgecipline different from other trading journals?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Most trading journals only track P&L. Edgecipline is the first journal that focuses on your behavior — detecting emotional leakage, revenge trading patterns, bad time-of-day habits, and setup delusions that traditional journals miss. Edgecipline's AI analyzes the behavioral root cause of trading losses.",
+        text: "Most trading journals only track P&L. Edgecipline is a full discipline coach and gamified improvement system — it detects emotional leakage, revenge trading, and setup delusions, puts a dollar figure on the cost of tilt through its Psychology Cost Calculator, generates a Trading DNA profile of your unique edge, and keeps you consistent with daily missions, streaks, and a morning mentor message.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is Trading DNA?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Trading DNA is Edgecipline's AI-generated behavioral fingerprint. It analyzes your session, mood, setup, and instrument data to show exactly which conditions produce your best results and which you should avoid — your personal, repeatable edge, not generic trading advice.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does Edgecipline support Forex trading as well as Indian markets?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Edgecipline has a dedicated Forex mode (MT4, MT5, cTrader and similar platforms) and a dedicated Indian Market mode covering NIFTY, BANKNIFTY, F&O, and equity trades from brokers like Zerodha, Upstox, Angel One, Dhan, Groww, Fyers, and more. Each mode has its own journal, analytics, and screenshot extraction tuned to that market.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What are Missions, Streaks, and the Morning Mentor?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Missions are AI-recommended challenges targeting your specific weaknesses (like avoiding emotional trades for 7 days). Streaks reward consistent journaling and discipline day over day. The Morning Mentor is a personalized AI message delivered every morning, referencing your actual streak, recent mistakes, and mission progress to keep you accountable.",
       },
     },
     {
@@ -389,6 +442,14 @@ const faqSchema = {
       acceptedAnswer: {
         "@type": "Answer",
         text: "Yes. Edgecipline is built with Indian traders in mind. It supports NIFTY, BANKNIFTY, options, futures, and equity trades. The pricing is in INR and Edgecipline's insights are tailored for Indian market hours and instruments.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is there an Android app for Edgecipline?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Edgecipline ships as a native Android app with screenshot upload from your camera or gallery, push notifications for streaks and the morning mentor, and full access to your journal, analytics, and Trading DNA on the go.",
       },
     },
     {
@@ -418,25 +479,31 @@ const itemListSchema = {
     {
       "@type": "ListItem",
       position: 2,
-      name: "Behavioral Pattern Analysis",
+      name: "Trading DNA & Pattern Detection",
       url: `${APP_URL}/#features`,
     },
     {
       "@type": "ListItem",
       position: 3,
-      name: "Revenge Trading Detection",
+      name: "Psychology Cost Calculator",
       url: `${APP_URL}/#features`,
     },
     {
       "@type": "ListItem",
       position: 4,
-      name: "Weekly AI Coaching Reports",
+      name: "Missions, Streaks & Morning Mentor",
       url: `${APP_URL}/#features`,
     },
     {
       "@type": "ListItem",
       position: 5,
-      name: "NIFTY & BANKNIFTY Support",
+      name: "Weekly AI Coaching Reports",
+      url: `${APP_URL}/#features`,
+    },
+    {
+      "@type": "ListItem",
+      position: 6,
+      name: "Forex, NIFTY & BANKNIFTY Support",
       url: `${APP_URL}/#features`,
     },
   ],

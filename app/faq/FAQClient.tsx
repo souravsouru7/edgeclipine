@@ -14,7 +14,7 @@ const FAQ_DATA = [
     questions: [
       {
         q: "What is Edgecipline?",
-        a: "Edgecipline is an AI-powered trading journal that tracks your behavioral patterns, not just your P&L. Upload a screenshot of your trade and the AI automatically extracts the details, then reveals your emotional patterns, execution mistakes, and behavioral blind spots over time.",
+        a: "Edgecipline is an AI-powered trading journal, discipline coach, and gamified improvement system — not just a P&L tracker. Upload a screenshot of your trade and the AI automatically extracts the details, builds your Trading DNA profile, and reveals your emotional patterns, execution mistakes, and behavioral blind spots over time.",
       },
       {
         q: "How is Edgecipline spelled? Is it a typo?",
@@ -22,7 +22,7 @@ const FAQ_DATA = [
       },
       {
         q: "Who is Edgecipline built for?",
-        a: "Edgecipline is built for retail traders who are tired of losing money to emotional decisions and behavioral mistakes. Especially traders in Indian markets (NIFTY, BANKNIFTY, options, equity), though it works for any market.",
+        a: "Edgecipline is built for retail Forex traders using MT4, MT5, or cTrader, and Indian retail traders on NIFTY, BANKNIFTY, options, and equity through brokers like Zerodha, Upstox, Angel One, Dhan, and Groww — anyone tired of losing money to emotional decisions and inconsistent execution.",
       },
       {
         q: "When will Edgecipline launch?",
@@ -30,7 +30,7 @@ const FAQ_DATA = [
       },
       {
         q: "Is there a mobile app?",
-        a: "We're building a web app first, followed by mobile apps for iOS and Android. Early access members will be the first to access each platform as they launch.",
+        a: "Yes. Edgecipline ships as a native Android app with camera/gallery screenshot upload, push notifications for streaks and the morning mentor, and your full journal, analytics, and Trading DNA on the go.",
       },
     ],
   },
@@ -43,36 +43,44 @@ const FAQ_DATA = [
       },
       {
         q: "What brokers and platforms does Edgecipline support?",
-        a: "Because Edgecipline works from screenshots, it's compatible with any broker platform — Zerodha, Upstox, Angel One, Fyers, Dhan, Groww, and any other terminal that displays trade information visually.",
-      },
-      {
-        q: "What behavioral patterns does Edgecipline detect?",
-        a: "Edgecipline detects: revenge trading patterns, FOMO entry behavior, time-of-day performance changes, bad streak management, rule adherence breakdowns, setup delusion, and emotional state correlations with outcomes.",
-      },
-      {
-        q: "What are the weekly AI coaching reports?",
-        a: "Every Sunday, Edgecipline generates a personalized report based on your actual trade data from the week: what worked, what didn't, your biggest behavioral pattern, win rate by setup, and specific actionable recommendations for next week. Not generic tips — specific to your data.",
+        a: "Edgecipline auto-detects 20+ Forex and Indian broker platforms from your screenshot — MT4, MT5, cTrader, Zerodha, Upstox, Angel One, Dhan, Groww, Fyers, 5paisa, ICICI Direct, Kotak Securities, Paytm Money, and more.",
       },
       {
         q: "What is Trading DNA?",
-        a: "Trading DNA is your behavioral fingerprint — a comprehensive profile of your unique trading patterns, strengths, weaknesses, and psychological tendencies. It identifies which behavioral archetype you are and tracks how your behavior evolves over time.",
+        a: "Trading DNA is your behavioral fingerprint — a comprehensive profile of your unique trading patterns, strengths, weaknesses, and psychological tendencies, built from your actual data. It also powers a Pattern Detection Engine that finds high-edge combinations like 'London session + confident mood + breakout setup.'",
+      },
+      {
+        q: "What is the Psychology Cost Calculator?",
+        a: "It groups your trades by emotion and mistake tag — revenge, FOMO, greed, no stop loss, chased price — and calculates the exact P&L cost of each behavior, so you see a real number instead of a vague feeling.",
+      },
+      {
+        q: "What are Missions, Streaks, and the Morning Mentor?",
+        a: "Missions are AI-recommended challenges targeting your specific weaknesses, like avoiding emotional trades for 7 days. Streaks reward consistent daily journaling. The Morning Mentor sends a personalized AI message every morning at 6am based on your real trading data.",
+      },
+      {
+        q: "What behavioral patterns does Edgecipline detect?",
+        a: "Edgecipline detects revenge trading patterns, FOMO entry behavior, tilt spirals, time-of-day performance changes, size escalation after win streaks, rule adherence breakdowns, setup delusion, and emotional state correlations with outcomes.",
+      },
+      {
+        q: "What are the weekly AI coaching reports?",
+        a: "Every Sunday, Edgecipline generates a personalized report based on your actual trade data from the week: what worked, what didn't, your biggest behavioral pattern, win rate by setup, and one specific improvement focus for next week. Not generic tips — specific to your data.",
       },
     ],
   },
   {
-    category: "Indian Markets",
+    category: "Forex & Indian Markets",
     questions: [
       {
+        q: "Does Edgecipline support Forex trading (MT4/MT5/cTrader)?",
+        a: "Yes. Edgecipline has a dedicated Forex mode built for MT4, MT5, cTrader, and similar platforms, with its own journal, analytics, and screenshot extraction tuned for pip-based currency pairs.",
+      },
+      {
         q: "Is Edgecipline suitable for NIFTY and BANKNIFTY traders?",
-        a: "Yes — Edgecipline is built with Indian traders as the primary focus. It supports NIFTY, BANKNIFTY, options, futures, and equity trades, with pricing in INR and insights tailored for Indian market hours.",
+        a: "Yes — Edgecipline has a dedicated Indian Market mode covering NIFTY, BANKNIFTY, options, futures, and equity trades, with pricing in INR and insights tailored for Indian market hours.",
       },
       {
         q: "Does it work for options traders?",
-        a: "Yes. Edgecipline supports options trades and tracks behavioral patterns unique to options — like holding losing positions too long due to theta decay denial, expiry-day FOMO, and premium psychology.",
-      },
-      {
-        q: "Can I use Edgecipline for forex trading?",
-        a: "Yes. While built with Indian markets in mind, Edgecipline supports any instrument that appears in your trading terminal screenshot. Forex pairs, commodities, and international indices all work.",
+        a: "Yes. Indian Market mode captures F&O-specific fields — strike price, option type (CE/PE), expiry date, and lot size — and tracks behavioral patterns unique to options, like theta decay denial and expiry-day FOMO.",
       },
     ],
   },
@@ -180,8 +188,8 @@ export default function FAQClient() {
               <em className="not-italic text-[#00ffb2]">want to know</em>
             </h1>
             <p className="text-[16px] text-[#8b95aa] leading-relaxed">
-              Questions about Edgecipline, our AI features, pricing, and how it works for Indian
-              market traders.
+              Questions about Edgecipline, Trading DNA, gamified missions & streaks, pricing, and
+              how it works for both Forex and Indian market traders.
             </p>
           </div>
         </section>

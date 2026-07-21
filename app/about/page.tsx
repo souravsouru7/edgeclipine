@@ -9,13 +9,13 @@ const OG_IMAGE = [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Edg
 export const metadata: Metadata = {
   title: "About Edgecipline — Mission, Story & Philosophy",
   description:
-    "Edgecipline was built by traders who lost money the same way most traders do — not from bad strategies, but from bad behavior. Here's our story, mission, and why we built this.",
+    "Edgecipline was built by traders who lost money the same way most traders do — not from bad strategies, but from bad behavior. Here's our story, mission, and why we built an AI trading journal, discipline coach, and gamified improvement system for Forex and Indian market traders.",
   alternates: { canonical: "/about" },
   openGraph: {
     url: "https://www.edgecipline.com/about",
     title: "About Edgecipline — Mission, Story & Philosophy",
     description:
-      "Built by traders who felt this problem. Our story, mission, philosophy, and why behavioral analytics changes everything.",
+      "Built by traders who felt this problem. Our story, mission, philosophy, and why behavioral coaching and gamified discipline change everything.",
     images: OG_IMAGE,
   },
   twitter: {
@@ -49,9 +49,14 @@ const TIMELINE = [
     text: "Launched private alpha with 847+ traders on the waitlist. Refining the product based on real feedback.",
   },
   {
+    year: "2025 · Late",
+    label: "Beyond the Journal",
+    text: "Realized journaling alone wasn't enough to change behavior. Added Trading DNA, a psychology cost calculator, and a gamified layer — missions, streaks, and a daily morning mentor — to turn insight into habit.",
+  },
+  {
     year: "2026",
     label: "Public Launch",
-    text: "Preparing for public launch. AI screenshot extraction, behavioral analytics, and weekly coaching reports — coming soon.",
+    text: "Preparing for public launch on web and Android. AI screenshot extraction, Trading DNA, gamified missions & streaks, and daily AI coaching — for both Forex and Indian market traders.",
   },
 ];
 
@@ -88,9 +93,10 @@ export default function AboutPage() {
                 <em className="not-italic text-[#00ffb2]">themselves</em> as clearly as the market.
               </h2>
               <p className="text-[14px] text-[#8b95aa] leading-[1.9]">
-                Most trading tools track what happened. We track why. By surfacing behavioral patterns
-                that drive losses — revenge trading, FOMO entries, time-of-day blind spots — we help
-                traders fix the root cause, not just the symptoms.
+                Most trading tools track what happened. We track why — and then help you build the
+                habit to fix it. By surfacing behavioral patterns that drive losses — revenge trading,
+                FOMO entries, time-of-day blind spots — and turning them into daily missions, streaks,
+                and coaching, we help traders fix the root cause, not just the symptoms.
               </p>
             </div>
             <div>
@@ -130,9 +136,10 @@ export default function AboutPage() {
                 to zero."
               </p>
               <p className="text-[15px] text-white/70 leading-[1.9]">
-                "I stopped trading after 1pm. My account started growing. Edgecipline is that journal
-                — built for every trader who knows their strategy works but can't figure out why
-                their account doesn't."
+                "I stopped trading after 1pm. My account started growing. Edgecipline started as that
+                journal — and grew into a discipline coach, with missions, streaks, and a morning
+                mentor, because knowing the pattern wasn't enough. I needed something that made me
+                act on it every single day, for Forex and Indian markets alike."
               </p>
               <div className="mt-8 pt-6 border-t border-white/[0.06] flex items-center gap-3">
                 <div className="w-9 h-9 rounded-full bg-[rgba(0,255,178,0.1)] border border-[rgba(0,255,178,0.25)] flex items-center justify-center text-[14px]">
@@ -216,8 +223,9 @@ export default function AboutPage() {
               Currently in private early access
             </h2>
             <p className="text-[15px] text-[#8b95aa] leading-relaxed max-w-md mx-auto">
-              847+ traders are on the waitlist. We&apos;re refining the product based on real feedback
-              before public launch. Join the list to get priority access and founding-member pricing.
+              847+ traders are on the waitlist for an AI trading journal, discipline coach, and
+              gamified improvement system built for Forex and Indian market traders. Join the list
+              to get priority access and founding-member pricing.
             </p>
           </div>
         </section>

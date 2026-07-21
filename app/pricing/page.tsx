@@ -10,9 +10,9 @@ const OG_IMAGE = [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Edg
 const pricingSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
-  name: "Edgecipline AI Trading Journal",
+  name: "Edgecipline AI Trading Journal & Discipline Coach",
   description:
-    "AI-powered trading journal with behavioral analytics, screenshot extraction, and weekly AI coaching reports.",
+    "AI-powered trading journal, discipline coach, and gamified improvement system with Trading DNA, screenshot extraction, missions & streaks, and AI coaching for Forex and Indian market traders.",
   url: "https://www.edgecipline.com/pricing",
   offers: [
     {
@@ -21,7 +21,7 @@ const pricingSchema = {
       price: "149",
       priceCurrency: "INR",
       billingDuration: "P1M",
-      description: "AI screenshot extraction, analytics dashboard, unlimited trade journals.",
+      description: "AI screenshot extraction, analytics dashboard, unlimited trade journals for Forex and Indian markets.",
     },
     {
       "@type": "Offer",
@@ -29,7 +29,7 @@ const pricingSchema = {
       price: "249",
       priceCurrency: "INR",
       billingDuration: "P3M",
-      description: "Everything in Standard plus AI Coach weekly reports and behavior pattern detection.",
+      description: "Everything in Standard plus AI Coach, Morning Mentor, weekly reports, missions & streaks, and the psychology cost calculator.",
     },
     {
       "@type": "Offer",
@@ -37,7 +37,7 @@ const pricingSchema = {
       price: "449",
       priceCurrency: "INR",
       billingDuration: "P6M",
-      description: "Full platform including Trading DNA, monthly performance review, and lifetime trade backup.",
+      description: "Full platform including Trading DNA, pattern detection, monthly performance review, and lifetime trade backup.",
     },
   ],
 };
@@ -45,7 +45,7 @@ const pricingSchema = {
 export const metadata: Metadata = {
   title: "Pricing — Edgecipline Plans & Early Access",
   description:
-    "Edgecipline pricing: Standard ₹149/month, Professional ₹249 for 3 months (~₹2.76/day), Ultimate ₹449 for 6 months (~₹2.47/day). Join the waitlist for founding-member pricing.",
+    "Edgecipline pricing: Standard ₹149/month, Professional ₹249 for 3 months (~₹2.76/day), Ultimate ₹449 for 6 months (~₹2.47/day). Trading DNA, missions & streaks, and AI coaching for Forex and Indian markets. Join the waitlist for founding-member pricing.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     url: "https://www.edgecipline.com/pricing",
@@ -73,14 +73,14 @@ const PLANS = [
     featured: false,
     description: "For traders who want to start journaling with AI extraction and build the habit.",
     features: [
-      "Unlimited trade journals",
+      "Unlimited trade journals · Forex + Indian markets",
       "AI screenshot extraction",
       "Standard analytics dashboard",
       "Emotion & setup tagging",
       "Trade history search",
       "Email support",
     ],
-    notIncluded: ["AI Coach weekly reports", "Trading DNA profile", "Monthly performance review"],
+    notIncluded: ["AI Coach & Morning Mentor", "Missions & streaks", "Trading DNA profile"],
   },
   {
     name: "Professional",
@@ -89,16 +89,16 @@ const PLANS = [
     dailyCost: "~₹2.76/day",
     badge: "Most Popular",
     featured: true,
-    description: "For serious traders who want behavioral analytics and personalized AI coaching.",
+    description: "For serious traders who want gamified discipline and personalized AI coaching.",
     features: [
       "Everything in Standard",
-      "AI Coach weekly reports",
-      "Setup & psychology tagging",
-      "Behavior pattern detection",
-      "Revenge trading alerts",
+      "AI Coach, Morning Mentor & weekly reports",
+      "Missions & streaks",
+      "Psychology cost calculator",
+      "Revenge & tilt alerts",
       "Priority support",
     ],
-    notIncluded: ["Trading DNA profile", "Monthly performance review"],
+    notIncluded: ["Trading DNA profile", "Pattern detection engine"],
   },
   {
     name: "Ultimate",
@@ -110,10 +110,10 @@ const PLANS = [
     description: "For committed traders who want the complete behavioral intelligence platform.",
     features: [
       "Everything in Professional",
-      "Trading DNA profile",
+      "Trading DNA profile & pattern detection",
+      "Self-awareness score & psychology timeline",
       "Monthly performance review",
       "Lifetime trade backup",
-      "Custom strategy slots",
       "Early beta access to new features",
     ],
     notIncluded: [],
@@ -121,14 +121,16 @@ const PLANS = [
 ];
 
 const COMPARE_ROWS = [
-  { label: "Unlimited trade journals", standard: true, professional: true, ultimate: true },
+  { label: "Unlimited trade journals (Forex + Indian)", standard: true, professional: true, ultimate: true },
   { label: "AI screenshot extraction", standard: true, professional: true, ultimate: true },
   { label: "Analytics dashboard", standard: true, professional: true, ultimate: true },
   { label: "Emotion & setup tagging", standard: true, professional: true, ultimate: true },
-  { label: "AI Coach weekly reports", standard: false, professional: true, ultimate: true },
-  { label: "Behavior pattern detection", standard: false, professional: true, ultimate: true },
-  { label: "Revenge trading alerts", standard: false, professional: true, ultimate: true },
-  { label: "Trading DNA profile", standard: false, professional: false, ultimate: true },
+  { label: "AI Coach & Morning Mentor", standard: false, professional: true, ultimate: true },
+  { label: "Missions & streaks", standard: false, professional: true, ultimate: true },
+  { label: "Psychology cost calculator", standard: false, professional: true, ultimate: true },
+  { label: "Revenge & tilt pattern alerts", standard: false, professional: true, ultimate: true },
+  { label: "Trading DNA & pattern detection", standard: false, professional: false, ultimate: true },
+  { label: "Self-awareness score", standard: false, professional: false, ultimate: true },
   { label: "Monthly performance review", standard: false, professional: false, ultimate: true },
   { label: "Lifetime trade backup", standard: false, professional: false, ultimate: true },
   { label: "Early beta access", standard: false, professional: false, ultimate: true },

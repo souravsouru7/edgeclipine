@@ -10,7 +10,7 @@ const faqSchema = {
       name: "What is Edgecipline?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Edgecipline is an AI-powered trading journal that tracks your behavioral patterns, not just your P&L. Upload a screenshot of your trade and the AI automatically extracts the details, then reveals your emotional patterns, execution mistakes, and behavioral blind spots over time.",
+        text: "Edgecipline is an AI-powered trading journal, discipline coach, and gamified improvement system. Upload a screenshot of your trade and the AI automatically extracts the details, builds your Trading DNA profile, and reveals your emotional patterns, execution mistakes, and behavioral blind spots over time.",
       },
     },
     {
@@ -23,10 +23,42 @@ const faqSchema = {
     },
     {
       "@type": "Question",
+      name: "Does Edgecipline support Forex trading (MT4/MT5/cTrader)?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Edgecipline has a dedicated Forex mode built for MT4, MT5, cTrader, and similar platforms, with its own journal, analytics, and screenshot extraction tuned for pip-based pairs.",
+      },
+    },
+    {
+      "@type": "Question",
       name: "Is Edgecipline suitable for NIFTY and BANKNIFTY traders?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes — Edgecipline is built with Indian traders as the primary focus. It supports NIFTY, BANKNIFTY, options, futures, and equity trades, with pricing in INR and insights tailored for Indian market hours.",
+        text: "Yes — Edgecipline has a dedicated Indian Market mode. It supports NIFTY, BANKNIFTY, options, futures, and equity trades from Zerodha, Upstox, Angel One, Dhan, Groww, and more, with pricing in INR and insights tailored for Indian market hours.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is Trading DNA?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Trading DNA is Edgecipline's AI-generated behavioral fingerprint. It breaks down your performance by session, mood, setup, and instrument to show exactly which conditions produce your best results — your personal, repeatable edge.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What are Missions, Streaks, and the Morning Mentor?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Missions are AI-recommended challenges targeting your specific weaknesses. Streaks reward consistent daily journaling. The Morning Mentor sends a personalized AI message every morning at 6am referencing your actual streak, recent mistakes, and mission progress.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is there an Android app for Edgecipline?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Edgecipline ships as a native Android app with camera and gallery screenshot upload, push notifications for streaks and the morning mentor, and full access to your journal, analytics, and Trading DNA on the go.",
       },
     },
     {
@@ -75,20 +107,20 @@ const faqSchema = {
 export const metadata: Metadata = {
   title: "FAQ — Edgecipline Questions & Answers",
   description:
-    "Frequently asked questions about Edgecipline — the AI trading journal. Learn about AI screenshot extraction, pricing, Indian market support, waitlist access, and data privacy.",
+    "Frequently asked questions about Edgecipline — the AI trading journal, discipline coach, and gamified improvement system. Learn about Trading DNA, missions & streaks, Forex + Indian market support, pricing, and data privacy.",
   alternates: { canonical: "/faq" },
   openGraph: {
     url: "https://www.edgecipline.com/faq",
     title: "FAQ — Edgecipline Questions & Answers",
     description:
-      "Everything you want to know about Edgecipline — AI extraction, pricing, Indian market support, waitlist, and data privacy.",
+      "Everything you want to know about Edgecipline — Trading DNA, missions & streaks, Forex + Indian market support, pricing, and data privacy.",
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Edgecipline FAQ" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Edgecipline FAQ — Common Questions Answered",
     description:
-      "Questions about AI screenshot extraction, pricing, NIFTY/BANKNIFTY support, waitlist, and more.",
+      "Questions about Trading DNA, missions & streaks, Forex/NIFTY/BANKNIFTY support, pricing, and more.",
     images: ["/opengraph-image"],
   },
 };

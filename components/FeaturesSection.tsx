@@ -52,7 +52,7 @@ export default function FeaturesSection() {
             <div className="w-11 h-11 rounded-xl bg-[rgba(0,255,178,0.08)] border border-[rgba(0,255,178,0.15)] flex items-center justify-center text-xl mb-5">📸</div>
             <h3 className="text-xl font-bold text-white mb-3 leading-tight">Screenshot. That&apos;s it.</h3>
             <p className="text-[13px] text-[#8b95aa] leading-[1.8] mb-7">
-              Took a trade? Screenshot your terminal. Edgecipline&apos;s AI reads every detail — pair, direction, entry, exit, P&amp;L, lot size, time of day. No manual entry. No spreadsheets. No friction.
+              Took a trade? Screenshot your terminal. Edgecipline&apos;s AI reads every detail — pair, direction, entry, exit, P&amp;L, lot size, time of day. Works for MT4/MT5/cTrader Forex trades and NIFTY, BANKNIFTY, and F&amp;O trades from Zerodha, Upstox, Angel One, and more.
               <br /><br />We removed every excuse not to journal.
             </p>
             <div className="rounded-xl bg-black/30 border border-white/[0.06] p-4">
@@ -83,11 +83,11 @@ export default function FeaturesSection() {
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2, ease: EASE }} className={cardBase}>
             <div className="absolute inset-0 rounded-3xl bg-[radial-gradient(ellipse_at_50%_0%,rgba(0,255,178,0.04),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
             <div className="w-11 h-11 rounded-xl bg-[rgba(0,255,178,0.08)] border border-[rgba(0,255,178,0.15)] flex items-center justify-center text-xl mb-5">🧠</div>
-            <h3 className="text-xl font-bold text-white mb-2">AI Coach That Knows You</h3>
-            <p className="text-[13px] text-[#8b95aa] leading-[1.8] mb-4">Personalized weekly reports — not generic tips.</p>
+            <h3 className="text-xl font-bold text-white mb-2">AI Coach & Morning Mentor</h3>
+            <p className="text-[13px] text-[#8b95aa] leading-[1.8] mb-4">A personalized message every morning, and a weekly report every Sunday — not generic tips.</p>
             <div className="p-3.5 bg-[rgba(0,255,178,0.04)] border border-[rgba(0,255,178,0.12)] rounded-xl text-[12px] leading-[1.7] text-white/50">
-              <div className="font-mono text-[9px] tracking-[0.14em] uppercase text-[#00ffb2] mb-2">🤖 Weekly Insight · Mon 9:00 AM</div>
-              Your <strong className="text-[rgba(0,255,178,0.85)]">Friday P&amp;L is −₹8,400</strong> avg. You overtrade after lunch. Best window: <strong className="text-[rgba(0,255,178,0.85)]">9:15–11:00 AM</strong>.
+              <div className="font-mono text-[9px] tracking-[0.14em] uppercase text-[#00ffb2] mb-2">🤖 Morning Mentor · 6:00 AM</div>
+              You&apos;re on a <strong className="text-[rgba(0,255,178,0.85)]">6-day streak</strong>. Yesterday you skipped the checklist twice — today, run it before every entry.
             </div>
             <span className="absolute right-5 bottom-4 font-mono text-[80px] font-light text-white/[0.04] leading-none tracking-[-0.05em] pointer-events-none select-none">02</span>
           </motion.div>
@@ -95,9 +95,9 @@ export default function FeaturesSection() {
           {/* Card 03 */}
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3, ease: EASE }} className={cardBase}>
             <div className="absolute inset-0 rounded-3xl bg-[radial-gradient(ellipse_at_50%_0%,rgba(0,255,178,0.04),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-            <div className="w-11 h-11 rounded-xl bg-[rgba(0,255,178,0.08)] border border-[rgba(0,255,178,0.15)] flex items-center justify-center text-xl mb-5">👁</div>
-            <h3 className="text-xl font-bold text-white mb-2">See Your Blind Spots</h3>
-            <p className="text-[13px] text-[#8b95aa] leading-[1.8] mb-4">Tag every trade with your mental state. See the pattern.</p>
+            <div className="w-11 h-11 rounded-xl bg-[rgba(0,255,178,0.08)] border border-[rgba(0,255,178,0.15)] flex items-center justify-center text-xl mb-5">💸</div>
+            <h3 className="text-xl font-bold text-white mb-2">Psychology Cost Calculator</h3>
+            <p className="text-[13px] text-[#8b95aa] leading-[1.8] mb-4">Tag every trade with your mental state. See exactly what it cost you.</p>
             <div className="flex flex-wrap gap-1.5">
               {emotions.map(e => (
                 <span key={e.label} className={`px-2.5 py-1 rounded-full text-[11px] font-semibold border ${e.cls}`}>{e.label}</span>
@@ -138,12 +138,12 @@ export default function FeaturesSection() {
           {/* Card 05 */}
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2, ease: EASE }} className={cardBase}>
             <div className="absolute inset-0 rounded-3xl bg-[radial-gradient(ellipse_at_50%_0%,rgba(0,255,178,0.04),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-            <div className="w-11 h-11 rounded-xl bg-[rgba(0,255,178,0.08)] border border-[rgba(0,255,178,0.15)] flex items-center justify-center text-xl mb-5">🔒</div>
-            <h3 className="text-xl font-bold text-white mb-2">Trade History, Forever</h3>
-            <p className="text-[13px] text-[#8b95aa] leading-[1.8] mb-4">Every screenshot. Every AI insight. Compounding over time.</p>
+            <div className="w-11 h-11 rounded-xl bg-[rgba(0,255,178,0.08)] border border-[rgba(0,255,178,0.15)] flex items-center justify-center text-xl mb-5">🧬</div>
+            <h3 className="text-xl font-bold text-white mb-2">Trading DNA, Missions & Streaks</h3>
+            <p className="text-[13px] text-[#8b95aa] leading-[1.8] mb-4">Your behavioral fingerprint, plus daily missions and streaks that turn insight into habit.</p>
             <div className="p-4 bg-[rgba(0,255,178,0.04)] border border-[rgba(0,255,178,0.12)] rounded-xl text-center">
-              <div className="text-4xl mb-2" style={{ filter: "drop-shadow(0 0 16px rgba(0,255,178,0.4))" }}>🗄️</div>
-              <div className="font-mono text-[10px] text-[#8b95aa] tracking-[0.1em]">247 trades · 14 months · secured</div>
+              <div className="text-4xl mb-2" style={{ filter: "drop-shadow(0 0 16px rgba(0,255,178,0.4))" }}>🔥</div>
+              <div className="font-mono text-[10px] text-[#8b95aa] tracking-[0.1em]">247 trades · 14-day streak · DNA v6</div>
             </div>
             <span className="absolute right-5 bottom-4 font-mono text-[80px] font-light text-white/[0.04] leading-none tracking-[-0.05em] pointer-events-none select-none">05</span>
           </motion.div>

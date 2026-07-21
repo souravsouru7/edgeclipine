@@ -41,7 +41,7 @@ export default function HeroSection() {
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#00ffb2] animate-blink flex-shrink-0" />
             <span className="font-mono text-xs tracking-[0.18em] uppercase text-[#00ffb2]">
-              AI Trading Journal · Behavior tracking · Consistency
+              AI Trading Journal · Discipline Coach · Gamified Growth
             </span>
           </motion.div>
 
@@ -64,7 +64,8 @@ export default function HeroSection() {
           >
             Edgecipline tracks your{" "}
             <strong className="text-white/60 font-semibold">behavior, not just P&amp;L</strong>. Upload a screenshot — AI
-            reveals the emotional patterns and execution mistakes sabotaging your consistency.
+            builds your journal, reveals your Trading DNA, and keeps you disciplined with missions,
+            streaks, and a daily AI coach. Built for Forex and Indian market traders.
           </motion.p>
 
           <motion.div

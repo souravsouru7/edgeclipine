@@ -13,7 +13,7 @@ const plans = [
     badge: null,
     savings: null,
     featured: false,
-    features: ["Unlimited trade journals", "AI screenshot extraction", "Standard analytics dashboard", "Email support"],
+    features: ["Unlimited trade journals · Forex + Indian markets", "AI screenshot extraction", "Standard analytics dashboard", "Email support"],
   },
   {
     name: "Professional",
@@ -22,7 +22,7 @@ const plans = [
     badge: "Most Popular",
     savings: "Save 40% vs monthly",
     featured: true,
-    features: ["Everything in Standard", "AI Coach weekly reports", "Setup & psychology tagging", "Priority support"],
+    features: ["Everything in Standard", "AI Coach, Morning Mentor & weekly reports", "Missions, streaks & psychology cost calculator", "Priority support"],
   },
   {
     name: "Ultimate",
@@ -31,7 +31,7 @@ const plans = [
     badge: "Best Value",
     savings: null,
     featured: false,
-    features: ["Everything in Professional", "Lifetime trade backup", "Custom strategy slots", "Early beta access"],
+    features: ["Everything in Professional", "Trading DNA & pattern detection", "Lifetime trade backup", "Early beta access"],
   },
 ];
 

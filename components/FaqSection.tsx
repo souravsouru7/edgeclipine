@@ -7,27 +7,35 @@ import { EASE } from "@/lib/motion";
 const faqs = [
   {
     q: "What is Edgecipline?",
-    a: "Edgecipline is an AI-powered trading journal that tracks your trading behavior, not just your P&L. Upload a screenshot of your trade and the AI automatically extracts the details and reveals your emotional patterns, execution mistakes, and behavioral blind spots.",
+    a: "Edgecipline is an AI-powered trading journal, discipline coach, and gamified improvement system. Upload a screenshot of your trade and the AI automatically extracts the details, builds your Trading DNA profile, and reveals your emotional patterns, execution mistakes, and behavioral blind spots.",
   },
   {
     q: "How does the AI screenshot extraction work?",
     a: "Take a screenshot of your trade terminal after any trade. Edgecipline's AI reads it to extract pair, direction, entry, exit, P&L, lot size, and time — automatically. No manual entry, no spreadsheets. Just screenshot and move on.",
   },
   {
-    q: "What makes Edgecipline different from other trading journals?",
-    a: "Most trading journals only track P&L. Edgecipline is the first that focuses on behavior — detecting emotional leakage, revenge trading patterns, bad time-of-day habits, and setup delusions. It delivers personalized weekly AI coaching reports, not generic tips.",
+    q: "What is Trading DNA?",
+    a: "Trading DNA is your AI-generated behavioral fingerprint. It analyzes your session, mood, setup, and instrument data to show exactly which conditions produce your best results — and which ones you should avoid.",
   },
   {
-    q: "Is it suitable for Indian market traders (NIFTY, BANKNIFTY, options)?",
-    a: "Yes. Edgecipline is built with Indian traders in mind. It supports NIFTY, BANKNIFTY, options, futures, and equity trades, with pricing in INR and insights tailored for Indian market hours.",
+    q: "What are Missions, Streaks, and the Morning Mentor?",
+    a: "Missions are AI-recommended challenges that target your specific weaknesses. Streaks reward consistent journaling day after day. The Morning Mentor sends a personalized AI message every morning based on your real trading data.",
+  },
+  {
+    q: "Does Edgecipline support Forex trading, or just Indian markets?",
+    a: "Both. Edgecipline has a dedicated Forex mode for MT4, MT5, and cTrader traders, plus an Indian Market mode for NIFTY, BANKNIFTY, options, and equity trades from Zerodha, Upstox, Angel One, and more.",
+  },
+  {
+    q: "What makes Edgecipline different from other trading journals?",
+    a: "Most trading journals only track P&L. Edgecipline detects emotional leakage and revenge trading, puts a real dollar figure on the cost of tilt, and keeps you disciplined with missions, streaks, and daily AI coaching — not generic tips.",
   },
   {
     q: "How much does Edgecipline cost?",
     a: "Three plans: Standard (₹149/month), Professional (₹249 for 3 months, ~₹2.76/day), and Ultimate (₹449 for 6 months, ~₹2.47/day). One bad trade costs more than a year of Edgecipline.",
   },
   {
-    q: "When will Edgecipline launch?",
-    a: "We're currently in private early access. Join the waitlist to get priority access, help shape the product, and lock in early pricing before public launch.",
+    q: "Is there an Android app?",
+    a: "Yes. Edgecipline ships as a native Android app with screenshot upload from your camera or gallery, push notifications for streaks and the morning mentor, and your full journal on the go.",
   },
 ];
 

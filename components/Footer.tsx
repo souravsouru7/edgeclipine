@@ -71,7 +71,7 @@ export default function Footer() {
               <span className="font-bold text-[15px] text-white tracking-tight">Edgecipline</span>
             </Link>
             <p className="text-[13px] text-[#8b95aa] leading-relaxed mb-5 max-w-[200px]">
-              Track behavior, not just P&L. The AI trading journal for disciplined traders.
+              AI trading journal, discipline coach & gamified improvement system — for Forex and Indian market traders.
             </p>
             <div className="flex items-center gap-2">
               {SOCIALS.map(({ href, label, char }) => (

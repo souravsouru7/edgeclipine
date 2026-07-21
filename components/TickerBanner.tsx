@@ -17,7 +17,9 @@ interface TickerBannerProps {
 const ALT_ITEMS = [
   "Building in public",
   "2 founders · 1 mission",
-  "Self-awareness is the edge",
+  "Trading DNA · Your repeatable edge",
+  "Missions & streaks · Gamified discipline",
+  "Forex + Indian markets",
   "No spreadsheets",
   "No excuses",
   "Join the waitlist",
