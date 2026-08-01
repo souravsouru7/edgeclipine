@@ -200,6 +200,26 @@ const organizationSchema = {
   sameAs: SOCIAL_PROFILES,
   description: DESCRIPTION,
   foundingDate: "2024",
+  founder: [
+    {
+      "@type": "Person",
+      "@id": `${APP_URL}/founders#sourav-r`,
+      name: "Sourav R",
+      jobTitle: "Co-Founder — Product, Technology and Strategy",
+      url: `${APP_URL}/founders`,
+      image: `${APP_URL}/sourav.png`,
+      sameAs: ["https://www.linkedin.com/in/sourav-r-9566b5194"],
+    },
+    {
+      "@type": "Person",
+      "@id": `${APP_URL}/founders#munavvir-tp`,
+      name: "Munavvir TP",
+      jobTitle: "Co-Founder — Operations, Administration and People",
+      url: `${APP_URL}/founders`,
+      image: `${APP_URL}/munaveer.png`,
+      sameAs: ["https://www.linkedin.com/in/munavvirtp93"],
+    },
+  ],
   knowsAbout: [
     "Trading Discipline Coaching",
     "Gamified Trading Habits",

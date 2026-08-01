@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTABanner from "@/components/CTABanner";
@@ -146,12 +147,21 @@ export default function AboutPage() {
                   S
                 </div>
                 <div>
-                  <div className="text-[13px] font-semibold text-white">Sourav</div>
+                  <div className="text-[13px] font-semibold text-white">Sourav R</div>
                   <div className="font-mono text-[10px] text-[#8b95aa] tracking-[0.1em] uppercase">
-                    Founder, Edgecipline
+                    Co-Founder, Edgecipline
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="mt-8 text-center">
+              <Link
+                href="/founders"
+                className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] px-6 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-white/70 hover:border-[rgba(0,255,178,0.4)] hover:text-[#00ffb2] transition-colors duration-200"
+              >
+                Meet the founders
+                <span aria-hidden="true">→</span>
+              </Link>
             </div>
           </div>
         </section>
