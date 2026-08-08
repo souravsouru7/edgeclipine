@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FOUNDERS } from "@/lib/founders";
 
 const PRODUCT = [
   { href: "/features", label: "Features" },
@@ -10,6 +11,12 @@ const PRODUCT = [
 const COMPANY = [
   { href: "/about", label: "About" },
   { href: "/founders", label: "Founders" },
+  // Named founder links sitewide — repeated, consistent anchor text on every
+  // page is what teaches search engines that Edgecipline has two founders.
+  ...FOUNDERS.map((founder) => ({
+    href: `/founders/${founder.slug}`,
+    label: founder.name,
+  })),
   { href: "/contact", label: "Contact" },
   { href: "/faq", label: "FAQ" },
 ];
@@ -93,6 +100,32 @@ export default function Footer() {
           <FooterCol title="Product" links={PRODUCT} />
           <FooterCol title="Company" links={COMPANY} />
           <FooterCol title="Legal" links={LEGAL} />
+        </div>
+
+        {/* Founder attribution — one plain sentence naming both founders, on
+            every page of the site */}
+        <div className="border-t border-white/[0.05] pt-7 pb-6">
+          <p className="text-[12px] text-white/40 leading-relaxed">
+            Edgecipline was founded by{" "}
+            {FOUNDERS.map((founder, i) => (
+              <span key={founder.slug}>
+                <Link
+                  href={`/founders/${founder.slug}`}
+                  className="text-white/60 hover:text-[#00ffb2] transition-colors duration-200"
+                >
+                  {founder.name}
+                </Link>
+                <span className="text-white/30"> ({founder.shortRole})</span>
+                {i < FOUNDERS.length - 1 ? " and " : "."}
+              </span>
+            ))}{" "}
+            <Link
+              href="/founders"
+              className="text-white/50 hover:text-[#00ffb2] transition-colors duration-200"
+            >
+              Meet both founders →
+            </Link>
+          </p>
         </div>
 
         {/* Bottom bar */}

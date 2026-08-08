@@ -7,8 +7,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTABanner from "@/components/CTABanner";
 import { EASE } from "@/lib/motion";
+import { FOUNDER_FAQS } from "@/lib/founders";
 
 const FAQ_DATA = [
+  {
+    category: "Founders & Company",
+    questions: FOUNDER_FAQS.map(({ q, a }) => ({ q, a })),
+  },
   {
     category: "About Edgecipline",
     questions: [

@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/lib/blog";
+import { FOUNDERS } from "@/lib/founders";
 
 export const dynamic = "force-static";
 
@@ -12,13 +13,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/features`, lastModified: NOW, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/pricing`, lastModified: NOW, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/about`, lastModified: NOW, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE}/founders`, lastModified: NOW, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/founders`, lastModified: NOW, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/blog`, lastModified: NOW, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/faq`, lastModified: NOW, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/contact`, lastModified: NOW, changeFrequency: "yearly", priority: 0.5 },
     { url: `${BASE}/privacy`, lastModified: NOW, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE}/terms`, lastModified: NOW, changeFrequency: "yearly", priority: 0.3 },
   ];
+
+  const founderPages: MetadataRoute.Sitemap = FOUNDERS.map((founder) => ({
+    url: `${BASE}/founders/${founder.slug}`,
+    lastModified: NOW,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
 
   const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
     url: `${BASE}/blog/${post.slug}`,
@@ -27,5 +35,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: post.featured ? 0.8 : 0.6,
   }));
 
-  return [...staticPages, ...blogPages];
+  return [...staticPages, ...founderPages, ...blogPages];
 }

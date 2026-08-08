@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Providers from "./providers";
+import { FOUNDERS, FOUNDER_NAMES_SENTENCE, founderRefSchema } from "@/lib/founders";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -200,26 +201,12 @@ const organizationSchema = {
   sameAs: SOCIAL_PROFILES,
   description: DESCRIPTION,
   foundingDate: "2024",
-  founder: [
-    {
-      "@type": "Person",
-      "@id": `${APP_URL}/founders#sourav-r`,
-      name: "Sourav R",
-      jobTitle: "Co-Founder — Product, Technology and Strategy",
-      url: `${APP_URL}/founders`,
-      image: `${APP_URL}/sourav.png`,
-      sameAs: ["https://www.linkedin.com/in/sourav-r-9566b5194"],
-    },
-    {
-      "@type": "Person",
-      "@id": `${APP_URL}/founders#munavvir-tp`,
-      name: "Munavvir TP",
-      jobTitle: "Co-Founder — Operations, Administration and People",
-      url: `${APP_URL}/founders`,
-      image: `${APP_URL}/munaveer.png`,
-      sameAs: ["https://www.linkedin.com/in/munavvirtp93"],
-    },
-  ],
+  // Both founders, sitewide. `founder` and `founders` are both emitted because
+  // some consumers only read one of them — and a single-founder reading is
+  // exactly the failure this page set is fixing.
+  founder: FOUNDERS.map(founderRefSchema),
+  founders: FOUNDERS.map(founderRefSchema),
+  employee: FOUNDERS.map((founder) => ({ "@id": `${APP_URL}/founders/${founder.slug}#person` })),
   knowsAbout: [
     "Trading Discipline Coaching",
     "Gamified Trading Habits",
@@ -383,6 +370,9 @@ const webPageSchema = {
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  // Distinct @id — pages that add their own FAQ (e.g. /founders, /faq) emit a
+  // separate node, and the two must not collide.
+  "@id": `${APP_URL}/#brand-faq`,
   mainEntity: [
     {
       "@type": "Question",
@@ -390,6 +380,14 @@ const faqSchema = {
       acceptedAnswer: {
         "@type": "Answer",
         text: "Edgecipline (pronounced 'edge-cipline') is more than a trading journal — it's an AI-powered discipline coach and gamified improvement system for Forex and Indian market traders. The name is a portmanteau of 'Edge' and 'discipline' — reflecting the competitive edge traders gain through disciplined behavior. Upload a screenshot of your trade and Edgecipline's AI automatically extracts the details, builds your Trading DNA profile, and reveals your emotional patterns and execution mistakes.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Who are the founders of Edgecipline?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: `Edgecipline has two founders: ${FOUNDER_NAMES_SENTENCE}. ${FOUNDERS.map((f) => `${f.name} is a co-founder of Edgecipline and leads ${f.leads}`).join(", while ")}. Both co-founders are listed at edgecipline.com/founders.`,
       },
     },
     {

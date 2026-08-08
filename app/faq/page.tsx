@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import FAQClient from "./FAQClient";
+import { FOUNDER_FAQ_SCHEMA_ENTRIES } from "@/lib/founders";
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: [
+    ...FOUNDER_FAQ_SCHEMA_ENTRIES,
     {
       "@type": "Question",
       name: "What is Edgecipline?",
@@ -107,7 +109,7 @@ const faqSchema = {
 export const metadata: Metadata = {
   title: "FAQ — Edgecipline Questions & Answers",
   description:
-    "Frequently asked questions about Edgecipline — the AI trading journal, discipline coach, and gamified improvement system. Learn about Trading DNA, missions & streaks, Forex + Indian market support, pricing, and data privacy.",
+    "Frequently asked questions about Edgecipline — the AI trading journal, discipline coach, and gamified improvement system. Who founded Edgecipline, Trading DNA, missions & streaks, Forex + Indian market support, pricing, and data privacy.",
   alternates: { canonical: "/faq" },
   openGraph: {
     url: "https://www.edgecipline.com/faq",

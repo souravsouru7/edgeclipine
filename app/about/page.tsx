@@ -1,16 +1,24 @@
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTABanner from "@/components/CTABanner";
 import PageHero from "@/components/PageHero";
+import {
+  FOUNDERS,
+  FOUNDER_NAMES_SENTENCE,
+  ORGANIZATION_ID,
+  SITE_URL,
+  WEBSITE_ID,
+  founderId,
+} from "@/lib/founders";
 
 const OG_IMAGE = [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Edgecipline — AI Trading Journal" }];
 
 export const metadata: Metadata = {
   title: "About Edgecipline — Mission, Story & Philosophy",
-  description:
-    "Edgecipline was built by traders who lost money the same way most traders do — not from bad strategies, but from bad behavior. Here's our story, mission, and why we built an AI trading journal, discipline coach, and gamified improvement system for Forex and Indian market traders.",
+  description: `Edgecipline was founded by ${FOUNDER_NAMES_SENTENCE} — traders who lost money the same way most traders do, not from bad strategies but from bad behavior. Here's our story, mission, and why we built an AI trading journal, discipline coach, and gamified improvement system for Forex and Indian market traders.`,
   alternates: { canonical: "/about" },
   openGraph: {
     url: "https://www.edgecipline.com/about",
@@ -70,9 +78,40 @@ const BELIEFS = [
   { icon: "🏆", title: "Built by Traders", body: "We trade. We journal. We've had the same psychological struggles. We built the tool we wish we had." },
 ];
 
+// Ties the company story page to both founder entities, so /about corroborates
+// the same two Person @ids that /founders and the Organization node declare.
+const aboutPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": `${SITE_URL}/about#webpage`,
+  url: `${SITE_URL}/about`,
+  name: "About Edgecipline — Mission, Story & Philosophy",
+  isPartOf: { "@id": WEBSITE_ID },
+  about: { "@id": ORGANIZATION_ID },
+  mentions: FOUNDERS.map((founder) => ({
+    "@type": "Person",
+    "@id": founderId(founder),
+    name: founder.name,
+    jobTitle: founder.role,
+    url: `${SITE_URL}/founders/${founder.slug}`,
+  })),
+  inLanguage: "en-IN",
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "About", item: `${SITE_URL}/about` },
+    ],
+  },
+};
+
 export default function AboutPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
+      />
       <Navbar />
       <main>
         <PageHero
@@ -144,22 +183,50 @@ export default function AboutPage() {
               </p>
               <div className="mt-8 pt-6 border-t border-white/[0.06] flex items-center gap-3">
                 <div className="w-9 h-9 rounded-full bg-[rgba(0,255,178,0.1)] border border-[rgba(0,255,178,0.25)] flex items-center justify-center text-[14px]">
-                  S
+                  {FOUNDERS[0].givenName.charAt(0)}
                 </div>
                 <div>
-                  <div className="text-[13px] font-semibold text-white">Sourav R</div>
+                  <div className="text-[13px] font-semibold text-white">
+                    <Link
+                      href={`/founders/${FOUNDERS[0].slug}`}
+                      className="hover:text-[#00ffb2] transition-colors duration-200"
+                    >
+                      {FOUNDERS[0].name}
+                    </Link>
+                  </div>
                   <div className="font-mono text-[10px] text-[#8b95aa] tracking-[0.1em] uppercase">
-                    Co-Founder, Edgecipline
+                    {FOUNDERS[0].shortRole}, Edgecipline
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Both founders named in body copy — /about is the highest-authority
+                company page, so it has to state the full founding team, not just
+                the founder whose story is quoted above. */}
+            <p className="mt-10 text-[15px] text-[#8b95aa] leading-[1.9] text-center">
+              Edgecipline was founded by{" "}
+              {FOUNDERS.map((founder, i) => (
+                <span key={founder.slug}>
+                  <Link
+                    href={`/founders/${founder.slug}`}
+                    className="text-[#00ffb2] hover:underline underline-offset-4"
+                  >
+                    {founder.name}
+                  </Link>
+                  , who leads {founder.leads}
+                  {i < FOUNDERS.length - 1 ? ", and " : "."}
+                </span>
+              ))}{" "}
+              The story above is {FOUNDERS[0].givenName}&apos;s; the company runs on both of them.
+            </p>
+
             <div className="mt-8 text-center">
               <Link
                 href="/founders"
                 className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] px-6 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-white/70 hover:border-[rgba(0,255,178,0.4)] hover:text-[#00ffb2] transition-colors duration-200"
               >
-                Meet the founders
+                Meet {FOUNDER_NAMES_SENTENCE}
                 <span aria-hidden="true">→</span>
               </Link>
             </div>

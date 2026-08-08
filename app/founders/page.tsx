@@ -4,105 +4,106 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTABanner from "@/components/CTABanner";
 import PageHero from "@/components/PageHero";
-import FounderCard, { type Founder } from "@/components/FounderCard";
+import FounderCard from "@/components/FounderCard";
+import {
+  FOUNDERS,
+  FOUNDER_FAQS,
+  FOUNDER_FAQ_SCHEMA_ENTRIES,
+  FOUNDER_NAMES_SENTENCE,
+  FOUNDER_NAMES_SHORT,
+  FOUNDERS_ANSWER,
+  ORGANIZATION_ID,
+  SITE_URL,
+  WEBSITE_ID,
+  founderId,
+  founderPersonSchema,
+  founderUrl,
+} from "@/lib/founders";
 
-const APP_URL = "https://www.edgecipline.com";
-const OG_IMAGE = [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Edgecipline — AI Trading Journal" }];
+const TITLE = `Founders of Edgecipline — ${FOUNDER_NAMES_SHORT}`;
+const DESCRIPTION = `${FOUNDERS_ANSWER} Meet both co-founders of Edgecipline, what each one owns, and how they split the company between them.`;
 
 export const metadata: Metadata = {
-  title: "Founders — Sourav R & Munavvir TP",
-  description:
-    "Edgecipline is run by two founders who cover the two halves of the business between them. Sourav R leads product, technology and strategy. Munavvir TP leads operations, administration and people.",
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: [
+    "founders of Edgecipline",
+    "Edgecipline founders",
+    "Edgecipline co-founders",
+    "who founded Edgecipline",
+    "who owns Edgecipline",
+    "Edgecipline founder name",
+    ...FOUNDERS.flatMap((f) => [f.name, `${f.name} Edgecipline`, `${f.name} co-founder`]),
+  ],
   alternates: { canonical: "/founders" },
   openGraph: {
-    url: `${APP_URL}/founders`,
-    title: "Founders — Sourav R & Munavvir TP",
-    description:
-      "Two founders, two halves of the business: product and technology, operations and people.",
-    images: OG_IMAGE,
+    type: "profile",
+    url: `${SITE_URL}/founders`,
+    title: TITLE,
+    description: `Edgecipline was founded by ${FOUNDER_NAMES_SENTENCE} — two co-founders covering product and technology, operations and people.`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Founders — Sourav R & Munavvir TP",
-    description:
-      "Two founders, two halves of the business: product and technology, operations and people.",
-    images: ["/opengraph-image"],
+    title: TITLE,
+    description: `Edgecipline was founded by ${FOUNDER_NAMES_SENTENCE} — two co-founders covering product and technology, operations and people.`,
   },
 };
 
-const FOUNDERS: Founder[] = [
-  {
-    name: "Sourav R",
-    role: "Co-Founder — Product, Technology and Strategy",
-    image: "/sourav.png",
-    bio: "A business and technology professional who combines management education with hands-on software development and product execution.",
-    responsibilities: [
-      "Product development",
-      "Technology strategy and software architecture",
-      "Technical decision-making",
-      "Business planning",
-      "Product execution",
-    ],
-    linkedin: "https://www.linkedin.com/in/sourav-r-9566b5194",
-    email: "sourav@edgecipline.com",
-  },
-  {
-    name: "Munavvir TP",
-    role: "Co-Founder — Operations, Administration and People",
-    image: "/munaveer.png",
-    bio: "An operations, administration and people-management professional with more than seven years of experience across India and the UAE.",
-    responsibilities: [
-      "Business operations",
-      "Administration and internal processes",
-      "People coordination",
-      "Documentation and reporting",
-      "Client communication",
-      "Organizational execution",
-    ],
-    linkedin: "https://www.linkedin.com/in/munavvirtp93",
-    email: "munavvir@edgecipline.com",
-  },
-];
+// ── Structured data ──────────────────────────────────────────────────────────
+// Both founders are emitted as full Person nodes, wrapped in an ItemList so no
+// single founder reads as "the" founder, and cross-referenced from the
+// AboutPage's mainEntity. The @ids match the Organization node in the root
+// layout, which is what merges these into one entity per person.
 
-const SPLIT = [
-  { name: "Sourav R", domain: "Product and technology", scope: "What gets built" },
-  { name: "Munavvir TP", domain: "Operations and people", scope: "How the company runs" },
-];
-
-// ── Structured data: founders as Person entities tied to the Organization ──
-const personSchemas = FOUNDERS.map((founder) => ({
+const personSchemas = FOUNDERS.map(founderPersonSchema).map((person) => ({
   "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": `${APP_URL}/founders#${founder.name.toLowerCase().replace(/\s+/g, "-")}`,
-  name: founder.name,
-  jobTitle: founder.role,
-  description: founder.bio,
-  image: `${APP_URL}${founder.image}`,
-  url: `${APP_URL}/founders`,
-  sameAs: [founder.linkedin],
-  email: founder.email,
-  worksFor: { "@id": `${APP_URL}/#organization` },
-  knowsAbout: founder.responsibilities,
+  ...person,
 }));
+
+const founderListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": `${SITE_URL}/founders#founder-list`,
+  name: "Founders of Edgecipline",
+  description: `The two founders of Edgecipline: ${FOUNDER_NAMES_SENTENCE}.`,
+  numberOfItems: FOUNDERS.length,
+  itemListOrder: "https://schema.org/ItemListUnordered",
+  itemListElement: FOUNDERS.map((founder, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: founder.name,
+    url: founderUrl(founder),
+    item: { "@id": founderId(founder) },
+  })),
+};
 
 const aboutPageSchema = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  "@id": `${APP_URL}/founders#webpage`,
-  url: `${APP_URL}/founders`,
-  name: "Founders — Sourav R & Munavvir TP | Edgecipline",
-  isPartOf: { "@id": `${APP_URL}/#website` },
-  about: { "@id": `${APP_URL}/#organization` },
-  mainEntity: personSchemas.map((person) => ({ "@id": person["@id"] })),
+  "@id": `${SITE_URL}/founders#webpage`,
+  url: `${SITE_URL}/founders`,
+  name: `${TITLE} | Edgecipline`,
+  description: DESCRIPTION,
+  isPartOf: { "@id": WEBSITE_ID },
+  about: { "@id": ORGANIZATION_ID },
+  mainEntity: { "@id": `${SITE_URL}/founders#founder-list` },
+  mentions: FOUNDERS.map((founder) => ({ "@id": founderId(founder) })),
   inLanguage: "en-IN",
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: APP_URL },
-      { "@type": "ListItem", position: 2, name: "About", item: `${APP_URL}/about` },
-      { "@type": "ListItem", position: 3, name: "Founders", item: `${APP_URL}/founders` },
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "About", item: `${SITE_URL}/about` },
+      { "@type": "ListItem", position: 3, name: "Founders", item: `${SITE_URL}/founders` },
     ],
   },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${SITE_URL}/founders#faq`,
+  mainEntity: FOUNDER_FAQ_SCHEMA_ENTRIES,
 };
 
 export default function FoundersPage() {
@@ -110,28 +111,65 @@ export default function FoundersPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([...personSchemas, aboutPageSchema]) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            ...personSchemas,
+            founderListSchema,
+            aboutPageSchema,
+            faqSchema,
+          ]),
+        }}
       />
       <Navbar />
       <main>
         <PageHero
           badge="Leadership"
-          title="Two founders,"
-          highlight="two halves of the business."
-          description="Edgecipline is run by two founders who cover the two halves of the business between them — one on product and technology, one on operations and people."
+          title="The founders of Edgecipline are"
+          highlight={FOUNDER_NAMES_SHORT}
+          description={`Edgecipline has two founders. ${FOUNDERS[0].name} leads ${FOUNDERS[0].leads}. ${FOUNDERS[1].name} leads ${FOUNDERS[1].leads}.`}
         />
+
+        {/* Direct answer — the paragraph search engines and AI assistants quote
+            when asked "who are the founders of Edgecipline". Names, roles, and
+            profile links all sit in the first block of body copy. */}
+        <section className="pb-20 px-5 md:px-9">
+          <div className="max-w-3xl mx-auto">
+            <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] px-7 md:px-10 py-9">
+              <p className="text-[16px] md:text-[17px] text-white/80 leading-[1.9]">
+                <strong className="font-semibold text-white">
+                  Edgecipline was founded by {FOUNDER_NAMES_SENTENCE}.
+                </strong>{" "}
+                {FOUNDERS.map((founder, i) => (
+                  <span key={founder.slug}>
+                    <Link
+                      href={`/founders/${founder.slug}`}
+                      className="text-[#00ffb2] hover:underline underline-offset-4"
+                    >
+                      {founder.name}
+                    </Link>{" "}
+                    is a co-founder of Edgecipline and leads {founder.leads}
+                    {i === FOUNDERS.length - 1 ? "." : ". "}
+                  </span>
+                ))}{" "}
+                Both are active co-founders — one owns what gets built, the other owns how the
+                company runs.
+              </p>
+            </div>
+          </div>
+        </section>
 
         {/* About us */}
         <section className="py-20 px-5 md:px-9 border-t border-white/[0.05]">
           <div className="max-w-3xl mx-auto">
-            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8b95aa] mb-6">
-              About Us
-            </div>
+            <h2 className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8b95aa] mb-6">
+              About the Edgecipline founders
+            </h2>
             <p className="text-[15px] text-[#8b95aa] leading-[1.9] mb-5">
-              Sourav R comes from a business and management background and moved into software
-              development, so product decisions and technical decisions sit with the same person.
-              Munavvir TP comes from over seven years of operations, administration and HR work
-              across India and the UAE, and runs how the company actually functions day to day.
+              {FOUNDERS[0].name}, co-founder of Edgecipline, comes from a business and management
+              background and moved into software development, so product decisions and technical
+              decisions sit with the same person. {FOUNDERS[1].name}, co-founder of Edgecipline,
+              comes from over seven years of operations, administration and HR work across India and
+              the UAE, and runs how the company actually functions day to day.
             </p>
             <p className="text-[15px] text-white/70 leading-[1.9]">
               Between them the company is covered end to end: what gets built, and how the business
@@ -148,12 +186,12 @@ export default function FoundersPage() {
                 The Founders
               </div>
               <h2 className="text-[clamp(26px,4vw,42px)] font-extrabold leading-tight tracking-tight text-white">
-                Who runs Edgecipline
+                Meet {FOUNDER_NAMES_SENTENCE}
               </h2>
             </div>
             <div className="grid lg:grid-cols-2 gap-6">
               {FOUNDERS.map((founder, i) => (
-                <FounderCard key={founder.name} founder={founder} priority={i === 0} />
+                <FounderCard key={founder.slug} founder={founder} priority={i === 0} />
               ))}
             </div>
           </div>
@@ -172,9 +210,9 @@ export default function FoundersPage() {
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">
-              {SPLIT.map(({ name, domain, scope }) => (
+              {FOUNDERS.map(({ slug, name, domain, scope }) => (
                 <div
-                  key={name}
+                  key={slug}
                   className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-7 hover:border-white/[0.14] transition-colors duration-300"
                 >
                   <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#8b95aa] mb-5">
@@ -195,6 +233,29 @@ export default function FoundersPage() {
               Product and technology decisions sit with one founder. Operations, administration and
               people sit with the other. Between them the company is covered end to end.
             </p>
+          </div>
+        </section>
+
+        {/* Founder FAQ — visible copy mirrors the FAQPage structured data above */}
+        <section className="py-20 px-5 md:px-9 border-t border-white/[0.05]">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8b95aa] mb-3">
+                Founder FAQ
+              </div>
+              <h2 className="text-[clamp(22px,3.5vw,36px)] font-extrabold leading-tight tracking-tight text-white">
+                Questions about who founded Edgecipline
+              </h2>
+            </div>
+
+            <div className="flex flex-col gap-8">
+              {FOUNDER_FAQS.map(({ q, a }) => (
+                <div key={q} className="border-t border-white/[0.06] pt-6">
+                  <h3 className="text-[15px] font-semibold text-white mb-3 leading-snug">{q}</h3>
+                  <p className="text-[14px] text-[#8b95aa] leading-[1.9]">{a}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
