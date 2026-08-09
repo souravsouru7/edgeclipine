@@ -68,7 +68,7 @@ const faqSchema = {
       name: "How much does Edgecipline cost?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Three plans: Standard at ₹149/month, Professional at ₹249 for 3 months (~₹2.76/day), and Ultimate at ₹449 for 6 months (~₹2.47/day). One bad trade costs more than a year of Edgecipline.",
+        text: "Three plans: Standard at ₹349/month, Professional at ₹899 for 3 months (~₹9.99/day), and Ultimate at ₹1,499 for 6 months (~₹8.33/day). One bad trade costs more than a year of Edgecipline.",
       },
     },
     {

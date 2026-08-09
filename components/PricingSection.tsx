@@ -8,7 +8,7 @@ import { EASE } from "@/lib/motion";
 const plans = [
   {
     name: "Standard",
-    price: "₹149",
+    price: "₹349",
     period: "per month",
     badge: null,
     savings: null,
@@ -17,17 +17,17 @@ const plans = [
   },
   {
     name: "Professional",
-    price: "₹249",
-    period: "3 months · ~₹2.76/day",
+    price: "₹899",
+    period: "3 months · ~₹9.99/day",
     badge: "Most Popular",
-    savings: "Save 40% vs monthly",
+    savings: "Save 14% vs monthly",
     featured: true,
     features: ["Everything in Standard", "AI Coach, Morning Mentor & weekly reports", "Missions, streaks & psychology cost calculator", "Priority support"],
   },
   {
     name: "Ultimate",
-    price: "₹449",
-    period: "6 months · ~₹2.47/day",
+    price: "₹1,499",
+    period: "6 months · ~₹8.33/day",
     badge: "Best Value",
     savings: null,
     featured: false,

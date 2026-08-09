@@ -18,7 +18,7 @@ const pricingSchema = {
     {
       "@type": "Offer",
       name: "Standard",
-      price: "149",
+      price: "349",
       priceCurrency: "INR",
       billingDuration: "P1M",
       description: "AI screenshot extraction, analytics dashboard, unlimited trade journals for Forex and Indian markets.",
@@ -26,7 +26,7 @@ const pricingSchema = {
     {
       "@type": "Offer",
       name: "Professional",
-      price: "249",
+      price: "899",
       priceCurrency: "INR",
       billingDuration: "P3M",
       description: "Everything in Standard plus AI Coach, Morning Mentor, weekly reports, missions & streaks, and the psychology cost calculator.",
@@ -34,7 +34,7 @@ const pricingSchema = {
     {
       "@type": "Offer",
       name: "Ultimate",
-      price: "449",
+      price: "1499",
       priceCurrency: "INR",
       billingDuration: "P6M",
       description: "Full platform including Trading DNA, pattern detection, monthly performance review, and lifetime trade backup.",
@@ -45,20 +45,20 @@ const pricingSchema = {
 export const metadata: Metadata = {
   title: "Pricing — Edgecipline Plans & Early Access",
   description:
-    "Edgecipline pricing: Standard ₹149/month, Professional ₹249 for 3 months (~₹2.76/day), Ultimate ₹449 for 6 months (~₹2.47/day). Trading DNA, missions & streaks, and AI coaching for Forex and Indian markets. Join the waitlist for founding-member pricing.",
+    "Edgecipline pricing: Standard ₹349/month, Professional ₹899 for 3 months (~₹9.99/day), Ultimate ₹1,499 for 6 months (~₹8.33/day). Trading DNA, missions & streaks, and AI coaching for Forex and Indian markets. Join the waitlist for founding-member pricing.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     url: "https://www.edgecipline.com/pricing",
     title: "Pricing — Edgecipline Plans & Early Access",
     description:
-      "Three plans from ₹149/month. One bad trade costs more than a year of Edgecipline. Join the waitlist for founding pricing.",
+      "Three plans from ₹349/month. One bad trade costs more than a year of Edgecipline. Join the waitlist for founding pricing.",
     images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Edgecipline Pricing — From ₹149/month",
+    title: "Edgecipline Pricing — From ₹349/month",
     description:
-      "Standard ₹149/mo · Professional ₹249/3mo · Ultimate ₹449/6mo. Join the waitlist for founding pricing.",
+      "Standard ₹349/mo · Professional ₹899/3mo · Ultimate ₹1,499/6mo. Join the waitlist for founding pricing.",
     images: ["/opengraph-image"],
   },
 };
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
 const PLANS = [
   {
     name: "Standard",
-    price: "₹149",
+    price: "₹349",
     period: "per month",
     dailyCost: null,
     badge: null,
@@ -84,9 +84,9 @@ const PLANS = [
   },
   {
     name: "Professional",
-    price: "₹249",
+    price: "₹899",
     period: "3 months",
-    dailyCost: "~₹2.76/day",
+    dailyCost: "~₹9.99/day",
     badge: "Most Popular",
     featured: true,
     description: "For serious traders who want gamified discipline and personalized AI coaching.",
@@ -102,9 +102,9 @@ const PLANS = [
   },
   {
     name: "Ultimate",
-    price: "₹449",
+    price: "₹1,499",
     period: "6 months",
-    dailyCost: "~₹2.47/day",
+    dailyCost: "~₹8.33/day",
     badge: "Best Value",
     featured: false,
     description: "For committed traders who want the complete behavioral intelligence platform.",
