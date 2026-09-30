@@ -1,0 +1,12 @@
+/* Apply .is-visible once via IntersectionObserver (threshold .25). */
+.s10 [data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .68s cubic-bezier(.16,1,.3,1);transition-delay:var(--delay,0ms)}
+.s10.is-visible [data-reveal]{opacity:1;transform:none}
+.s10 .beam{transform:scaleY(0);transform-origin:50% 0;transition:transform .55s ease .45s}
+.s10.is-visible .beam{transform:scaleY(1)}
+.s10 .form-glow{opacity:.45;transition:opacity .35s ease,filter .35s ease;pointer-events:none}
+.s10 .waitlist-form:focus-within .form-glow{opacity:1;filter:drop-shadow(0 0 9px #00efd088)}
+.s10 .faq-answer{overflow:hidden}
+.s10 .faq-toggle-icon{transition:transform .25s ease}
+.s10 details[open] .faq-toggle-icon{transform:rotate(45deg)}
+.s10 .demo-link:is(:hover,:focus-visible) .play-icon{filter:drop-shadow(0 0 8px #ffbd5d)}
+@media(prefers-reduced-motion:reduce){.s10 [data-reveal]{opacity:1!important;transform:none!important;transition:none!important}.s10 .beam{transform:none!important;transition:none!important}.s10 .faq-toggle-icon,.s10 .form-glow{transition:none!important}}

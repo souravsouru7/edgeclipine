@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 1050" fill="none">
+<rect width="600" height="1050" fill="#02100F"/>
+<path d="M42 51l-12 12 12 12M559 54v2m0 10v2m0 10v2" stroke="#E8F4F1" stroke-width="4" stroke-linecap="round"/>
+<text x="46" y="139" fill="#E5E9E9" font-family="Arial,sans-serif" font-size="28">Weekly Reflection</text>
+<g font-family="Arial,sans-serif" text-anchor="middle" font-size="16" fill="#AAB6B8"><text x="72" y="189">M</text><text x="145" y="189">T</text><text x="218" y="189">W</text><text x="291" y="189">T</text><text x="364" y="189">F</text><text x="437" y="189">S</text><text x="510" y="189">S</text></g>
+<path d="M72 211H510" stroke="#1A4641" stroke-width="2"/>
+<g fill="#00EFCF"><circle cx="72" cy="211" r="9"/><circle cx="145" cy="211" r="9"/><circle cx="218" cy="211" r="9"/></g><circle cx="291" cy="211" r="9" stroke="#00EFCF" stroke-width="2"/><circle cx="364" cy="211" r="9" fill="#FFB942"/><circle cx="437" cy="211" r="9" stroke="#31726B" stroke-width="2"/><circle cx="510" cy="211" r="9" stroke="#31726B" stroke-width="2"/>
+<text x="46" y="314" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="35" font-weight="700"><tspan x="46">Where did you</tspan><tspan x="46" dy="42">break your plan?</tspan></text>
+<rect x="46" y="414" width="508" height="170" rx="23" fill="#091918" stroke="#355A57" stroke-width="2"/><text x="70" y="463" fill="#9FAAAA" font-family="Arial,sans-serif" font-size="21">Be honest with yourself...</text>
+<rect x="46" y="636" width="508" height="90" rx="45" fill="#021715" stroke="#00EFCF" stroke-width="3"/>
+<path d="M93 673h28m-28 15h28m-28 15h18" stroke="#00EFCF" stroke-width="4" stroke-linecap="round"/><text x="148" y="694" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="25" font-weight="700">Review my week</text>
+</svg>

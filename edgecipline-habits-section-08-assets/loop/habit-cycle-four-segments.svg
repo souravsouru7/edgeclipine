@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 864 1536" fill="none">
+<defs><filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="7"/></filter></defs>
+<g opacity=".42" stroke-width="11" stroke-linecap="round" filter="url(#glow)"><path id="notice-to-pause" d="M 431 649 C 590 632 748 739 758 897" stroke="#FFB942"/>
+<path id="pause-to-review" d="M 758 897 C 770 1057 611 1167 430 1157" stroke="#00F6D0"/>
+<path id="review-to-repeat" d="M 430 1157 C 252 1170 111 1071 112 901" stroke="#00F6D0"/>
+<path id="repeat-to-notice" d="M 112 901 C 105 745 266 643 431 649" stroke="#FFB942"/></g>
+<g stroke-width="2.5" stroke-linecap="round"><path id="notice-to-pause" d="M 431 649 C 590 632 748 739 758 897" stroke="#FFB942"/>
+<path id="pause-to-review" d="M 758 897 C 770 1057 611 1167 430 1157" stroke="#00F6D0"/>
+<path id="review-to-repeat" d="M 430 1157 C 252 1170 111 1071 112 901" stroke="#00F6D0"/>
+<path id="repeat-to-notice" d="M 112 901 C 105 745 266 643 431 649" stroke="#FFB942"/></g>
+</svg>
