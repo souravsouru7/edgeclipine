@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+<defs><filter id="g" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="5"/></filter></defs>
+<circle cx="64" cy="64" r="49" stroke="#00F6D0" stroke-width="8" opacity=".55" filter="url(#g)"/>
+<circle cx="64" cy="64" r="49" fill="#03110F" fill-opacity=".84" stroke="#00F6D0" stroke-width="2.5"/>
+<g transform="translate(32 32)" stroke="#00F6D0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21h24M20 30h17M20 39h13M42 41l4 4 8-9"/></g></svg>
