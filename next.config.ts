@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  output: "export",
+  /* Runs on Vercel as a full Next.js app (NOT a static export) so API routes
+     like /api/waitlist work. Do not re-add `output: "export"` — it disables
+     API routes and breaks the waitlist form. */
   images: {
     unoptimized: true,
   },
