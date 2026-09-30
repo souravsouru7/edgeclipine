@@ -1,10 +1,11 @@
 // Plan summary for the mobile pricing scene (Section 09). Source of truth is
 // PLANS / COMPARE_ROWS in app/pricing/page.tsx; keep the two in sync when
-// prices or entitlements change. Groups combine COMPARE_ROWS as follows:
+// prices or entitlements change. Every plan currently includes every feature
+// group, so all three columns show a check:
 //   Trade review        = journals, AI extraction, analytics      → all plans
 //   Coaching & missions = AI Coach & Mentor, missions & streaks,
-//                         psychology cost calculator, tilt alerts → Professional+
-//   Trading DNA         = DNA & pattern detection, self-awareness → Ultimate
+//                         psychology cost calculator, tilt alerts → all plans
+//   Trading DNA         = DNA & pattern detection, self-awareness → all plans
 
 export type PlanId = "standard" | "professional" | "ultimate";
 
@@ -44,12 +45,12 @@ export const PLAN_FEATURE_GROUPS: PlanFeatureGroup[] = [
     icon: "coaching",
     title: "Coaching & missions",
     description: "AI Coach, missions, streaks and tilt alerts.",
-    includedIn: ["professional", "ultimate"],
+    includedIn: ["standard", "professional", "ultimate"],
   },
   {
     icon: "trading-dna",
     title: "Trading DNA",
     description: "Pattern detection and your self-awareness score.",
-    includedIn: ["ultimate"],
+    includedIn: ["standard", "professional", "ultimate"],
   },
 ];
