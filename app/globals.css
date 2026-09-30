@@ -14,6 +14,10 @@ html {
   --surface: rgba(255, 255, 255, 0.025);
   --red: #ff4d4d;
   --amber: #f5a623;
+  /* Mobile hero artboard width (MobileHero's max-w-xl) and its x=61/864 gutter,
+     so the fixed <Navbar variant="hero"> lines up with the artwork. */
+  --hero-art-w: min(100vw, 36rem);
+  --hero-gutter: calc((100vw - var(--hero-art-w)) / 2 + var(--hero-art-w) * 61 / 864);
 }
 
 @theme inline {
@@ -45,6 +49,10 @@ body::before {
   opacity: 0.018;
   pointer-events: none;
   z-index: 9998;
+  /* Give the fixed overlay its own GPU layer so the page composites over it
+     instead of repainting this noise on every scroll frame (mobile smoothness). */
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* ── Scrollbar ── */
@@ -93,6 +101,147 @@ button, nav {
 }
 .animate-float { animation: float 4s ease-in-out infinite; }
 
+/* ── First-visit loading opener (components/Opener.tsx) ──
+   The real /logo.png fades up out of a soft blur while an orbiting brand ring
+   sweeps around it and a light sheen (masked to the logo's shape) glints across
+   the mark; then the wordmark rises and the overlay fades to the site. Shown
+   once per browser. The inline script in app/layout.tsx sets data-opener="off"
+   before paint for returning visitors, so this overlay is hidden with no flash. */
+.opener {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(60% 55% at 50% 42%, rgba(0, 255, 178, 0.08), transparent 70%),
+    var(--background);
+  opacity: 1;
+  transition: opacity 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+.opener--hidden { opacity: 0; }
+:root[data-opener="off"] .opener { display: none; }
+
+.opener__stage {
+  display: grid;
+  justify-items: center;
+  gap: 2rem;
+}
+
+/* Logo + ring + sheen stack. */
+.opener__mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(6rem, 26vw, 8.5rem);
+  height: clamp(6rem, 26vw, 8.5rem);
+}
+
+/* The actual logo, revealed out of a soft blur. */
+.opener__logo {
+  position: relative;
+  z-index: 2;
+  width: 64%;
+  height: auto;
+  object-fit: contain;
+  opacity: 0;
+  filter: drop-shadow(0 0 0 rgba(0, 255, 178, 0));
+  transform: scale(0.86);
+  animation: opener-logo-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+/* Orbiting quarter-arc ring drawn from a conic gradient, faded at the seam. */
+.opener__ring {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 50%;
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(0, 255, 178, 0) 0deg,
+    rgba(0, 255, 178, 0) 240deg,
+    rgba(0, 255, 178, 0.9) 350deg,
+    rgba(234, 255, 248, 1) 360deg
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  opacity: 0;
+  animation:
+    opener-ring-in 0.6s ease-out 0.2s forwards,
+    opener-spin 1.15s cubic-bezier(0.4, 0, 0.2, 1) 0.2s infinite;
+}
+
+/* A diagonal light sheen that sweeps across, clipped to the logo's own pixels. */
+.opener__sheen {
+  position: absolute;
+  z-index: 3;
+  width: 64%;
+  aspect-ratio: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 62%
+  );
+  -webkit-mask: url("/logo.png") center / contain no-repeat;
+  mask: url("/logo.png") center / contain no-repeat;
+  background-size: 260% 100%;
+  background-position: 160% 0;
+  opacity: 0;
+  animation: opener-sheen 1.1s cubic-bezier(0.5, 0, 0.1, 1) 1s both;
+}
+
+.opener__word {
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+  opacity: 0;
+  animation: opener-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.25s both;
+}
+.opener__brand {
+  font-weight: 800;
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+.opener__brand-accent {
+  color: var(--brand);
+  text-shadow: 0 0 22px rgba(0, 255, 178, 0.4);
+}
+.opener__tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: #8f989d;
+}
+
+@keyframes opener-logo-in {
+  0% { opacity: 0; transform: scale(0.86); filter: blur(9px) drop-shadow(0 0 0 rgba(0, 255, 178, 0)); }
+  60% { opacity: 1; }
+  100% { opacity: 1; transform: scale(1); filter: blur(0) drop-shadow(0 0 26px rgba(0, 255, 178, 0.35)); }
+}
+@keyframes opener-ring-in { to { opacity: 1; } }
+@keyframes opener-spin { to { transform: rotate(360deg); } }
+@keyframes opener-sheen {
+  0% { opacity: 0; background-position: 160% 0; }
+  20% { opacity: 1; }
+  100% { opacity: 0; background-position: -160% 0; }
+}
+@keyframes opener-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* Reduced motion: show the composed final frame, no motion. */
+@media (prefers-reduced-motion: reduce) {
+  .opener { transition: none; }
+  .opener__logo { opacity: 1; transform: none; filter: drop-shadow(0 0 26px rgba(0, 255, 178, 0.3)); animation: none; }
+  .opener__ring { opacity: 0.5; animation: opener-ring-in 0.4s ease-out both; }
+  .opener__sheen { animation: none; opacity: 0; }
+  .opener__word { opacity: 1; animation: none; }
+}
+
 /* ── Button glow pulse ── */
 @keyframes btnGlow {
   0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,178,0.4); }
@@ -127,6 +276,216 @@ button, nav {
 @keyframes tagFloat1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
 @keyframes tagFloat2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 @keyframes tagFloat3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+
+/* ── Mobile hero entrance (components/MobileHero.tsx) ──
+   One-shot only: background reveal, copy stagger (--hero-delay), signal line
+   draw (paths use pathLength="1"), device rise. Nothing loops. With reduced
+   motion none of these rules apply and every layer renders in its final state. */
+@keyframes hero-reveal { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: none; } }
+@keyframes hero-rise { from { opacity: 0; transform: translateY(0.75rem); } to { opacity: 1; transform: none; } }
+@keyframes hero-device { from { opacity: 0; transform: translateY(5%); } to { opacity: 1; transform: none; } }
+@keyframes hero-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes hero-fade { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-anim-bg { animation: hero-reveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .hero-anim-copy { animation: hero-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--hero-delay, 0ms) both; }
+  .hero-anim-device { animation: hero-device 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--hero-delay, 0ms) both; }
+  .hero-anim-fade { animation: hero-fade 0.8s ease-out var(--hero-delay, 0ms) both; }
+  .hero-anim-draw {
+    stroke-dasharray: 1;
+    animation: hero-draw var(--hero-dur, 1.2s) cubic-bezier(0.45, 0, 0.2, 1) var(--hero-delay, 0ms) both;
+  }
+}
+
+/* ScrollScene progressively reveals artwork as each compact mobile scene
+   travels through the viewport. Its DOM defaults to the complete composition,
+   including when JavaScript is unavailable or reduced motion is requested. */
+
+.chapter-next {
+  transition: background-color 180ms ease, box-shadow 180ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.chapter-next:is(:hover, :focus-visible) {
+  background: rgba(48, 235, 166, 0.07);
+  box-shadow: 0 0 20px rgba(48, 235, 166, 0.12);
+}
+.chapter-next:is(:hover, :focus-visible) .chapter-next-label { color: #a2ffda; }
+
+@keyframes chapter-next-nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chapter-next-arrow { animation: chapter-next-nudge 2.2s ease-in-out infinite; }
+  .chapter-next:is(:hover, :focus-visible) .chapter-next-arrow { animation-duration: 700ms; }
+}
+
+@keyframes hero-fissure-breathe {
+  from { opacity: 0.16; }
+  to { opacity: 0.34; }
+}
+@keyframes hero-signal-breathe {
+  from { opacity: 0.13; }
+  to { opacity: 0.36; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-fissure-glow { animation: hero-fissure-breathe 4.8s ease-in-out infinite alternate; }
+  .hero-signal-live { animation: hero-signal-breathe 3.4s ease-in-out infinite alternate; }
+}
+
+/* ── One-shot entrance animations (EntryScope → Product/Coach/Dna/Habits/PlansSection) ──
+   EntryScope sets data-entry="armed" (start hidden) then "entered" when the
+   element (the section, or an inner .entry-group) scrolls into view. Only
+   `from` states are animated, so the final state is simply the element's
+   normal style — which is also what reduced motion (and no JS) shows. Nothing
+   loops. Per-element tuning via custom properties: --entry-delay, --entry-dur,
+   --entry-rise, --entry-scale, --entry-from-opacity, --entry-pulse-delay. */
+.entry-step { --entry-rise: 12px; }
+.entry-reveal { --entry-rise: 8px; }
+
+@keyframes entry-fade { from { opacity: var(--entry-from-opacity, 0); } }
+@keyframes entry-pulse {
+  0% { filter: brightness(0.85); }
+  45% { filter: brightness(1.1); }
+  100% { filter: brightness(1); }
+}
+@keyframes entry-rise { from { opacity: 0; transform: translateY(var(--entry-rise, 16px)); } }
+@keyframes entry-emerge {
+  from { opacity: 0; transform: translateY(var(--entry-rise, 28px)) scale(var(--entry-scale, 0.92)); }
+}
+/* Rises and turns into its settled pose. Composes with a static `rotate`. */
+@keyframes entry-tilt {
+  from { opacity: 0; transform: translateY(var(--entry-rise, 24px)) rotate(var(--entry-turn, -4deg)); }
+}
+@keyframes entry-grow-y { from { transform: scaleY(0); } }
+/* Outline revealed clockwise: an element masks itself with
+   conic-gradient(#000 var(--entry-sweep), transparent 0). The registered
+   default is the complete outline (no JS / reduced motion). */
+@property --entry-sweep { syntax: "<angle>"; inherits: false; initial-value: 360deg; }
+@keyframes entry-sweep { from { --entry-sweep: 0deg; } to { --entry-sweep: 360deg; } }
+/* One light band across a control (base opacity 0). */
+@keyframes entry-shine {
+  0% { opacity: 0; transform: translateX(-100%); }
+  25%, 70% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(100%); }
+}
+@keyframes entry-draw { from { stroke-dashoffset: 1; } }
+@keyframes entry-node-pulse {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(1.6); opacity: 0.7; }
+}
+@keyframes entry-node-arrive {
+  0% { opacity: 0; transform: scale(0.4); }
+  45% { opacity: 1; transform: scale(1.6); }
+  100% { transform: scale(1); }
+}
+@keyframes entry-wipe-down {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+/* A cue that is only visible while it plays (base opacity 0). */
+@keyframes entry-scan {
+  0% { opacity: 0; transform: translateY(0); }
+  10%, 88% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(var(--entry-scan-distance, 100%)); }
+}
+@keyframes entry-glint {
+  0%, 100% { opacity: 0; }
+  35% { opacity: 1; }
+}
+@keyframes entry-divider {
+  0% { transform: scaleY(0); opacity: 1; }
+  59% { transform: scaleY(1); opacity: 1; }
+}
+@keyframes entry-halo {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(243, 196, 93, 0); }
+  30% { box-shadow: 0 0 0 2px rgba(243, 196, 93, 0.9), 0 0 22px 4px rgba(243, 196, 93, 0.45); }
+  65% { box-shadow: 0 0 0 2px rgba(66, 255, 209, 0.9), 0 0 22px 4px rgba(66, 255, 209, 0.4); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  section[data-entry="armed"] :is(.entry-title, .entry-phone, .entry-divider),
+  .entry-group[data-entry="armed"] :is(.entry-step, .entry-reveal, .entry-node-arrive, .entry-emerge, .entry-tilt) {
+    opacity: 0;
+  }
+  .entry-group[data-entry="armed"] .entry-wipe { clip-path: inset(0 0 100% 0); }
+  section[data-entry="armed"] .entry-light { opacity: var(--entry-from-opacity, 0); }
+  .entry-group[data-entry="armed"] .entry-grow { transform: scaleY(0); }
+  .entry-group[data-entry="armed"] .entry-sweep { --entry-sweep: 0deg; }
+  .entry-group[data-entry="armed"] .entry-draw { stroke-dasharray: 1; stroke-dashoffset: 1; }
+
+  section[data-entry="entered"] .entry-light {
+    /* Scene light fades in, then the rocks brighten once. */
+    animation:
+      entry-fade var(--entry-dur, 500ms) ease-out both,
+      entry-pulse 1400ms ease-in-out var(--entry-pulse-delay, 1300ms) both;
+  }
+  section[data-entry="entered"] .entry-title {
+    animation: entry-rise var(--entry-dur, 450ms) cubic-bezier(0.16, 1, 0.3, 1) var(--entry-delay, 100ms) both;
+  }
+  section[data-entry="entered"] .entry-phone {
+    animation: entry-emerge var(--entry-dur, 650ms) cubic-bezier(0.16, 1, 0.3, 1) var(--entry-delay, 500ms) both;
+  }
+  section[data-entry="entered"] .entry-divider {
+    /* Draws over ~650ms after the phone lands, then settles to its resting opacity. */
+    animation: entry-divider 1100ms cubic-bezier(0.16, 1, 0.3, 1) 1150ms both;
+  }
+  .entry-group[data-entry="entered"] :is(.entry-step, .entry-reveal) {
+    animation: entry-rise var(--entry-dur, 400ms) cubic-bezier(0.16, 1, 0.3, 1) var(--entry-delay, 0ms) both;
+  }
+  .entry-group[data-entry="entered"] .entry-halo {
+    animation: entry-halo 600ms ease-in-out var(--entry-halo-delay, 0ms) both;
+  }
+  .entry-group[data-entry="entered"] .entry-grow {
+    animation: entry-grow-y var(--entry-dur, 1800ms) linear var(--entry-delay, 0ms) both;
+  }
+  .entry-group[data-entry="entered"] .entry-draw {
+    stroke-dasharray: 1;
+    animation: entry-draw var(--entry-dur, 850ms) cubic-bezier(0.45, 0, 0.2, 1) var(--entry-delay, 0ms) both;
+  }
+  .entry-group[data-entry="entered"] .entry-node-pulse {
+    animation: entry-node-pulse 520ms ease-out var(--entry-delay, 0ms) both;
+  }
+  .entry-group[data-entry="entered"] .entry-node-arrive {
+    animation: entry-node-arrive 560ms ease-out var(--entry-delay, 0ms) both;
+  }
+  .entry-group[data-entry="entered"] .entry-emerge {
+    animation: entry-emerge var(--entry-dur, 650ms) cubic-bezier(0.16, 1, 0.3, 1) var(--entry-delay, 0ms) both;
+  }
+  .entry-group[data-entry="entered"] .entry-tilt {
+    animation: entry-tilt var(--entry-dur, 800ms) cubic-bezier(0.16, 1, 0.3, 1) var(--entry-delay, 0ms) both;
+  }
+  .entry-group[data-entry="entered"] .entry-sweep {
+    animation: entry-sweep var(--entry-dur, 550ms) cubic-bezier(0.45, 0, 0.2, 1) var(--entry-delay, 0ms) both;
+  }
+  .entry-group[data-entry="entered"] .entry-shine {
+    animation: entry-shine var(--entry-dur, 700ms) ease-in-out var(--entry-delay, 0ms) both;
+  }
+  .entry-group[data-entry="entered"] .entry-wipe {
+    animation: entry-wipe-down var(--entry-dur, 1200ms) cubic-bezier(0.45, 0, 0.2, 1) var(--entry-delay, 0ms) both;
+  }
+  .entry-group[data-entry="entered"] .entry-scan {
+    animation: entry-scan var(--entry-dur, 1200ms) cubic-bezier(0.45, 0, 0.2, 1) var(--entry-delay, 0ms) both;
+  }
+  .entry-group[data-entry="entered"] .entry-glint {
+    animation: entry-glint 700ms ease-out var(--entry-delay, 0ms) both;
+  }
+}
+
+/* ── Finale FAQ (<details class="finale-faq">): short height + opacity open ──
+   Uses ::details-content with interpolate-size where supported; elsewhere the
+   rows simply open instantly. */
+@media (prefers-reduced-motion: no-preference) {
+  .finale-faq { interpolate-size: allow-keywords; }
+  .finale-faq::details-content {
+    block-size: 0;
+    opacity: 0;
+    overflow-y: clip;
+    transition: block-size 280ms cubic-bezier(0.16, 1, 0.3, 1), opacity 220ms ease, content-visibility 280ms allow-discrete;
+  }
+  .finale-faq[open]::details-content { block-size: auto; opacity: 1; }
+}
 
 /* ── PWA safe area ── */
 body {

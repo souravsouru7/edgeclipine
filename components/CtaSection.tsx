@@ -5,9 +5,11 @@ import SectionLabel from "./SectionLabel";
 import WaitlistForm from "./WaitlistForm";
 import { EASE } from "@/lib/motion";
 
+// Desktop waitlist section. The #cta anchor is its wrapper in app/page.tsx,
+// shared with FinaleSection (the phone/tablet version).
 export default function CtaSection() {
   return (
-    <section id="cta" className="relative py-28 md:py-40 px-5 md:px-9 bg-[#04060a] overflow-hidden text-center">
+    <section className="relative py-28 md:py-40 px-5 md:px-9 bg-[#04060a] overflow-hidden text-center">
       {/* Central glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-[rgba(0,255,178,0.05)] blur-[120px] pointer-events-none" aria-hidden="true" />
 

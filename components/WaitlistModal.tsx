@@ -27,7 +27,7 @@ export default function WaitlistModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="fixed inset-0 z-[9000] flex items-center justify-center p-5 bg-black/80 backdrop-blur-md"
+          className="fixed inset-0 z-[9000] flex items-center justify-center p-5 bg-black/85 md:bg-black/80 md:backdrop-blur-md"
           onClick={(e) => e.target === e.currentTarget && dismiss()}
           role="dialog"
           aria-modal="true"
@@ -38,7 +38,7 @@ export default function WaitlistModal() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="relative bg-[#0b0f19] border border-[rgba(0,255,178,0.25)] rounded-3xl px-8 py-10 max-w-md w-full shadow-[0_0_80px_rgba(0,255,178,0.1)]"
+            className="relative bg-[#0b0f19] border border-[rgba(0,255,178,0.25)] rounded-3xl px-8 py-10 max-w-md w-full shadow-[0_0_80px_rgba(0,255,178,0.1)] will-change-transform transform-[translateZ(0)]"
           >
             <button
               onClick={dismiss}

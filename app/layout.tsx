@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Providers from "./providers";
+import Opener from "@/components/Opener";
 import { FOUNDERS, FOUNDER_NAMES_SENTENCE, founderRefSchema } from "@/lib/founders";
 
 const inter = Inter({
@@ -531,8 +532,19 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={inter.variable}>
+    // suppressHydrationWarning: the inline opener script sets data-opener on
+    // <html> before hydration, so the server/client attributes intentionally differ.
+    <html lang="en-IN" className={inter.variable} suppressHydrationWarning>
       <head>
+        {/* Returning visitors already saw the loading opener — mark <html> before
+            paint so its overlay never flashes. See components/Opener.tsx. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(localStorage.getItem('edgecipline-opener-seen')){document.documentElement.setAttribute('data-opener','off')}}catch(e){}",
+          }}
+        />
+
         {/* ── Structured data (JSON-LD) ── */}
         <script
           type="application/ld+json"
@@ -609,6 +621,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body className="antialiased font-sans">
+        <Opener />
         <Providers>{children}</Providers>
       </body>
     </html>

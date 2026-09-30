@@ -8,6 +8,7 @@ interface WaitlistFormProps {
 }
 
 export default function WaitlistForm({ onSuccess, compact }: WaitlistFormProps) {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [experience, setExperience] = useState("");
@@ -24,7 +25,7 @@ export default function WaitlistForm({ onSuccess, compact }: WaitlistFormProps) 
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone, experience }),
+        body: JSON.stringify({ name, email, phone, experience }),
       });
       if (!res.ok) throw new Error("Server error");
 
@@ -58,6 +59,15 @@ export default function WaitlistForm({ onSuccess, compact }: WaitlistFormProps) 
       onSubmit={handleSubmit}
       className={`flex flex-col gap-3 p-3 rounded-xl border border-[rgba(0,255,178,0.25)] bg-black/30 transition-all duration-300 focus-within:border-[#00ffb2] focus-within:shadow-[0_0_30px_rgba(0,255,178,0.12)] ${compact ? "max-w-sm" : "max-w-md"} mx-auto`}
     >
+      <input
+        type="text"
+        placeholder="Full name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className={inputClass}
+        autoComplete="name"
+        required
+      />
       <input
         type="email"
         placeholder="your@email.com"
