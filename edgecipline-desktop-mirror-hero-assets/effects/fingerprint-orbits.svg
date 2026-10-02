@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" fill="none" aria-hidden="true">
+  <defs><linearGradient id="trace" x1=".1" y1=".8" x2=".9" y2=".1"><stop stop-color="#00D8AB" stop-opacity=".05"/><stop offset=".55" stop-color="#22F4B9" stop-opacity=".78"/><stop offset="1" stop-color="#B4FFE1" stop-opacity=".1"/></linearGradient><filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5"/></filter></defs>
+  <g id="fingerprint-glow" stroke="#13F3B4" stroke-width="9" opacity=".23" filter="url(#glow)">
+    <path d="M205 606C174 328 339 182 504 180c199-2 347 158 313 387-14 90-60 165-133 219"/><path d="M262 641C209 370 344 238 506 237c168-1 277 143 261 327-10 103-58 173-129 235"/>
+  </g>
+  <g id="fingerprint-strokes" stroke="url(#trace)" stroke-width="3" stroke-linecap="round" opacity=".8">
+    <path d="M205 606C174 328 339 182 504 180c199-2 347 158 313 387-14 90-60 165-133 219"/><path d="M262 641C209 370 344 238 506 237c168-1 277 143 261 327-10 103-58 173-129 235"/><path d="M320 665C260 438 350 293 505 291c137-2 218 114 209 269-6 99-51 172-122 250"/><path d="M380 689C313 457 385 347 510 345c107-2 159 95 151 218-6 101-44 185-111 267"/><path d="M441 703C376 486 410 404 514 401c73-3 96 66 91 155-6 108-40 197-97 273"/><path d="M499 711c-57-191-36-256 17-256 29 0 40 40 37 98-4 92-32 172-76 245"/>
+  </g>
+</svg>

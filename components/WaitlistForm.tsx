@@ -59,7 +59,9 @@ export default function WaitlistForm({ onSuccess, compact }: WaitlistFormProps) 
       onSubmit={handleSubmit}
       className={`flex flex-col gap-3 p-3 rounded-xl border border-[rgba(0,255,178,0.25)] bg-black/30 transition-all duration-300 focus-within:border-[#00ffb2] focus-within:shadow-[0_0_30px_rgba(0,255,178,0.12)] ${compact ? "max-w-sm" : "max-w-md"} mx-auto`}
     >
+      {/* Browser extensions can add fdprocessedid to form controls before hydration. */}
       <input
+        suppressHydrationWarning
         type="text"
         placeholder="Full name"
         value={name}
@@ -69,6 +71,7 @@ export default function WaitlistForm({ onSuccess, compact }: WaitlistFormProps) 
         required
       />
       <input
+        suppressHydrationWarning
         type="email"
         placeholder="your@email.com"
         value={email}
@@ -77,6 +80,7 @@ export default function WaitlistForm({ onSuccess, compact }: WaitlistFormProps) 
         required
       />
       <input
+        suppressHydrationWarning
         type="tel"
         placeholder="Phone number"
         value={phone}
@@ -85,6 +89,7 @@ export default function WaitlistForm({ onSuccess, compact }: WaitlistFormProps) 
         required
       />
       <select
+        suppressHydrationWarning
         value={experience}
         onChange={(e) => setExperience(e.target.value)}
         className={`${inputClass} appearance-none bg-white/[0.02] cursor-pointer`}
@@ -97,6 +102,7 @@ export default function WaitlistForm({ onSuccess, compact }: WaitlistFormProps) 
         <option value="5+ years">5+ years</option>
       </select>
       <button
+        suppressHydrationWarning
         type="submit"
         disabled={loading}
         className="w-full bg-[#00ffb2] hover:bg-[#00e09e] text-[#060910] font-extrabold text-[13px] uppercase tracking-[0.1em] py-4 rounded-[10px] transition-colors duration-200 disabled:opacity-60 disabled:cursor-wait"

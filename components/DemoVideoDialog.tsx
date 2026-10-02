@@ -2,7 +2,7 @@
 
 import { useImperativeHandle, useRef, forwardRef } from "react";
 
-const DEMO_SRC = "/edgecipline-tour-mobile.mp4";
+const DEMO_SRC = "/edgecipline-demo.mp4";
 
 export interface DemoVideoDialogHandle {
   open: () => void;

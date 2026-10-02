@@ -487,6 +487,102 @@ button, nav {
   .finale-faq[open]::details-content { block-size: auto; opacity: 1; }
 }
 
+/* ── Desktop mirror hero (components/MirrorHero.tsx, lg+ only) ──
+   The approved "01 / THE MIRROR" concept rebuilt as independent layers: a
+   full-bleed hall, a transparent behavior mirror, an independent standing
+   trader, and emerald effect SVGs — under live, selectable copy and real
+   controls. The client starts the sequence after the opener clears, then
+   pauses it offscreen or in a hidden tab. Motion is desktop-only and opt-in
+   through prefers-reduced-motion. Without JS everything stays fully visible. */
+@keyframes mh-hall-in { from { transform: scale(1.035); } to { transform: scale(1); } }
+@keyframes mh-line-in { from { opacity: 0; transform: translateY(18px); } }
+@keyframes mh-mirror-in { from { opacity: 0; transform: translateX(26px); } }
+@keyframes mh-trader-in { from { opacity: 0; transform: translateY(22px); } }
+@keyframes mh-soft-in { from { opacity: 0; transform: translateY(12px); } }
+@keyframes mh-draw { from { stroke-dashoffset: 1; } }
+@keyframes mh-glow-breathe { 0%, 100% { opacity: 0.18; } 50% { opacity: 0.3; } }
+@keyframes mh-signal-pulse {
+  0%, 68%, 100% { opacity: 0; transform: scale(0.55); }
+  12% { opacity: 1; transform: scale(1); }
+  40% { opacity: 0.25; transform: scale(1.35); }
+}
+@keyframes mh-glass-sweep {
+  0% { opacity: 0; transform: translateX(-130%) skewX(-18deg); }
+  12% { opacity: 0.65; }
+  78% { opacity: 0.4; }
+  100% { opacity: 0; transform: translateX(380%) skewX(-18deg); }
+}
+@keyframes mh-signal-travel {
+  0%, 55%, 100% { opacity: 0; }
+  6%, 38% { opacity: 0.85; }
+  0% { stroke-dashoffset: 1.08; }
+  50%, 100% { stroke-dashoffset: -0.12; }
+}
+@keyframes mh-cta-shine {
+  0% { transform: translateX(-170%) skewX(-20deg); }
+  100% { transform: translateX(420%) skewX(-20deg); }
+}
+
+.mh-glass-mask {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  mask: url("/hero/mirror/behavior-mirror.webp") center / 100% 100% no-repeat;
+}
+.mh-glass-sweep {
+  position: absolute;
+  inset-block: -10%;
+  left: 0;
+  width: 38%;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, rgb(129 255 213 / 0.03) 25%, rgb(215 255 240 / 0.22) 50%, rgb(129 255 213 / 0.04) 75%, transparent);
+}
+.mh-signal-travel { opacity: 0; stroke-dasharray: 0.075 0.925; }
+.mh-cta { position: relative; overflow: hidden; isolation: isolate; }
+.mh-cta::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 35%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.3), transparent);
+  transform: translateX(-170%) skewX(-20deg);
+}
+.mh-scene[data-mh-paused="true"] { --mh-play-state: paused; }
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .mh-scene[data-mh-ready="true"] {
+    .mh-hall-in { animation: mh-hall-in 1.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  /* Per-line headline / eyebrow reveal (0–550ms, ~90ms stagger via --mh-delay). */
+  .mh-line { animation: mh-line-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) var(--mh-delay, 0ms) both; }
+  /* Mirror fades up and slides to rest (200–1050ms). */
+  .mh-mirror-in { animation: mh-mirror-in 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
+  /* Trader rises independently, finishing after the mirror (450–1250ms). */
+  .mh-trader-in { animation: mh-trader-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both; }
+  /* Callouts + CTAs (900–1500ms). */
+  .mh-soft { animation: mh-soft-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--mh-delay, 0ms) both; }
+  /* Signal/fingerprint strokes draw once then rest (650–1600ms). pathLength=1. */
+  .mh-draw { stroke-dasharray: 1; animation: mh-draw var(--mh-draw-dur, 1s) cubic-bezier(0.45, 0, 0.2, 1) var(--mh-delay, 0.65s) both; }
+  /* A single light pass follows the glass reveal; the scene then settles. */
+  .mh-glass-sweep { animation: mh-glass-sweep 2.2s cubic-bezier(0.25, 0.1, 0.25, 1) 0.8s both; }
+  .mh-cta::after { animation: mh-cta-shine 1s ease-in-out 1.6s both; }
+  .mh-cta:is(:hover, :focus-visible)::after { animation: mh-cta-shine 0.8s ease-out; }
+  /* Gentle ambient light and an occasional signal traveling along the trace. */
+  .mh-glow { animation: mh-glow-breathe 6.5s ease-in-out 1.8s infinite; }
+  .mh-signal-pulse { animation: mh-signal-pulse 6s ease-in-out 2.2s infinite; }
+  .mh-signal-travel { animation: mh-signal-travel 7.5s linear 2s infinite; }
+  :is(.mh-hall-in, .mh-line, .mh-mirror-in, .mh-trader-in, .mh-soft, .mh-draw,
+      .mh-glass-sweep, .mh-glow, .mh-signal-pulse, .mh-signal-travel), .mh-cta::after {
+    animation-play-state: var(--mh-play-state, running);
+  }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mh-scene .mh-parallax { transform: none; }
+}
+
 /* ── PWA safe area ── */
 body {
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
