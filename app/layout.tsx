@@ -20,7 +20,7 @@ const inter = Inter({
 const APP_URL = "https://www.edgecipline.com";
 const APP_NAME = "Edgecipline";
 const BRAND_LEGAL = "Edgecipline";
-const TITLE = "Edgecipline | AI Discipline Coach, Trading DNA & Gamified Trading Growth";
+const TITLE = "Edgecipline | AI Trading Journal, Trading DNA & Gamified Growth for Traders";
 const DESCRIPTION =
   "Edgecipline is more than a trading journal — it's an AI discipline coach and gamified improvement system for Forex and Indian market traders. Upload a screenshot — AI reveals your Trading DNA, calculates the real cost of emotional trades, and coaches you daily with missions, streaks, and a morning mentor. Join 847+ traders.";
 

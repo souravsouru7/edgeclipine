@@ -14,7 +14,7 @@ export default function CtaSection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-[rgba(0,255,178,0.05)] blur-[120px] pointer-events-none" aria-hidden="true" />
 
       {/* Floating text particles */}
-      {["alpha","+R","edge","data","discipline","pnl","0.8R","journal","AI"].map((txt, i) => (
+      {["alpha","+R","edge","data","mentor","pnl","0.8R","journal","AI"].map((txt, i) => (
         <span
           key={txt}
           className="absolute font-mono text-[10px] text-[rgba(0,255,178,0.1)] tracking-[0.08em] pointer-events-none select-none"

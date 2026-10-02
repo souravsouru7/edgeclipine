@@ -35,7 +35,7 @@ export default function LoopSection() {
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 z-20 h-110 bg-linear-to-b from-transparent to-background" />
 
         <SceneChapterRail chapter="02" className="scene-reveal" />
-        <SceneKicker className="scene-reveal top-141">Discipline over emotion</SceneKicker>
+        <SceneKicker className="scene-reveal top-141">Edgecipline</SceneKicker>
 
         <h2 id="loop-title" className={cn(SCENE_DISPLAY_TYPE, SCENE_DISPLAY_SIZE, "scene-reveal absolute left-62 top-197 z-30 tracking-[-0.02em]! [font-variation-settings:'wdth'_104]")}>
           The <span className={SCENE_ACCENT_TEXT}>loop</span> is

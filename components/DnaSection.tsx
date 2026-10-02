@@ -34,7 +34,7 @@ export default function DnaSection() {
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 z-20 h-110 bg-linear-to-b from-transparent to-background" />
 
         <SceneChapterRail chapter="07" className="entry-title [--entry-delay:200ms]" />
-        <SceneKicker className="entry-title top-141 [--entry-delay:0ms]">Discipline over emotion</SceneKicker>
+        <SceneKicker className="entry-title top-141 [--entry-delay:0ms]">Edgecipline</SceneKicker>
 
         {/* Line spans animate separately; the {" "} keep the heading's text "Meet your trading DNA."
             Lines 2–3 use wider cuts, as the comp sets them proportionally wider. */}

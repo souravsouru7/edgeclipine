@@ -44,7 +44,7 @@ export default function OriginSection() {
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 z-20 h-110 bg-linear-to-b from-transparent to-background" />
 
         <SceneChapterRail chapter="04" className="scene-reveal" />
-        <SceneKicker className="scene-reveal top-141">Discipline over emotion</SceneKicker>
+        <SceneKicker className="scene-reveal top-141">Edgecipline</SceneKicker>
 
         <h2
           id="origin-title"

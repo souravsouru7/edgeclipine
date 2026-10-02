@@ -51,7 +51,7 @@ export default function StorySection() {
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 z-20 h-110 bg-linear-to-b from-transparent to-background" />
 
         <SceneChapterRail chapter="03" className="scene-reveal" />
-        <SceneKicker className="scene-reveal top-141">Discipline over emotion</SceneKicker>
+        <SceneKicker className="scene-reveal top-141">Edgecipline</SceneKicker>
 
         {/* Both lines are justified to x≈747 as in the comp, so line 1 uses a slightly wider cut. */}
         <h2 id="story-title" className={cn(SCENE_DISPLAY_TYPE, SCENE_DISPLAY_SIZE, "scene-reveal absolute left-62 top-197 z-30 tracking-[-0.02em]! [font-variation-settings:'wdth'_76]")}>

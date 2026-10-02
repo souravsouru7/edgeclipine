@@ -44,7 +44,7 @@ export default function MobileHero() {
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 z-20 h-110 bg-linear-to-b from-transparent to-background" />
       <SceneChapterRail chapter="01" className="hero-anim-copy [--hero-delay:500ms]" />
 
-      <SceneKicker className="hero-anim-copy top-141">Discipline over emotion</SceneKicker>
+      <SceneKicker className="hero-anim-copy top-141">Edgecipline</SceneKicker>
 
       <h1
         id="hero-title"

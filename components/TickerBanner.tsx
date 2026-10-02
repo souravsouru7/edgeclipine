@@ -23,7 +23,7 @@ const ALT_ITEMS = [
   "No spreadsheets",
   "No excuses",
   "Join the waitlist",
-  "Trading psychology · Data · Discipline",
+  "Trading psychology · Data · Edge",
 ];
 
 export default function TickerBanner({ variant = "default" }: TickerBannerProps) {

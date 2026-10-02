@@ -51,7 +51,7 @@ export default function ProductSection() {
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 z-20 h-110 bg-linear-to-b from-transparent to-background" />
 
         <SceneChapterRail chapter="05" className="entry-title [--entry-delay:200ms]" />
-        <SceneKicker className="entry-title top-141 [--entry-delay:0ms]">Discipline over emotion</SceneKicker>
+        <SceneKicker className="entry-title top-141 [--entry-delay:0ms]">Edgecipline</SceneKicker>
 
         <h2
           id="product-title"
