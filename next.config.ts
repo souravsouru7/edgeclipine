@@ -7,8 +7,16 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  // Social preview images must remain crawlable, but do not need search listings.
+  // Path matching also covers Next.js cache-busting query strings.
+  headers: async () => {
+    return ["/opengraph-image", "/founders/opengraph-image"].map((source) => ({
+      source,
+      headers: [{ key: "X-Robots-Tag", value: "noindex" }],
+    }));
+  },
   // Consolidate on www.edgecipline.com as the single canonical host.
-  // 301-redirects the bare apex (edgecipline.com) to www so there is one
+  // 308-redirects the bare apex (edgecipline.com) to www so there is one
   // indexable domain, matching metadataBase, robots.ts, sitemap.ts and schema.
   redirects: async () => {
     return [

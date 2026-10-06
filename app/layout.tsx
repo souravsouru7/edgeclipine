@@ -314,24 +314,19 @@ const softwareSchema = {
   },
 };
 
-// 4. WebSite — for sitelinks searchbox and brand authority
+// 4. WebSite — consistent site name with the domain as a fallback
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${APP_URL}/#website`,
   name: APP_NAME,
-  alternateName: "Edgecipline - AI Trading Journal",
+  alternateName: ["Edgecipline App", "edgecipline.com"],
   url: APP_URL,
   description: DESCRIPTION,
   inLanguage: "en-IN",
   publisher: {
     "@type": "Organization",
     "@id": `${APP_URL}/#organization`,
-  },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: { "@type": "EntryPoint", urlTemplate: `${APP_URL}/?q={search_term_string}` },
-    "query-input": "required name=search_term_string",
   },
 };
 
@@ -536,6 +531,8 @@ export default function RootLayout({
     // <html> before hydration, so the server/client attributes intentionally differ.
     <html lang="en-IN" className={inter.variable} suppressHydrationWarning>
       <head>
+        {/* Keep the page visible when JavaScript is disabled. */}
+        <noscript><style>{`.opener { display: none !important; }`}</style></noscript>
         {/* Returning visitors already saw the loading opener — mark <html> before
             paint so its overlay never flashes. See components/Opener.tsx. */}
         <script

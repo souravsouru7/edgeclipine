@@ -149,7 +149,7 @@ export default function MirrorHero() {
         <div className="relative z-10 mx-auto flex w-full max-w-7xl px-9 pt-[4.4rem]">
           <div className="max-w-[42rem]">
             <p className="mh-line font-(family-name:--font-scene-mono) text-[13px] uppercase tracking-[0.42em] text-[#52F7B4]">
-              Discipline over emotion
+              Edgecipline · AI trading journal
             </p>
 
             <h1 className="mt-6 font-(family-name:--font-scene-display) font-black! uppercase leading-[0.92] tracking-[-0.005em]! text-[clamp(2.25rem,4.9vw,5.25rem)] [font-variation-settings:'wdth'_96]">

@@ -60,9 +60,9 @@ export default function MobileHero() {
       </h1>
 
       <p className="hero-anim-copy absolute left-62 top-518 z-30 text-[length:max(11px,calc(var(--spacing)*25.5))] leading-[1.32] text-[#8a9097] [--hero-delay:180ms]">
-        See your patterns. Follow your plan.
+        Edgecipline — AI trading journal.
         <br />
-        Build better habits.
+        See patterns. Build better habits.
       </p>
 
       <HeroDemoButton className="hero-anim-copy absolute left-62 top-620 z-30 h-116 w-443 [--hero-delay:260ms]" />

@@ -11,7 +11,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/opengraph-image"],
+        // Keep preview images crawlable so bots can read their X-Robots-Tag
+        // header and social platforms can fetch them for link previews.
+        disallow: ["/api/"],
       },
 
       // Google — full access, including AI training (Gemini, Google SGE)
