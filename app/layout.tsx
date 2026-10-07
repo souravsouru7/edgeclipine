@@ -5,6 +5,24 @@ import "./globals.css";
 import Providers from "./providers";
 import Opener from "@/components/Opener";
 import { FOUNDERS, FOUNDER_NAMES_SENTENCE, founderRefSchema } from "@/lib/founders";
+import {
+  SITE_URL,
+  BRAND_NAME,
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+  BRAND_ALTERNATE_NAMES,
+  SITE_ALTERNATE_NAMES,
+  BRAND_SLOGAN,
+  BRAND_ETYMOLOGY,
+  CONTACT_EMAIL,
+  TWITTER_HANDLE,
+  LOGO_URL,
+  SOCIAL_PROFILES,
+  ORGANIZATION_ID,
+  WEBSITE_ID,
+  BRAND_ID,
+  SOFTWARE_ID,
+} from "@/lib/brand";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,26 +31,20 @@ const inter = Inter({
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// BRAND CONSTANTS
+// BRAND CONSTANTS — shared values live in lib/brand.ts.
 // CRITICAL: "Edgecipline" is the correct spelling — not "discipline".
 // It is a coined brand name combining "Edge" + "discipline".
 // ─────────────────────────────────────────────────────────────────────────────
-const APP_URL = "https://www.edgecipline.com";
-const APP_NAME = "Edgecipline";
-const BRAND_LEGAL = "Edgecipline";
-const TITLE = "Edgecipline | AI Trading Journal, Trading DNA & Gamified Growth for Traders";
-const DESCRIPTION =
-  "Edgecipline is more than a trading journal — it's an AI discipline coach and gamified improvement system for Forex and Indian market traders. Upload a screenshot — AI reveals your Trading DNA, calculates the real cost of emotional trades, and coaches you daily with missions, streaks, and a morning mentor. Join 847+ traders.";
+const APP_URL = SITE_URL;
+const APP_NAME = BRAND_NAME;
+const BRAND_LEGAL = BRAND_NAME;
+const TITLE = SITE_TITLE;
+const DESCRIPTION = SITE_DESCRIPTION;
 
-// Social profiles — fill in as you create them (critical for entity recognition)
-const SOCIAL_PROFILES = [
-  "https://twitter.com/edgecipline",
-  "https://www.linkedin.com/company/edgecipline",
-  "https://www.instagram.com/edgecipline",
-  "https://www.youtube.com/@edgecipline",
-  "https://www.facebook.com/edgecipline",
-  "https://github.com/edgecipline",
-];
+// Search-console ownership tokens. Set these in the Vercel project env vars;
+// when unset, no verification tag is rendered (never ship a placeholder).
+const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION;
+const BING_SITE_VERIFICATION = process.env.BING_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
@@ -98,9 +110,9 @@ export const metadata: Metadata = {
 
   manifest: "/manifest.webmanifest",
 
-  // Replace with real code from Google Search Console → HTML tag method
   verification: {
-    google: "REPLACE_WITH_YOUR_GOOGLE_VERIFICATION_CODE",
+    ...(GOOGLE_SITE_VERIFICATION && { google: GOOGLE_SITE_VERIFICATION }),
+    ...(BING_SITE_VERIFICATION && { other: { "msvalidate.01": BING_SITE_VERIFICATION } }),
   },
 
   openGraph: {
@@ -124,8 +136,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    site: "@edgecipline",
-    creator: "@edgecipline",
+    site: TWITTER_HANDLE,
+    creator: TWITTER_HANDLE,
     title: TITLE,
     description: DESCRIPTION,
     images: ["/opengraph-image"],
@@ -182,32 +194,43 @@ export const viewport: Viewport = {
 // Google uses cross-referencing of schema types to build Knowledge Graph nodes.
 // ─────────────────────────────────────────────────────────────────────────────
 
-// 1. Organization — the legal entity behind the brand
+// All nodes below go out as ONE @graph (see brandGraph) so their @id links
+// resolve inside a single document. Nodes therefore carry no "@context".
+
+// 1. Organization — the company behind the brand
 const organizationSchema = {
-  "@context": "https://schema.org",
   "@type": "Organization",
-  "@id": `${APP_URL}/#organization`,
-  name: APP_NAME,
+  "@id": ORGANIZATION_ID,
+  name: BRAND_NAME,
   legalName: BRAND_LEGAL,
-  // alternateName explicitly teaches Google this IS the intended name, not a misspelling
-  alternateName: ["Edgecipline", "Edgecipline App", "Edgecipline Trading Journal"],
-  url: APP_URL,
+  // Real variants of the coined name. Never add "discipline" here.
+  alternateName: BRAND_ALTERNATE_NAMES,
+  url: SITE_URL,
   logo: {
     "@type": "ImageObject",
-    url: `${APP_URL}/logo.png`,
-    width: "512",
-    height: "512",
+    "@id": `${SITE_URL}/#logo`,
+    url: LOGO_URL,
+    contentUrl: LOGO_URL,
+    width: 500,
+    height: 500,
+    caption: BRAND_NAME,
   },
+  image: { "@id": `${SITE_URL}/#logo` },
+  description: DESCRIPTION,
+  // Tells entity resolvers this name is distinct from the dictionary word.
+  disambiguatingDescription: BRAND_ETYMOLOGY,
+  slogan: BRAND_SLOGAN,
+  brand: { "@id": BRAND_ID },
   // sameAs links to verified social profiles — critical for Knowledge Graph
   sameAs: SOCIAL_PROFILES,
-  description: DESCRIPTION,
+  email: CONTACT_EMAIL,
   foundingDate: "2024",
   // Both founders, sitewide. `founder` and `founders` are both emitted because
   // some consumers only read one of them — and a single-founder reading is
   // exactly the failure this page set is fixing.
   founder: FOUNDERS.map(founderRefSchema),
   founders: FOUNDERS.map(founderRefSchema),
-  employee: FOUNDERS.map((founder) => ({ "@id": `${APP_URL}/founders/${founder.slug}#person` })),
+  employee: FOUNDERS.map((founder) => ({ "@id": `${SITE_URL}/founders/${founder.slug}#person` })),
   knowsAbout: [
     "Trading Discipline Coaching",
     "Gamified Trading Habits",
@@ -226,7 +249,8 @@ const organizationSchema = {
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer support",
-    email: "support@edgecipline.com",
+    email: CONTACT_EMAIL,
+    url: `${SITE_URL}/contact`,
     availableLanguage: ["English", "Hindi"],
   },
   address: {
@@ -237,32 +261,35 @@ const organizationSchema = {
 
 // 2. Brand entity — explicitly names the brand as a proper noun
 const brandSchema = {
-  "@context": "https://schema.org",
   "@type": "Brand",
-  "@id": `${APP_URL}/#brand`,
-  name: APP_NAME,
-  alternateName: "Edgecipline",
-  url: APP_URL,
-  logo: `${APP_URL}/logo.png`,
-  slogan: "Track behavior, not just P&L.",
+  "@id": BRAND_ID,
+  name: BRAND_NAME,
+  alternateName: BRAND_ALTERNATE_NAMES,
+  url: SITE_URL,
+  logo: { "@id": `${SITE_URL}/#logo` },
+  slogan: BRAND_SLOGAN,
   description:
     "Edgecipline is a coined brand name — a portmanteau of 'Edge' and 'discipline' — representing the competitive edge gained through disciplined trading behavior, gamified daily habits, and AI coaching.",
 };
 
-// 3. SoftwareApplication — describes the product
+// 3. SoftwareApplication — describes the product.
+// No aggregateRating: the product is in private alpha with no public reviews.
+// Self-declared ratings without real reviews break Google's review-snippet
+// policy and can trigger a manual action. Add one only when it is backed by
+// reviews shown on the page.
 const softwareSchema = {
-  "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "@id": `${APP_URL}/#software`,
-  name: APP_NAME,
+  "@id": SOFTWARE_ID,
+  name: BRAND_NAME,
   alternateName: "Edgecipline Trading Journal",
   applicationCategory: "FinanceApplication",
   applicationSubCategory: "Trading Discipline Coach",
   operatingSystem: "Web, Android",
   description:
     "Edgecipline is an AI-powered trading journal, discipline coach, and gamified improvement system. Upload a trade screenshot and AI extracts the data, generates a Trading DNA profile, calculates the real cost of emotional trades, and coaches you daily through missions, streaks, and a morning mentor — for Forex and Indian market traders alike.",
-  url: APP_URL,
-  screenshot: `${APP_URL}/opengraph-image`,
+  url: SITE_URL,
+  image: { "@id": `${SITE_URL}/#logo` },
+  screenshot: `${SITE_URL}/opengraph-image`,
   featureList: [
     "AI screenshot trade extraction",
     "Trading DNA behavioral profile",
@@ -284,25 +311,11 @@ const softwareSchema = {
     highPrice: "1499",
     priceCurrency: "INR",
     offerCount: "3",
+    url: `${SITE_URL}/pricing`,
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.8",
-    ratingCount: "847",
-    bestRating: "5",
-    worstRating: "1",
-  },
-  author: {
-    "@type": "Organization",
-    "@id": `${APP_URL}/#organization`,
-    name: BRAND_LEGAL,
-    url: APP_URL,
-  },
-  publisher: {
-    "@type": "Organization",
-    "@id": `${APP_URL}/#organization`,
-    name: APP_NAME,
-  },
+  brand: { "@id": BRAND_ID },
+  author: { "@id": ORGANIZATION_ID },
+  publisher: { "@id": ORGANIZATION_ID },
   inLanguage: ["en", "hi"],
   audience: {
     "@type": "Audience",
@@ -314,57 +327,24 @@ const softwareSchema = {
   },
 };
 
-// 4. WebSite — consistent site name with the domain as a fallback
+// 4. WebSite — drives the "site name" Google shows above results
 const websiteSchema = {
-  "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": `${APP_URL}/#website`,
-  name: APP_NAME,
-  alternateName: ["Edgecipline App", "edgecipline.com"],
-  url: APP_URL,
+  "@id": WEBSITE_ID,
+  name: BRAND_NAME,
+  alternateName: SITE_ALTERNATE_NAMES,
+  url: SITE_URL,
   description: DESCRIPTION,
   inLanguage: "en-IN",
-  publisher: {
-    "@type": "Organization",
-    "@id": `${APP_URL}/#organization`,
-  },
+  publisher: { "@id": ORGANIZATION_ID },
+  about: { "@id": BRAND_ID },
 };
 
-// 5. WebPage — describes the homepage as a distinct entity
-const webPageSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": `${APP_URL}/#webpage`,
-  url: APP_URL,
-  name: TITLE,
-  description: DESCRIPTION,
-  isPartOf: { "@id": `${APP_URL}/#website` },
-  about: { "@id": `${APP_URL}/#organization` },
-  primaryImageOfPage: {
-    "@type": "ImageObject",
-    url: `${APP_URL}/opengraph-image`,
-    width: "1200",
-    height: "630",
-  },
-  datePublished: "2024-01-01",
-  dateModified: new Date().toISOString().split("T")[0],
-  inLanguage: "en-IN",
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: APP_URL,
-      },
-    ],
-  },
-};
+// 5. The homepage WebPage + feature ItemList live in app/page.tsx, because a
+//    root-layout WebPage would claim every route is the homepage.
 
 // 6. FAQPage — brand-anchored Q&A teaches AI models the correct brand name
 const faqSchema = {
-  "@context": "https://schema.org",
   "@type": "FAQPage",
   // Distinct @id — pages that add their own FAQ (e.g. /founders, /faq) emit a
   // separate node, and the two must not collide.
@@ -477,51 +457,13 @@ const faqSchema = {
   ],
 };
 
-// 7. ItemList — lists key features as structured entities
-const itemListSchema = {
+// One document, one entity graph. "<" is escaped so no string value can
+// close the <script> tag early.
+const brandGraph = {
   "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: "Edgecipline Key Features",
-  description: "Core features of the Edgecipline AI trading journal",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "AI Screenshot Trade Extraction",
-      url: `${APP_URL}/#features`,
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Trading DNA & Pattern Detection",
-      url: `${APP_URL}/#features`,
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Psychology Cost Calculator",
-      url: `${APP_URL}/#features`,
-    },
-    {
-      "@type": "ListItem",
-      position: 4,
-      name: "Missions, Streaks & Morning Mentor",
-      url: `${APP_URL}/#features`,
-    },
-    {
-      "@type": "ListItem",
-      position: 5,
-      name: "Weekly AI Coaching Reports",
-      url: `${APP_URL}/#features`,
-    },
-    {
-      "@type": "ListItem",
-      position: 6,
-      name: "Forex, NIFTY & BANKNIFTY Support",
-      url: `${APP_URL}/#features`,
-    },
-  ],
+  "@graph": [organizationSchema, brandSchema, websiteSchema, softwareSchema, faqSchema],
 };
+const brandGraphJson = JSON.stringify(brandGraph).replace(/</g, "\\u003c");
 
 export default function RootLayout({
   children,
@@ -542,34 +484,11 @@ export default function RootLayout({
           }}
         />
 
-        {/* ── Structured data (JSON-LD) ── */}
+        {/* ── Structured data (JSON-LD): Organization, Brand, WebSite,
+            SoftwareApplication and brand FAQ as one linked @graph ── */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(brandSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+          dangerouslySetInnerHTML={{ __html: brandGraphJson }}
         />
 
         {/* ── Explicit brand name meta tags ── */}

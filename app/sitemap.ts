@@ -1,10 +1,11 @@
 import { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/lib/blog";
 import { FOUNDERS } from "@/lib/founders";
+import { SITE_URL } from "@/lib/brand";
 
 export const dynamic = "force-static";
 
-const BASE = "https://www.edgecipline.com";
+const BASE = SITE_URL;
 const NOW = new Date();
 
 export default function sitemap(): MetadataRoute.Sitemap {

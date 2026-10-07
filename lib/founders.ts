@@ -9,9 +9,10 @@
 // is what makes one founder surface and the other get dropped.
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const SITE_URL = "https://www.edgecipline.com";
-export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
-export const WEBSITE_ID = `${SITE_URL}/#website`;
+import { SITE_URL, ORGANIZATION_ID, WEBSITE_ID } from "./brand";
+
+// Re-exported so existing page imports keep working; defined in lib/brand.ts.
+export { SITE_URL, ORGANIZATION_ID, WEBSITE_ID };
 
 export interface Founder {
   slug: string;

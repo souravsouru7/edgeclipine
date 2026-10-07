@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { BLOG_POSTS, getBlogPost, getRelatedPosts } from "@/lib/blog";
+import { ORGANIZATION_ID } from "@/lib/brand";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -135,9 +136,10 @@ export default async function BlogPostPage({ params }: Props) {
     headline: post.title,
     description: post.description,
     datePublished: post.publishedAt,
-    author: { "@type": "Organization", name: "Edgecipline", url: "https://www.edgecipline.com" },
+    author: { "@type": "Organization", "@id": ORGANIZATION_ID, name: "Edgecipline", url: "https://www.edgecipline.com" },
     publisher: {
       "@type": "Organization",
+      "@id": ORGANIZATION_ID,
       name: "Edgecipline",
       url: "https://www.edgecipline.com",
       logo: { "@type": "ImageObject", url: "https://www.edgecipline.com/logo.png" },

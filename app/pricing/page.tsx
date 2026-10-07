@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTABanner from "@/components/CTABanner";
 import PageHero from "@/components/PageHero";
+import { BRAND_ID, BRAND_NAME, ORGANIZATION_ID, SITE_URL } from "@/lib/brand";
 
 const OG_IMAGE = [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Edgecipline Pricing" }];
 
@@ -14,6 +15,8 @@ const pricingSchema = {
   description:
     "AI-powered trading journal, discipline coach, and gamified improvement system with Trading DNA, screenshot extraction, missions & streaks, and AI coaching for Forex and Indian market traders.",
   url: "https://www.edgecipline.com/pricing",
+  brand: { "@type": "Brand", "@id": BRAND_ID, name: BRAND_NAME },
+  manufacturer: { "@type": "Organization", "@id": ORGANIZATION_ID, name: BRAND_NAME, url: SITE_URL },
   offers: [
     {
       "@type": "Offer",

@@ -21,14 +21,78 @@ import CtaSection from "@/components/CtaSection";
 import FinaleSection from "@/components/FinaleSection";
 import Footer from "@/components/Footer";
 import WaitlistModal from "@/components/WaitlistModal";
+import {
+  SITE_URL,
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+  ORGANIZATION_ID,
+  WEBSITE_ID,
+  BRAND_ID,
+} from "@/lib/brand";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+// Homepage-only nodes. The sitewide Organization / Brand / WebSite graph is in
+// app/layout.tsx; these point at it by @id.
+const HOME_FEATURES = [
+  "AI Screenshot Trade Extraction",
+  "Trading DNA & Pattern Detection",
+  "Psychology Cost Calculator",
+  "Missions, Streaks & Morning Mentor",
+  "Weekly AI Coaching Reports",
+  "Forex, NIFTY & BANKNIFTY Support",
+];
+
+const homeGraph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/#webpage`,
+      url: SITE_URL,
+      name: SITE_TITLE,
+      description: SITE_DESCRIPTION,
+      isPartOf: { "@id": WEBSITE_ID },
+      about: { "@id": ORGANIZATION_ID },
+      mentions: { "@id": BRAND_ID },
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+      },
+      datePublished: "2024-01-01",
+      dateModified: new Date().toISOString().split("T")[0],
+      inLanguage: "en-IN",
+      breadcrumb: {
+        "@type": "BreadcrumbList",
+        itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: SITE_URL }],
+      },
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${SITE_URL}/#features-list`,
+      name: "Edgecipline Key Features",
+      description: "Core features of the Edgecipline AI trading journal",
+      itemListElement: HOME_FEATURES.map((name, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name,
+        url: `${SITE_URL}/#features`,
+      })),
+    },
+  ],
+};
+
 export default function Page() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeGraph).replace(/</g, "\\u003c") }}
+      />
       <Navbar variant="hero" />
       <main id="main-content">
         <HeroSection />
